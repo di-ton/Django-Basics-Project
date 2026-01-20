@@ -1,0 +1,70 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+
+        <div class="profile-header">
+            <h2 class="profile-name">Edit profile</h2>
+            <p class="profile-meta">
+                Update your scientific information
+            </p>
+        </div>
+
+        <form method="post" class="profile-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {# Handle profile picture fields first #}
+            <div class="form-group">
+                <label for="{{ form.profile_picture.id_for_label }}">
+                    {{ form.profile_picture.label }}
+                </label>
+                {{ form.profile_picture }}
+                {% for error in form.profile_picture.errors %}
+                    <div class="form-error">{{ error }}</div>
+                {% endfor %}
+                <small>Upload an image from your computer</small>
+            </div>
+
+            <div class="form-separator">or</div>
+
+            <div class="form-group">
+                <label for="{{ form.profile_picture_url.id_for_label }}">
+                    {{ form.profile_picture_url.label }}
+                </label>
+                {{ form.profile_picture_url }}
+                {% for error in form.profile_picture_url.errors %}
+                    <div class="form-error">{{ error }}</div>
+                {% endfor %}
+                <small>Paste a link to an online image</small>
+            </div>
+
+            {# Loop over the rest of the fields #}
+            {% for field in form %}
+                {% if field.name != "profile_picture" and field.name != "profile_picture_url" %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <div class="form-error">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <div class="profile-actions">
+                <button type="submit" class="btn-primary">
+                    Save changes
+                </button>
+
+                <a href="{% url 'profile-details' %}" class="btn-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

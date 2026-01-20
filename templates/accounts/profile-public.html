@@ -1,0 +1,58 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card profile-card--public">
+
+         {% include 'common/profile_image.html' %}
+
+        <div class="profile-header">
+            <h1 class="profile-name">
+                {{ scientist.full_name }}
+            </h1>
+
+            <p class="profile-meta">
+                {{ scientist.academic_degree }} · {{ scientist.affiliation }}
+            </p>
+        </div>
+
+        <div class="profile-section">
+            <h3>Research interests</h3>
+            <p class="profile-text">
+                {{ scientist.research_interests }}
+            </p>
+        </div>
+
+        <div class="profile-section">
+            <h3>Scientific identifiers</h3>
+
+            <ul class="profile-list">
+                {% if scientist.orcid_id %}
+                    <li>
+                        <strong>ORCID:</strong>
+                        <a href="https://orcid.org/{{ scientist.orcid_id }}"
+                           target="_blank"
+                           rel="noopener">
+                            {{ scientist.orcid_id }}
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if scientist.scopus_id %}
+                    <li>
+                        <strong>Scopus ID:</strong>
+                        {{ scientist.scopus_id }}
+                    </li>
+                {% endif %}
+                {% if scientist.research_interests %}
+                    <li>
+                        <strong>Research interests:</strong>
+                        {{ scientist.research_interests }}
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

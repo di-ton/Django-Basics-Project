@@ -1,0 +1,8 @@
+{% extends "projects/project-base.html" %}
+
+{% block project_content %}
+  <p>{{ project.description }}</p>
+
+  <p><strong>Status:</strong> {{ project.get_status_display }}</p>
+  <p><strong>Category:</strong> {{ project.category.name }}</p>
+{% endblock %}

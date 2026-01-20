@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="stylesheet" href="{% static "css/styles.css" %}" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+    <a href="{% url 'home' %}">
+        <img src="{% static "images/logo.svg" %}" alt="Logo" />
+    </a>
+    </div>
+
+    {% if search_form %}
+        <form method="get" class="search-form">
+          <div class="search-wrapper">
+
+              {{ search_form.text }}
+
+            <span class="search-icon" aria-label="Search">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="search-svg">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+            </span>
+          </div>
+        </form>
+    {% endif %}
+
+    {% include "common/nav.html" %}
+  </header>
+
+  <main class="site-content">
+        {% block content %}
+        {% endblock %}
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 SciProSpace. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

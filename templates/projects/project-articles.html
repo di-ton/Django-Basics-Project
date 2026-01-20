@@ -1,0 +1,15 @@
+{% extends "projects/project-base.html" %}
+
+{% block project_content %}
+  <h2>Articles</h2>
+
+  {% for article in articles %}
+      <p>
+        <a href="{{ article.url }}" target="_blank">
+            {{ article.title }}
+        </a>
+      </p>
+  {% empty %}
+      <p>No articles yet.</p>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+
+        {% include 'common/profile_image.html' %}
+
+        <div class="profile-header">
+            <h2 class="profile-name">
+                {{ scientist.full_name }}
+            </h2>
+
+            <p class="profile-meta">
+                {{ scientist.get_academic_degree_display }}
+                ·
+                {{ scientist.get_academic_position_display }}
+                ·
+                {{ scientist.affiliation }}
+            </p>
+        </div>
+
+        <div class="profile-section">
+            <h3>Scientific identifiers</h3>
+
+            <ul class="profile-list">
+                <li>
+                    <strong>ORCID iD:</strong>
+                    {% if scientist.orcid_id %}
+                        {{ scientist.orcid_id }}
+                    {% else %}
+                        <em>Not provided</em>
+                    {% endif %}
+                </li>
+                <li>
+                    <strong>Scopus Author ID:</strong>
+                    {% if scientist.scopus_id %}
+                        {{ scientist.scopus_id }}
+                    {% else %}
+                        <em>Not provided</em>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+
+        <div class="profile-section">
+            <h3>Research interests</h3>
+            <p class="profile-text">
+                {{ scientist.research_interests }}
+            </p>
+        </div>
+
+        <div class="profile-section">
+            <h3>Activity</h3>
+
+            <ul class="profile-list">
+                <li>
+                    <strong>Projects:</strong> {{ scientist.project_count }}
+                </li>
+            </ul>
+        </div>
+
+        <div class="profile-actions">
+            <a href="{% url 'profile-update' %}" class="btn-secondary">
+                Edit profile
+            </a>
+        </div>
+
+        <div class="profile-danger-zone">
+            <a href="{% url 'profile-delete' %}" class="danger-link">
+                Delete account
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% load static %}
+
+<nav class="nav">
+  <ul>
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="#">Project Categories</a></li>
+
+    {% if request.user.is_authenticated %}
+      <li><a href="#">Add Project</a></li>
+      <li><a href="#">Project List</a></li>
+
+      {% if request.user.scientist_profile %}
+{#        <li><a href="{% url 'profile-details' %}">Profile</a></li>#}
+          <li>
+            <a href="{% url 'profile-details' %}">
+                {% if request.user.scientist_profile.profile_picture %}
+                    <img src="{{ request.user.scientist_profile.profile_picture.url }}"
+                         alt="Profile" class="nav-profile-pic">
+                {% elif request.user.scientist_profile.profile_picture_url %}
+                    <img src="{{ request.user.scientist_profile.profile_picture_url }}"
+                         alt="Profile" class="nav-profile-pic">
+                {% else %}
+                    <img src="{% static 'images/no_image.png' %}"
+                         alt="Profile" class="nav-profile-pic">
+                {% endif %}
+            </a>
+        </li>
+      {% else %}
+        <li><a href="{% url 'profile-create' %}">Create Profile</a></li>
+      {% endif %}
+
+{#      <li>#}
+{#        <a href="{% url 'logout' %}" class="btn-link">Logout</a>#}
+{#      </li>#}
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn-link">Logout</button>
+        </form>
+    {% else %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'register' %}">Register</a></li>
+    {% endif %}
+  </ul>
+</nav>

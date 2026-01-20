@@ -1,0 +1,50 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">Complete your profile</h2>
+        <p class="auth-subtitle">
+            This information is required to access the platform
+        </p>
+
+        <form method="post" class="auth-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div class="form-group">
+                {{ form.profile_picture.label_tag }}
+                {{ form.profile_picture }}
+                {{ form.profile_picture.errors }}
+                <small>Upload an image from your computer</small>
+            </div>
+
+            <div class="form-separator">or</div>
+
+            <div class="form-group">
+                {{ form.profile_picture_url.label_tag }}
+                {{ form.profile_picture_url }}
+                {{ form.profile_picture_url.errors }}
+                <small>Paste a link to an online image</small>
+            </div>
+
+            {# Loop over the rest of the fields #}
+            {% for field in form %}
+                {% if field.name != "profile_picture" and field.name != "profile_picture_url" %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit" class="btn-primary">
+                Create profile
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+

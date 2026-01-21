@@ -5,4 +5,9 @@
 
   <p><strong>Status:</strong> {{ project.get_status_display }}</p>
   <p><strong>Category:</strong> {{ project.category.name }}</p>
+    <ul>
+      <li>Members: {{ member_count }}</li>
+      <li>Articles: {{ articles_count }}</li>
+      <li>Events: {{ events_count }}</li>
+    </ul>
 {% endblock %}

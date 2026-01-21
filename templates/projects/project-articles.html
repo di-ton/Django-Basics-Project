@@ -3,13 +3,31 @@
 {% block project_content %}
   <h2>Articles</h2>
 
-  {% for article in articles %}
-      <p>
+  <div class="article-list">
+    {% for article in articles %}
+      <div class="article-item">
         <a href="{{ article.url }}" target="_blank">
-            {{ article.title }}
+          {{ article.title }}
         </a>
-      </p>
-  {% empty %}
+
+        <div class="article-meta">
+          {% if article.journal %}
+            {{ article.journal }}
+          {% endif %}
+          {% if article.quartile %}
+            · {{ article.get_quartile_display }}
+          {% endif %}
+        </div>
+      </div>
+        <a href="{% url 'project-article-edit' project.slug article.pk %}">
+            Edit
+        </a>
+        <a href="{% url 'project-article-delete' project.slug article.pk %}">
+            Delete
+        </a>
+    {% empty %}
       <p>No articles yet.</p>
-  {% endfor %}
+    {% endfor %}
+    <a href="{% url 'project-article-add' project.slug %}">Add article</a>
+  </div>
 {% endblock %}

@@ -1,0 +1,24 @@
+/* Event form */
+.event-form {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Event list items */
+.event-item {
+    padding: 0.8rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+    background-color: #f9fafb;
+}
+
+.event-item strong {
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.event-meta {
+    font-size: 0.85rem;
+    color: #6b7280;
+}

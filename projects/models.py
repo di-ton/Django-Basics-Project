@@ -169,8 +169,6 @@ class ScientificEvent(TimeStampedModel):
         help_text="Scientific forum website"
     )
 
-
-
     def __str__(self):
         return self.name
 

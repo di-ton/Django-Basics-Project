@@ -3,11 +3,23 @@
 {% block project_content %}
   <h2>Events</h2>
 
-  {% for event in events %}
-      <p>
-        {{ event.name }} ({{ event.start_date }})
-      </p>
-  {% empty %}
+  <div class="event-list">
+    {% for event in events %}
+      <div class="event-item">
+        <strong>{{ event.name }}</strong>
+
+        <div class="event-meta">
+          {{ event.start_date }}
+          {% if event.end_date %}
+            – {{ event.end_date }}
+          {% endif %}
+        </div>
+      </div>
+        <a href="{% url 'project-event-edit' project.slug event.pk %}">Edit</a>
+        <a href="{% url 'project-event-delete' project.slug event.pk %}">Delete</a>
+    {% empty %}
       <p>No events yet.</p>
-  {% endfor %}
+    {% endfor %}
+    <a href="{% url 'project-event-add' project.slug %}">Add event</a>
+  </div>
 {% endblock %}

@@ -3,23 +3,25 @@
 {% block project_content %}
 <div class="project-section">
 
-  <h2>Delete Article</h2>
+  <h2>Delete Project</h2>
 
   <div class="delete-warning">
     <p>
-      You are about to delete the article:
+      You are about to permanently delete the project:
     </p>
-    <p><strong>{{ article.title }}</strong></p>
+    <p>
+      <strong>{{ project.title }}</strong>
+    </p>
   </div>
 
   <form method="post" class="delete-form">
     {% csrf_token %}
 
     <button type="submit" class="btn-danger">
-      Yes, delete article
+      Yes, delete project
     </button>
 
-    <a href="{% url 'project_articles' project.slug %}" class="btn-secondary">
+    <a href="{% url 'project_detail' project.slug %}" class="btn-secondary">
       Cancel
     </a>
   </form>

@@ -1,3 +1,6 @@
+{% extends "common/base.html" %}
+{% load static %}
+
 {% block content %}
   <section class="project-header">
       <h1>{{ project.title }}</h1>
@@ -19,6 +22,8 @@
   </section>
 
   <section class="project-content">
-      {% block project_content %}{% endblock %}
+      {% block project_content %}
+
+      {% endblock %}
   </section>
 {% endblock %}

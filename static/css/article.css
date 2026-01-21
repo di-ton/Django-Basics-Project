@@ -1,0 +1,38 @@
+/* Article form */
+.article-form {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Form actions */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.8rem;
+    justify-content: center;
+}
+
+/* Inline buttons */
+.form-actions .btn-secondary {
+    text-decoration: none;
+}
+
+/* Article delete emphasis */
+.delete-warning strong {
+    font-weight: 600;
+}
+
+/* Article list on project articles page */
+.article-list {
+    margin-top: 1.5rem;
+}
+
+.article-item {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.article-meta {
+    font-size: 0.85rem;
+    color: #6b7280;
+}

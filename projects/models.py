@@ -1,22 +1,23 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 
 from common.models import TimeStampedModel
-from projects.choices import ProjectStatusChoices, JournalQuartileChoices
+from projects.choices import ProjectStatusChoices, JournalQuartileChoices, CategoryChoices
 
 
-class ProjectCategory(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(unique=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
+# class ProjectCategory(models.Model):
+#     name = models.CharField(max_length=100, unique=True)
+#     slug = models.SlugField(unique=True, blank=True)
+#
+#     def save(self, *args, **kwargs):
+#         if not self.slug:
+#             self.slug = slugify(self.name)
+#         super().save(*args, **kwargs)
+#
+#     def __str__(self):
+#         return self.name
 
 
 class ScientificOrganization(models.Model):
@@ -60,10 +61,14 @@ class Project(TimeStampedModel):
         default=ProjectStatusChoices.ONGOING
     )
 
-    category = models.ForeignKey(
-        ProjectCategory,
-        on_delete=models.PROTECT,
-        related_name="projects"
+    # category = models.ForeignKey(
+    #     ProjectCategory,
+    #     on_delete=models.PROTECT,
+    #     related_name="projects"
+    # )
+    category = models.CharField(
+        max_length=10,
+        choices=CategoryChoices.choices
     )
     organizations = models.ManyToManyField(
         ScientificOrganization,
@@ -113,6 +118,9 @@ class Project(TimeStampedModel):
 
             self.slug = f"{base}-{self.pk}"
             super().save(update_fields=["slug"])
+
+    # def get_absolute_url(self):
+    #     return reverse("project-overview", kwargs={"slug": self.slug})
 
     def __str__(self):
         return self.title

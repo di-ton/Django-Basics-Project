@@ -1,0 +1,18 @@
+{% extends "common/base.html" %}
+
+
+{% block content %}
+    <section class="project-category-page">
+      <h1 class="project-category-title">{{ category_label }}</h1>
+
+      {% if projects %}
+        <ul class="project-list">
+          {% for project in projects %}
+            <li class="project-card">{{ project.title }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="project-empty">No projects in this category.</p>
+      {% endif %}
+    </section>
+{% endblock %}

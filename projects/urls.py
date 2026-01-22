@@ -4,6 +4,8 @@ from projects import views
 
 urlpatterns = [
     path("", views.ProjectCreateView.as_view(), name="project-create"),
+    path("categories/", views.CategoryListView.as_view(), name="category-list"),
+    path("categories/<str:category>/", views.ProjectByCategoryView.as_view(), name="project-by-category"),
     path("<slug:slug>/", include([
         path("", views.ProjectOverviewView.as_view(), name="project-overview"),
 

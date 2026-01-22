@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
 
+from projects.choices import CategoryChoices
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, ProjectMembersForm, ArticleCreateForm, \
     ArticleUpdateForm, ScientificEventCreateForm, ScientificEventUpdateForm
 from projects.mixins import ProjectMixin, ProjectWritePermissionMixin
@@ -11,6 +12,12 @@ class ProjectCreateView(CreateView):
     model = Project
     template_name = "projects/project-form.html"
     form_class = ProjectCreateForm
+
+    def get_success_url(self):
+        return reverse(
+            "project-overview",
+            kwargs={"slug": self.object.slug}
+        )
 
 
 
@@ -175,6 +182,34 @@ class EventDeleteView(ProjectWritePermissionMixin, ProjectMixin, DeleteView):
         )
 
 
+class CategoryListView(TemplateView):
+    template_name = "projects/category-list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = CategoryChoices.choices
+        return context
+
+
+class ProjectByCategoryView(ListView):
+    model = Project
+    template_name = "projects/project-by-category.html"
+    context_object_name = "projects"
+
+    def get_queryset(self):
+        self.category = self.kwargs["category"]
+
+        if self.category not in CategoryChoices.values:
+            return Project.objects.none()
+
+        return Project.objects.filter(category=self.category)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category_label"] = dict(CategoryChoices.choices).get(
+            self.category, self.category
+        )
+        return context
 
 
 

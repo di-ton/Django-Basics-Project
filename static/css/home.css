@@ -5,8 +5,11 @@
   box-sizing: border-box;
 }
 
+
+
 html, body {
     height: 100%;
+
 }
 
 body {
@@ -16,6 +19,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+
 
 /* HEADER */
 .header {

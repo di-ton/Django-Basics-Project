@@ -1,33 +1,21 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.urls import reverse
+from django.db.models import Q
 from django.utils.text import slugify
 
 from common.models import TimeStampedModel
 from projects.choices import ProjectStatusChoices, JournalQuartileChoices, CategoryChoices
 
 
-# class ProjectCategory(models.Model):
-#     name = models.CharField(max_length=100, unique=True)
-#     slug = models.SlugField(unique=True, blank=True)
-#
-#     def save(self, *args, **kwargs):
-#         if not self.slug:
-#             self.slug = slugify(self.name)
-#         super().save(*args, **kwargs)
-#
-#     def __str__(self):
-#         return self.name
-
-
 class ScientificOrganization(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     country = models.CharField(max_length=100)
     address = models.TextField(blank=True)
     website = models.URLField(blank=True)
     description = models.TextField(blank=True)
     slug = models.SlugField(unique=True, blank=True)
-    is_base_organization = models.BooleanField(default=False)
+    is_base_organization = models.BooleanField(default=False, verbose_name="Base organization")
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -36,6 +24,7 @@ class ScientificOrganization(models.Model):
 
     def __str__(self):
         return self.name
+
 
 
 
@@ -61,11 +50,6 @@ class Project(TimeStampedModel):
         default=ProjectStatusChoices.ONGOING
     )
 
-    # category = models.ForeignKey(
-    #     ProjectCategory,
-    #     on_delete=models.PROTECT,
-    #     related_name="projects"
-    # )
     category = models.CharField(
         max_length=10,
         choices=CategoryChoices.choices
@@ -76,24 +60,31 @@ class Project(TimeStampedModel):
         blank=True
     )
 
-    leader = models.ForeignKey(
-        "accounts.ScientistProfile",
-        on_delete=models.PROTECT,
-        related_name="led_projects"
-    )
-
-    members = models.ManyToManyField(
-        "accounts.ScientistProfile",
-        related_name="member_projects",
-        blank=True
-    )
-
 
     slug = models.SlugField(
         unique=True,
         max_length=120,
         blank=True
     )
+
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="created_projects"
+    )
+
+    def can_manage(self, user):
+        if not user.is_authenticated:
+            return False
+
+        if user == self.created_by:
+            return True
+
+        return self.memberships.filter(
+            Q(role="leader") | Q(role="member"),
+            scientist__user=user
+        ).exists()
+
 
     def clean(self):
         if not self.acronym:
@@ -124,6 +115,46 @@ class Project(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+
+class ProjectMembership(models.Model):
+    ROLE_CHOICES = [
+        ("leader", "Leader"),
+        ("member", "Member"),
+    ]
+
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="memberships"
+    )
+
+    name = models.CharField(max_length=255)
+    email = models.EmailField(blank=True)
+
+    scientist = models.ForeignKey(
+        "accounts.ScientistProfile",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="project_memberships"
+    )
+
+    role = models.CharField(
+        max_length=20,
+        choices=ROLE_CHOICES
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["project"],
+                condition=models.Q(role="leader"),
+                name="one_leader_per_project",
+            )
+        ]
+
+
 
 
 class Article(TimeStampedModel):

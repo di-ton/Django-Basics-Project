@@ -7,7 +7,7 @@
 
     {% if request.user.is_authenticated %}
       <li><a href="{% url 'project-create' %}">Add Project</a></li>
-      <li><a href="#">Project List</a></li>
+      <li><a href="{% url 'project-list' %}">Projects</a></li>
 
       {% if request.user.scientist_profile %}
 {#        <li><a href="{% url 'profile-details' %}">Profile</a></li>#}

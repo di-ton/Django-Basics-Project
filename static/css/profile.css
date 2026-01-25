@@ -144,20 +144,6 @@
     color: #dc2626;
 }
 
-/*!* Buttons *!*/
-/*.btn-primary {*/
-/*    background-color: #2563eb;*/
-/*    color: #ffffff;*/
-/*    padding: 0.6rem 1.5rem;*/
-/*    border-radius: 6px;*/
-/*    border: none;*/
-/*    cursor: pointer;*/
-/*    font-weight: 500;*/
-/*}*/
-
-/*.btn-primary:hover {*/
-/*    background-color: #1d4ed8;*/
-/*}*/
 
 .profile-actions {
     display: flex;

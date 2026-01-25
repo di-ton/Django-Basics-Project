@@ -5,7 +5,7 @@
   <div class="project-card">
 
     <h2>
-      {% if form.instance.pk %}
+      {% if project %}
         Edit Project
       {% else %}
         Create Project
@@ -35,15 +35,15 @@
 
       <div class="form-actions">
         <button type="submit" class="btn-primary">
-          {% if form.instance.pk %}
+          {% if project %}
             Save changes
           {% else %}
             Create project
           {% endif %}
         </button>
 
-        {% if form.instance.pk %}
-          <a href="{% url 'project_detail' form.instance.slug %}" class="btn-secondary">
+        {% if project and project.slug %}
+          <a href="{% url 'project-overview' project.slug %}" class="btn-secondary">
             Cancel
           </a>
         {% else %}

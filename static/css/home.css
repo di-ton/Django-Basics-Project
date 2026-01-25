@@ -171,3 +171,9 @@ main {
     object-fit: cover;
     vertical-align: middle;
 }
+
+
+/* 404 page */
+.error-page .project-card {
+    text-align: center;
+}

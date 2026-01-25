@@ -1,0 +1,91 @@
+{% extends "projects/project-base.html" %}
+{% load static %}
+
+{% block project_content %}
+<h2>Organizations</h2>
+
+<section class="project-organizations">
+
+  {% if organizations %}
+    <div class="organizations-list">
+
+      {% for organization in organizations %}
+        <div class="organization-card">
+
+          <!-- ORGANIZATION NAME -->
+          <h3 class="organization-name">
+            {{ organization.name }}
+          </h3>
+
+          <!-- COUNTRY -->
+          {% if organization.country %}
+            <div class="organization-meta">
+              <strong>Country:</strong> {{ organization.country }}
+            </div>
+          {% endif %}
+
+          <!-- ADDRESS -->
+          {% if organization.address %}
+            <div class="organization-meta">
+              <strong>Address:</strong><br>
+              {{ organization.address|linebreaksbr }}
+            </div>
+          {% endif %}
+
+          <!-- WEBSITE -->
+          {% if organization.website %}
+            <div class="organization-meta">
+              <strong>Website:</strong>
+              <a href="{{ organization.website }}"
+                 target="_blank"
+                 rel="noopener">
+                {{ organization.website }}
+              </a>
+            </div>
+          {% endif %}
+
+          <!-- DESCRIPTION -->
+          {% if organization.description %}
+            <div class="organization-description">
+              <strong>Description:</strong>
+              <p>{{ organization.description|linebreaks }}</p>
+            </div>
+          {% endif %}
+
+          <!-- BASE ORGANIZATION FLAG -->
+          {% if organization.is_base_organization %}
+            <div class="organization-flag">
+              Base organization
+            </div>
+          {% endif %}
+
+            {% if can_manage %}
+              <form method="post"
+                    action="{% url 'project-organization-delete' project.slug organization.id %}">
+                {% csrf_token %}
+                <button type="submit"
+                        class="btn-danger"
+                        onclick="return confirm('Remove this organization from the project?');">
+                  Remove
+                </button>
+              </form>
+            {% endif %}
+
+        </div>
+      {% endfor %}
+
+    </div>
+  {% else %}
+    <p>No organizations have been associated with this project.</p>
+  {% endif %}
+
+  <!-- ADD ORGANIZATION BUTTON -->
+  <div class="project-actions-bottom">
+    <a href="{% url 'project-organization-add' project.slug %}"
+       class="btn-project-action">
+      + Add organization
+    </a>
+  </div>
+
+</section>
+{% endblock %}

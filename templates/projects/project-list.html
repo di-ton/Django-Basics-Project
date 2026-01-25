@@ -1,0 +1,35 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <h2>Projects</h2>
+
+    <p class="project-subtitle">
+      Projects you participate in
+    </p>
+
+    {% if projects %}
+      <div class="projects-list">
+
+        {% for project in projects %}
+          <div class="project-card">
+
+            <h3 class="project-title">
+              <a href="{% url 'project-overview' project.slug %}">
+                {{ project.title }}
+              </a>
+            </h3>
+
+            {% if project.user_membership %}
+              <div class="project-role">
+                Role: {{ project.user_membership.get_role_display }}
+              </div>
+            {% endif %}
+
+          </div>
+        {% endfor %}
+
+      </div>
+    {% else %}
+      <p>No projects available.</p>
+    {% endif %}
+{% endblock %}

@@ -1,59 +1,110 @@
-{% extends "projects/base.html" %}
+{% extends 'projects/project-base.html' %}
+{% load static %}
 
 {% block project_content %}
-<h2>Project Members</h2>
 
-<section class="project-members">
-
-  {% if project.leader %}
-    <div class="project-leader">
-      <h3>Project Leader</h3>
-
-      <div class="member-card">
-        <a href="{% url 'profile-details' project.leader.slug %}">
-          {% if project.leader.profile_picture %}
-            <img src="{{ project.leader.profile_picture.url }}" class="member-pic">
-          {% elif project.leader.profile_picture_url %}
-            <img src="{{ project.leader.profile_picture_url }}" class="member-pic">
-          {% else %}
-            <img src="{% static 'images/no_image.png' %}" class="member-pic">
-          {% endif %}
-        </a>
-
-        <div class="member-info">
-          <strong>{{ project.leader.full_name }}</strong><br>
-          {{ project.leader.get_academic_position_display }}<br>
-          {{ project.leader.affiliation }}
-        </div>
-      </div>
-    </div>
-  {% endif %}
-
+<div class="project-members">
   <div class="project-members-list">
-    <h3>Members</h3>
 
-    {% for member in project.members.all %}
-      <div class="member-card">
-        <a href="{% url 'profile-details' member.slug %}">
-          {% if member.profile_picture %}
-            <img src="{{ member.profile_picture.url }}" class="member-pic">
-          {% elif member.profile_picture_url %}
-            <img src="{{ member.profile_picture_url }}" class="member-pic">
+    {# LEADER #}
+    {% if leader %}
+      <div class="member-card leader-card">
+
+        {% if leader.scientist %}
+          <a href="{% url 'profile-public' leader.scientist.slug %}">
+        {% endif %}
+
+          {% if leader.scientist and leader.scientist.profile_picture %}
+            <img src="{{ leader.scientist.profile_picture.url }}" class="member-pic">
+          {% elif leader.scientist and leader.scientist.profile_picture_url %}
+            <img src="{{ leader.scientist.profile_picture_url }}" class="member-pic">
           {% else %}
             <img src="{% static 'images/no_image.png' %}" class="member-pic">
           {% endif %}
-        </a>
+
+        {% if leader.scientist %}
+          </a>
+        {% endif %}
 
         <div class="member-info">
-          <strong>{{ member.full_name }}</strong><br>
-          {{ member.get_academic_position_display }}<br>
-          {{ member.affiliation }}
+          <strong>{{ leader.name }}</strong><br>
+          <span class="leader-label">Project leader</span><br>
+
+          {% if leader.scientist %}
+            {{ leader.scientist.get_academic_position_display }}<br>
+            {{ leader.scientist.affiliation }}
+          {% endif %}
         </div>
+
+        {% if can_manage and leader.id %}
+          <div class="member-actions">
+            <form method="post"
+                  action="{% url 'project-members-delete' project.slug leader.id %}"
+                    onsubmit="return confirm('Are you sure you want to remove the project leader?');">
+                {% csrf_token %}
+              <button type="submit" class="btn-danger">
+                Remove
+              </button>
+            </form>
+          </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {# MEMBERS #}
+    {% for membership in members %}
+      <div class="member-card">
+
+        {% if membership.scientist %}
+          <a href="{% url 'profile-public' membership.scientist.slug %}">
+        {% endif %}
+
+          {% if membership.scientist and membership.scientist.profile_picture %}
+            <img src="{{ membership.scientist.profile_picture.url }}" class="member-pic">
+          {% elif membership.scientist and membership.scientist.profile_picture_url %}
+            <img src="{{ membership.scientist.profile_picture_url }}" class="member-pic">
+          {% else %}
+            <img src="{% static 'images/no_image.png' %}" class="member-pic">
+          {% endif %}
+
+        {% if membership.scientist %}
+          </a>
+        {% endif %}
+
+        <div class="member-info">
+          <strong>{{ membership.name }}</strong><br>
+
+          {% if membership.scientist %}
+            {{ membership.scientist.get_academic_position_display }}<br>
+            {{ membership.scientist.affiliation }}
+          {% endif %}
+        </div>
+
+        {% if can_manage and membership.id %}
+          <form method="post"
+                action="{% url 'project-members-delete' project.slug membership.id %}"
+                class="member-remove-form"
+                onsubmit="return confirm('Are you sure you want to remove this member from the project?');">
+            {% csrf_token %}
+            <div class="member-actions">
+              <button class="btn-danger">Remove</button>
+            </div>
+          </form>
+        {% endif %}
+
       </div>
     {% empty %}
       <p>No members have been added yet.</p>
     {% endfor %}
-  </div>
 
-</section>
+  </div>
+</div>
+
+<div class="project-actions-bottom">
+  <a href="{% url 'project-members-add' project.slug %}"
+     class="btn-project-action">
+    + Add members
+  </a>
+</div>
+
 {% endblock %}

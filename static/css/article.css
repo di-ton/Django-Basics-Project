@@ -13,9 +13,9 @@
 }
 
 /* Inline buttons */
-.form-actions .btn-secondary {
-    text-decoration: none;
-}
+/*.form-actions .btn-secondary {*/
+/*    text-decoration: none;*/
+/*}*/
 
 /* Article delete emphasis */
 .delete-warning strong {

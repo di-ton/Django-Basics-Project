@@ -4,20 +4,17 @@
 {% block content %}
   {% if project and project.slug %}
       <section class="project-header">
-          <h1>{{ project.title }}</h1>
-
-          {% if project.acronym %}
-            <p class="project-acronym">{{ project.acronym }}</p>
-          {% endif %}
+          <h1>{{ project.title|capfirst }}</h1>
 
           <nav class="project-nav">
               <a href="{% url 'project-overview' project.slug %}">Overview</a>
               <a href="{% url 'project-members' project.slug %}">Members</a>
+              <a href="{% url 'project-organizations' project.slug %}">Organizations</a>
               <a href="{% url 'project-articles' project.slug %}">Articles</a>
               <a href="{% url 'project-events' project.slug %}">Events</a>
 
               {% if request.user.is_authenticated %}
-                  <a href="{% url 'project-edit' project.slug %}">Edit</a>
+                  <a href="{% url 'project-update' project.slug %}">Edit</a>
               {% endif %}
           </nav>
       </section>

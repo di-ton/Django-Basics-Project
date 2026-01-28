@@ -1,0 +1,21 @@
+{% extends "projects/project-base.html" %}
+
+{% block project_content %}
+  <h2>Delete participation</h2>
+
+  <p>
+    Are you sure you want to delete
+    <strong>{{ object.title }}</strong>?
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn-article-delete">
+      Yes, delete
+    </button>
+    <a href="{% url 'project-events' project.slug %}"
+       class="btn-article-edit">
+      Cancel
+    </a>
+  </form>
+{% endblock %}

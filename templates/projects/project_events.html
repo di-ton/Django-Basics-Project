@@ -3,23 +3,107 @@
 {% block project_content %}
   <h2>Events</h2>
 
-  <div class="event-list">
+  <div class="article-list">
     {% for event in events %}
-      <div class="event-item">
-        <strong>{{ event.name }}</strong>
+      <div class="article-card">
+        <!-- EVENT HEADER -->
+        <div class="article-main">
+          <div class="article-title">
+            {% if event.event_url %}
+              <a href="{{ event.event_url }}" target="_blank"
+                 class="article-title">
+                {{ event.name }}
+              </a>
+            {% else %}
+              {{ event.name }}
+            {% endif %}
+          </div>
 
-        <div class="event-meta">
-          {{ event.start_date }}
-          {% if event.end_date %}
-            – {{ event.end_date }}
-          {% endif %}
+          <div class="article-meta">
+            {% if event.location %}
+              {{ event.location }} ·
+            {% endif %}
+            {{ event.start_date|date:"d-m-Y" }}
+            {% if event.end_date %}
+              – {{ event.end_date|date:"d-m-Y" }}
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- EVENT ACTIONS -->
+        <div class="article-actions">
+          <a href="{% url 'project-event-edit' project.slug event.pk %}"
+             class="btn-article-edit">
+            Edit event
+          </a>
+          <a href="{% url 'project-event-delete' project.slug event.pk %}"
+             class="btn-article-delete">
+            Delete event
+          </a>
+        </div>
+
+        <!-- PARTICIPATIONS -->
+        <div class="event-participations">
+
+          <h4 class="event-participations-title">
+            Participations
+          </h4>
+
+          {% for participation in event.participations.all %}
+            <div class="article-card participation-card">
+              <div class="article-main">
+                <div class="article-title">
+                  {{ participation.title }}
+                </div>
+
+                {% if participation.authors %}
+                  <div class="article-authors">
+                    {{ participation.authors }}
+                  </div>
+                {% endif %}
+
+                {% if participation.participation_type %}
+                  <div class="article-meta">
+                    {{ participation.get_participation_type_display }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="article-actions">
+{#                <a href="{% url 'participation-edit' project.slug event.pk participation.pk %}"#}
+{#                   class="btn-article-edit">#}
+{#                  Edit#}
+{#                </a>#}
+                <a href="{% url 'event-participation-delete' project.slug event.pk participation.pk %}"
+                   class="btn-article-delete">
+                  Delete
+                </a>
+              </div>
+            </div>
+          {% empty %}
+            <p class="event-participations-empty">
+              No participations yet.
+            </p>
+          {% endfor %}
+
+          <div class="project-actions-bottom">
+            <a href="{% url 'event-participation-add' project.slug event.pk %}"
+               class="btn-project-action">
+              + Add participation
+            </a>
+          </div>
+
         </div>
       </div>
-        <a href="{% url 'project-event-edit' project.slug event.pk %}">Edit</a>
-        <a href="{% url 'project-event-delete' project.slug event.pk %}">Delete</a>
     {% empty %}
       <p>No events yet.</p>
     {% endfor %}
-    <a href="{% url 'project-event-add' project.slug %}">Add event</a>
+
+    <div class="project-actions-bottom">
+      <a href="{% url 'project-event-add' project.slug %}"
+         class="btn-project-action">
+        + Add event
+      </a>
+    </div>
   </div>
 {% endblock %}

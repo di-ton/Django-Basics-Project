@@ -5,29 +5,49 @@
 
   <div class="article-list">
     {% for article in articles %}
-      <div class="article-item">
-        <a href="{{ article.url }}" target="_blank">
-          {{ article.title }}
-        </a>
+      <div class="article-card">
+        <div class="article-main">
+          <a href="{{ article.article_url }}" target="_blank" class="article-title">
+            {{ article.title }}
+          </a>
 
-        <div class="article-meta">
-          {% if article.journal %}
-            {{ article.journal }}
-          {% endif %}
-          {% if article.quartile %}
-            · {{ article.get_quartile_display }}
-          {% endif %}
+          <div class="article-meta">
+            {% if article.authors %}
+                <div class="article-authors">
+                    {{ article.authors }}
+                  </div>
+            {% endif %}
+            {% if article.journal %}
+              <span class="journal">{{ article.journal }}</span>
+            {% endif %}
+            {% if article.journal_quartile %}
+              <span class="quartile">{{ article.journal_quartile }}</span>
+            {% endif %}
+            {% if article.publication_year %}
+              · {{ article.publication_year }}
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="article-actions">
+          <a href="{% url 'project-article-edit' project.slug article.pk %}"
+             class="btn-article-edit">
+            Edit
+          </a>
+          <a href="{% url 'project-article-delete' project.slug article.pk %}"
+             class="btn-article-delete">
+            Delete
+          </a>
         </div>
       </div>
-        <a href="{% url 'project-article-edit' project.slug article.pk %}">
-            Edit
-        </a>
-        <a href="{% url 'project-article-delete' project.slug article.pk %}">
-            Delete
-        </a>
     {% empty %}
       <p>No articles yet.</p>
     {% endfor %}
-    <a href="{% url 'project-article-add' project.slug %}">Add article</a>
+
+    <div class="project-actions-bottom">
+      <a href="{% url 'project-article-add' project.slug %}" class="btn-project-action">
+        + Add article
+      </a>
+    </div>
   </div>
 {% endblock %}

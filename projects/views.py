@@ -11,9 +11,10 @@ from accounts.models import ScientistProfile
 from projects.choices import CategoryChoices
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, ArticleCreateForm, \
     ArticleUpdateForm, ScientificEventCreateForm, ScientificEventUpdateForm, ProjectMembershipForm, \
-    ScientificOrganizationForm
-from projects.mixins import ProjectMixin, ProjectWritePermissionMixin
-from projects.models import Article, ScientificEvent, Project, ProjectMembership, ScientificOrganization
+    ScientificOrganizationForm, EventParticipationForm
+from projects.mixins import ProjectMixin, ProjectWritePermissionMixin, EventMixin
+from projects.models import Article, ScientificEvent, Project, ProjectMembership, ScientificOrganization, \
+    EventParticipation
 
 
 class ProjectCreateView(CreateView):
@@ -258,7 +259,7 @@ class ProjectEventsView(ProjectMixin, ListView):
 
 
 
-class ArticleCreateView(ProjectWritePermissionMixin, ProjectMixin, CreateView):
+class ArticleCreateView(ProjectMixin, CreateView):
     model = Article
     form_class = ArticleCreateForm
     template_name = "articles/article-form.html"
@@ -274,7 +275,7 @@ class ArticleCreateView(ProjectWritePermissionMixin, ProjectMixin, CreateView):
         )
 
 
-class ArticleUpdateView(ProjectWritePermissionMixin, ProjectMixin, UpdateView):
+class ArticleUpdateView(ProjectMixin, UpdateView):
     model = Article
     form_class = ArticleUpdateForm
     template_name = "articles/article-form.html"
@@ -288,7 +289,7 @@ class ArticleUpdateView(ProjectWritePermissionMixin, ProjectMixin, UpdateView):
             kwargs={"slug": self.object.project.slug},
         )
 
-class ArticleDeleteView(ProjectWritePermissionMixin, ProjectMixin, DeleteView):
+class ArticleDeleteView(ProjectMixin, DeleteView):
     model = Article
     template_name = "articles/article-delete.html"
 
@@ -307,7 +308,7 @@ class EventCreateForm:
     pass
 
 
-class EventCreateView(ProjectWritePermissionMixin, ProjectMixin, CreateView):
+class EventCreateView(ProjectMixin, CreateView):
     model = ScientificEvent
     form_class = ScientificEventCreateForm
     template_name = "events/event-form.html"
@@ -327,7 +328,7 @@ class EventUpdateForm:
     pass
 
 
-class EventUpdateView(ProjectWritePermissionMixin, ProjectMixin, UpdateView):
+class EventUpdateView(ProjectMixin, UpdateView):
     model = ScientificEvent
     form_class = ScientificEventUpdateForm
     template_name = "events/event-form.html"
@@ -341,7 +342,7 @@ class EventUpdateView(ProjectWritePermissionMixin, ProjectMixin, UpdateView):
             kwargs={"slug": self.object.project.slug},
         )
 
-class EventDeleteView(ProjectWritePermissionMixin, ProjectMixin, DeleteView):
+class EventDeleteView(ProjectMixin, DeleteView):
     model = ScientificEvent
     template_name = "events/event-delete.html"
 
@@ -386,9 +387,36 @@ class ProjectByCategoryView(ListView):
 
 
 
+class EventParticipationCreateView(ProjectMixin, EventMixin, CreateView):
+    model = EventParticipation
+    form_class = EventParticipationForm
+    template_name = "events/participation-form.html"
+
+    def form_valid(self, form):
+        form.instance.event = self.get_event()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse(
+            "project-events",
+            kwargs={"slug": self.object.event.project.slug},
+        )
 
 
+class EventParticipationDeleteView(ProjectMixin, EventMixin, DeleteView):
+    model = EventParticipation
+    template_name = "events/participation-delete.html"
 
+    def get_queryset(self):
+        return EventParticipation.objects.filter(
+            event=self.get_event()
+        )
+
+    def get_success_url(self):
+        return reverse(
+            "project-events",
+            kwargs={"slug": self.object.event.project.slug},
+        )
 
 
 

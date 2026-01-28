@@ -1,0 +1,38 @@
+{% extends "projects/project-base.html" %}
+
+{% block project_content %}
+  <div class="participation-form-page">
+    <h2>Add participation</h2>
+
+    <form method="post" class="participation-form">
+      {% csrf_token %}
+
+      {{ form.non_field_errors }}
+
+      <div class="participation-form-fields">
+        {% for field in form %}
+          <div class="participation-form-field">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}
+              <small class="participation-form-help">
+                {{ field.help_text }}
+              </small>
+            {% endif %}
+            {{ field.errors }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="participation-form-actions">
+        <button type="submit" class="btn-project-action">
+          Save participation
+        </button>
+        <a href="{% url 'project-events' project.slug %}"
+           class="btn-article-edit">
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.utils.text import slugify
 
 from common.models import TimeStampedModel
-from projects.choices import ProjectStatusChoices, JournalQuartileChoices, CategoryChoices
+from projects.choices import ProjectStatusChoices, JournalQuartileChoices, CategoryChoices, ParticipationTypeChoices
 
 
 class ScientificOrganization(models.Model):
@@ -165,14 +165,22 @@ class Article(TimeStampedModel):
     )
 
     title = models.CharField(max_length=500)
-    authors = models.ManyToManyField("accounts.ScientistProfile", related_name="articles")
+    authors = models.TextField(
+        blank=True,
+        help_text="List of authors as they appear in the publication"
+    )
     journal = models.CharField(max_length=255, blank=True)
     journal_quartile = models.CharField(
         max_length=2,
         choices=JournalQuartileChoices.choices,
         default=JournalQuartileChoices.NA
     )
-    publication_date = models.DateField(null=True, blank=True)
+
+    publication_year = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        help_text="Year of publication"
+    )
 
     doi = models.CharField(
         max_length=100,
@@ -212,7 +220,29 @@ class ScientificEvent(TimeStampedModel):
         return self.name
 
 
+class EventParticipation(models.Model):
+    event = models.ForeignKey(
+        ScientificEvent,
+        on_delete=models.CASCADE,
+        related_name="participations"
+    )
 
+    title = models.CharField(max_length=255)
+
+    authors = models.TextField(
+        blank=True,
+        help_text="Authors as listed in the presentation/poster"
+    )
+
+
+    participation_type = models.CharField(
+        max_length=20,
+        choices=ParticipationTypeChoices.choices,
+        blank=True
+    )
+
+    def __str__(self):
+        return self.title
 
 
 

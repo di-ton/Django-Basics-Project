@@ -1,7 +1,8 @@
 from django import forms
 
 from accounts.models import ScientistProfile
-from projects.models import ScientificEvent, Project, Article, ProjectMembership, ScientificOrganization
+from projects.models import ScientificEvent, Project, Article, ProjectMembership, ScientificOrganization, \
+    EventParticipation
 
 
 class ProjectBaseForm(forms.ModelForm):
@@ -153,14 +154,14 @@ class ArticleBaseForm(forms.ModelForm):
             "authors",
             "journal",
             "journal_quartile",
-            "publication_date",
+            "publication_year",
             "doi",
             "article_url",
         ]
 
         labels = {
             "journal_quartile": "Journal quartile",
-            "publication_date": "Publication date",
+            "publication_year": "Publication year",
         }
 
         help_texts = {
@@ -171,12 +172,16 @@ class ArticleBaseForm(forms.ModelForm):
             "title": forms.TextInput(attrs={
                 "placeholder": "Article title"
             }),
-            "authors": forms.CheckboxSelectMultiple,
+            "authors": forms.Textarea(attrs={
+                "rows": 2,
+            }),
             "journal": forms.TextInput(attrs={
                 "placeholder": "Journal name"
             }),
-            "publication_date": forms.DateInput(attrs={
-                "type": "date"
+            "publication_year": forms.NumberInput(attrs={
+                "placeholder": "e.g. 2023",
+                "min": 1800,
+                "max": 2100,
             }),
             "doi": forms.TextInput(attrs={
                 "placeholder": "https://doi.org/..."
@@ -198,7 +203,7 @@ class ArticleUpdateForm(ArticleBaseForm):
 class ScientificEventBaseForm(forms.ModelForm):
     class Meta:
         model = ScientificEvent
-        fields = "__all__"
+        exclude = ["project"]
         widgets = {
             "start_date": forms.DateInput(attrs={"type": "date"}),
             "end_date": forms.DateInput(attrs={"type": "date"}),
@@ -222,25 +227,22 @@ class ScientificEventUpdateForm(ScientificEventBaseForm):
     pass
 
 
-class ScientificOrganizationForm(forms.ModelForm):
+class EventParticipationForm(forms.ModelForm):
     class Meta:
-        model = ScientificOrganization
-        fields = [
-            "name",
-            "country",
-            "address",
-            "website",
-            "description",
-            "is_base_organization"
-        ]
+        model = EventParticipation
+        exclude = ["event"]
 
-    # def clean_name(self):
-    #     name = self.cleaned_data["name"]
-    #
-    #     if ScientificOrganization.objects.filter(name__iexact=name).exists():
-    #         raise forms.ValidationError(
-    #             "This organization already exists. "
-    #             "Please use the existing record."
-    #         )
-    #
-    #     return name
+        labels = {
+            "participation_type": "Type of participation",
+        }
+
+        widgets = {
+            "title": forms.TextInput(attrs={
+                "placeholder": "Presentation / poster title"
+            }),
+            "authors": forms.Textarea(attrs={
+                "rows": 2,
+            }),
+            "participation_type": forms.Select(),
+        }
+

@@ -28,6 +28,11 @@ class CategoryChoices(models.TextChoices):
     HUM = "HUM", "Humanities and Arts"
 
 
+class ParticipationTypeChoices(models.TextChoices):
+        poster = "poster", "Poster"
+        oral = "oral", "Oral presentation"
+        workshop = "workshop", "Workshop"
+        other = "other", "Other"
 
 
 

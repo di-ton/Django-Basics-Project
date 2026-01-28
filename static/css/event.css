@@ -18,7 +18,166 @@
     margin-bottom: 0.2rem;
 }
 
-.event-meta {
-    font-size: 0.85rem;
-    color: #6b7280;
+
+.event-list {
+  max-width: 900px;
 }
+
+.event-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.event-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.event-meta {
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.event-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Buttons – visually aligned with article buttons */
+.btn-event-edit {
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.btn-event-edit:hover {
+  background: #e5e7eb;
+}
+
+.btn-event-delete {
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.btn-event-delete:hover {
+  background: #fecaca;
+}
+
+.event-participations {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #e5e7eb;
+}
+
+.participation-card {
+  margin-top: 0.75rem;
+  background: #fafafa;
+}
+
+.participation-form {
+  max-width: 600px;
+}
+
+.participation-form-page {
+  max-width: 720px;
+}
+
+.participation-form-field {
+  margin-bottom: 1.25rem;
+}
+
+.participation-form-field input[type="text"] {
+  font-size: 1rem;
+}
+
+.participation-form-field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: #111827;
+}
+
+.participation-form-field input,
+.participation-form-field textarea,
+.participation-form-field select {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.participation-form-field textarea {
+  resize: vertical;
+}
+
+.participation-form-field input:focus,
+.participation-form-field textarea:focus,
+.participation-form-field select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
+}
+
+.participation-form-help {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.participation-form-field .errorlist {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+
+.participation-form-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.event-participations-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.event-participations-empty {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.form-help {
+  display: block;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+
+

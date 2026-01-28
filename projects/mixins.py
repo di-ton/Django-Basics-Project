@@ -1,6 +1,7 @@
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
-from .models import Project
+from .models import Project, ScientificEvent
+
 
 class ProjectMixin:
     def get_project(self):
@@ -22,3 +23,17 @@ class ProjectWritePermissionMixin:
 
         return super().dispatch(request, *args, **kwargs)
 
+
+class EventMixin:
+    def get_event(self):
+        if not hasattr(self, "_event"):
+            self._event = get_object_or_404(
+                ScientificEvent,
+                pk=self.kwargs["event_pk"]
+            )
+        return self._event
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["event"] = self.get_event()
+        return context

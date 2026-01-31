@@ -4,9 +4,46 @@
 
 <main class="main">
     <div class="container">
-        <section>
-          <h1>Welcome to SciProSpace!</h1>
-          <p>This is the homepage content area.</p>
+        {% if not request.user.is_authenticated %}
+          <section class="hero">
+              <h1>Explore scientific projects</h1>
+              <p>Discover and share research</p>
+            </section>
+        {% else %}
+          <section class="latest-projects">
+            <h2>Latest projects</h2>
+          </section>
+        {% endif %}
+
+          <div class="projects-grid">
+            {% for project in projects %}
+              <article class="project-entity">
+
+                <h3>
+                  <a href="{% url 'project-overview' project.slug %}">
+                    {{ project.title }}
+                  </a>
+                </h3>
+
+                <p class="category">
+                  Category: {{ project.get_category_display }}
+                </p>
+
+                <p class="leader">Project leader:
+                  {% for m in project.memberships.all %}
+                    {% if m.role == "leader" %}
+                      {{ m.scientist|default:m.name }}
+                    {% endif %}
+                  {% empty %}
+                    —
+                  {% endfor %}
+                </p>
+
+              </article>
+            {% empty %}
+              <p>No projects yet.</p>
+            {% endfor %}
+          </div>
         </section>
     </div>
 </main>

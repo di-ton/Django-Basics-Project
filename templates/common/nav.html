@@ -13,6 +13,7 @@
 {#        <li><a href="{% url 'profile-details' %}">Profile</a></li>#}
           <li>
             <a href="{% url 'profile-details' %}">
+{#                {% include "common/profile_image.html" with scientist=request.user.scientist_profile %}#}
                 {% if request.user.scientist_profile.profile_picture %}
                     <img src="{{ request.user.scientist_profile.profile_picture.url }}"
                          alt="Profile" class="nav-profile-pic">

@@ -245,7 +245,7 @@ class ProjectArticlesView(ProjectMixin, ListView):
     context_object_name = "articles"
 
     def get_queryset(self):
-        return Article.objects.filter(project=self.get_project())
+        return Article.objects.filter(project=self.get_project()).order_by("-publication_year")
 
 
 

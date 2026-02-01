@@ -54,18 +54,15 @@
 
           <!-- BASE ORGANIZATION FLAG -->
           {% if organization.is_base_organization %}
-            <div class="organization-flag">
-              Base organization
-            </div>
+            <div class="organization-flag">Base organization</div>
+          {% else %}
+              <div class="organization-flag">Partner organization</div>
           {% endif %}
 
             {% if can_manage %}
-              <form method="post"
-                    action="{% url 'project-organization-delete' project.slug organization.id %}">
+              <form method="post" action="{% url 'project-organization-delete' project.slug organization.id %}">
                 {% csrf_token %}
-                <button type="submit"
-                        class="btn-danger"
-                        onclick="return confirm('Remove this organization from the project?');">
+                <button type="submit" class="btn-danger" onclick="return confirm('Remove this organization from the project?');">
                   Remove
                 </button>
               </form>

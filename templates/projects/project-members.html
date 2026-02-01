@@ -5,6 +5,7 @@
 
 <div class="project-members">
   <div class="project-members-list">
+    <h2>Project members</h2>
 
     {# LEADER #}
     {% if leader %}
@@ -96,15 +97,12 @@
     {% empty %}
       <p>No members have been added yet.</p>
     {% endfor %}
-
   </div>
 </div>
-
 <div class="project-actions-bottom">
   <a href="{% url 'project-members-add' project.slug %}"
      class="btn-project-action">
     + Add members
   </a>
 </div>
-
 {% endblock %}

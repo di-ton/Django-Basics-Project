@@ -21,7 +21,10 @@
               <span class="journal">{{ article.journal }}</span>
             {% endif %}
             {% if article.journal_quartile %}
-              <span class="quartile">{{ article.journal_quartile }}</span>
+{#              <span class="quartile">{{ article.journal_quartile }}</span>#}
+                <span class="quartile" data-quartile="{{ article.journal_quartile }}">
+                  {{ article.journal_quartile }}
+                </span>
             {% endif %}
             {% if article.publication_year %}
               · {{ article.publication_year }}

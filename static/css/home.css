@@ -101,13 +101,13 @@ body {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
 }
 
 .nav a {
   text-decoration: none;
   color: #1f2933;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .nav a:hover {
@@ -124,13 +124,16 @@ body {
   padding: 0;
   margin: 0;
   font: inherit;
-  color: inherit;
+  color: #1f2933;
+  font-weight: 600;
   cursor: pointer;
   text-decoration: none;
 }
 
 .nav .btn-link:hover {
-  text-decoration: underline;
+  /*text-decoration: underline;*/
+  color: #065f46;
+
 }
 
 
@@ -253,4 +256,43 @@ main {
   margin-top: 0.8rem;
   font-size: 0.95rem;
   color: #111;
+}
+
+
+.search-results {
+  max-width: 1100px;
+  margin: 2.5rem auto;
+}
+
+.search-results h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.search-query {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1.8rem;
+}
+
+
+.search-results-list {
+  list-style: none;
+  margin: 2rem 0;
+  max-width: 800px;
+}
+
+.search-result-item {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.search-result-item a {
+  font-size: 1.05rem;
+  color: #111;
+  text-decoration: none;
+}
+
+.search-result-item a:hover {
+  text-decoration: underline;
 }

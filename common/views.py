@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
 
@@ -31,4 +32,22 @@ class HomePageView(ListView):
                 "memberships__scientist",
             )
         )
+
+class ProjectSearchView(ListView):
+    model = Project
+    template_name = "common/search-results.html"
+    context_object_name = "projects"
+
+    def get_queryset(self):
+        projects = Project.objects.all()
+
+        query = self.request.GET.get("text")
+        if query:
+            projects = projects.filter(
+                Q(title__icontains=query) |
+                Q(description__icontains=query) |
+                Q(memberships__name__icontains=query)
+            ).distinct()
+
+        return projects.distinct()
 

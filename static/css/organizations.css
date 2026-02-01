@@ -42,9 +42,9 @@
 
 /* Organization meta (country, etc.) */
 .organization-meta {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: #6b7280;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
 }
 
 /* Organization website */
@@ -68,6 +68,10 @@
     color: #374151;
     line-height: 1.45;
     margin: 0.4rem 0 0 0;
+}
+
+.organization-flag {
+    margin-bottom: 0.6rem;
 }
 
 /* Empty state */
@@ -111,16 +115,16 @@
 }
 
 .btn-danger {
-  background-color: #c0392b;
-  color: white;
+  background-color: #fee2e2;
+  color: #991b1b;
   border: none;
-  padding: 0.4rem 0.8rem;
+  padding: 0.35rem 0.7rem;
   font-size: 0.85rem;
   cursor: pointer;
 }
 
 .btn-danger:hover {
-  background-color: #a93226;
+  background: #fecaca;
 }
 
 .checkbox-group label {

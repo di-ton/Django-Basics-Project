@@ -19,7 +19,7 @@
     </div>
 
     {% if search_form %}
-        <form method="get" class="search-form" action="{% url "project-list" %}">
+        <form method="get" class="search-form" action="{% url "search-results" %}">
           <div class="search-wrapper">
 
               {{ search_form.text }}

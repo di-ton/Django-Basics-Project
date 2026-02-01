@@ -34,23 +34,17 @@
       {% endfor %}
 
       <div class="form-actions">
-        <button type="submit" class="btn-primary">
+        <button type="submit" class="btn-project-org-action">
           {% if project %}
             Save changes
           {% else %}
             Create project
           {% endif %}
         </button>
+        <a href="{% url 'project-overview' project.slug %}" class="btn-secondary">
+            Cancel
+        </a>
 
-        {% if project and project.slug %}
-          <a href="{% url 'project-overview' project.slug %}" class="btn-secondary">
-            Cancel
-          </a>
-        {% else %}
-          <a href="{% url 'home' %}" class="btn-secondary">
-            Cancel
-          </a>
-        {% endif %}
       </div>
     </form>
 

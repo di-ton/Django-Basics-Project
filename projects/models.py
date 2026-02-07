@@ -20,6 +20,10 @@ class ScientificOrganization(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
+
+        if self.website and not self.website.startswith(("http://", "https://")):
+            self.website = "https://" + self.website
+
         super().save(*args, **kwargs)
 
     def __str__(self):

@@ -5,22 +5,15 @@
     <div class="profile-card profile-card--danger">
 
         <div class="profile-header">
-            <h2 class="profile-name">Delete account</h2>
-            <p class="profile-meta danger-text">
-                This action cannot be undone
-            </p>
+            <h2 class="profile-danger">Delete account</h2>
         </div>
 
         <div class="delete-warning">
-            <p>
-                You are about to permanently delete your account.
-            </p>
-            <p>
-                This will remove:
-            </p>
+            <p>You are about to permanently delete your account. This action cannot be undone.</p>
+            <p>Once deleted, the following will be removed:</p>
             <ul>
-                <li>Your profile information</li>
-                <li>All associated projects</li>
+                <li>Your profile and account information</li>
+                <li>All projects you are associated with</li>
                 <li>Any stored data linked to your account</li>
             </ul>
         </div>
@@ -29,13 +22,9 @@
             {% csrf_token %}
 
             <div class="profile-actions">
-                <button type="submit" class="btn-danger">
-                    Yes, delete my account
-                </button>
+                <button type="submit" class="btn-danger">Delete the account</button>
 
-                <a href="{% url 'profile-details' %}" class="btn-secondary">
-                    Cancel
-                </a>
+                <a href="{% url 'profile-details' %}" class="btn-secondary">Cancel</a>
             </div>
         </form>
 

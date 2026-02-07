@@ -1,56 +1,57 @@
 {% extends "projects/project-base.html" %}
 
 {% block project_content %}
-  <h2>Articles</h2>
+  <div class="article-page">
+      <h2>Articles</h2>
 
-  <div class="article-list">
-    {% for article in articles %}
-      <div class="article-card">
-        <div class="article-main">
-          <a href="{{ article.article_url }}" target="_blank" class="article-title">
-            {{ article.title }}
-          </a>
+      <div class="article-list">
+        {% for article in articles %}
+          <div class="article-card">
+            <div class="article-main">
+              <a href="{{ article.article_url }}" target="_blank" class="article-title">
+                {{ article.title }}
+              </a>
 
-          <div class="article-meta">
-            {% if article.authors %}
-                <div class="article-authors">
-                    {{ article.authors }}
-                  </div>
-            {% endif %}
-            {% if article.journal %}
-              <span class="journal">{{ article.journal }}</span>
-            {% endif %}
-            {% if article.journal_quartile %}
-{#              <span class="quartile">{{ article.journal_quartile }}</span>#}
-                <span class="quartile" data-quartile="{{ article.journal_quartile }}">
-                  {{ article.journal_quartile }}
-                </span>
-            {% endif %}
-            {% if article.publication_year %}
-              · {{ article.publication_year }}
-            {% endif %}
+              <div class="article-meta">
+                {% if article.authors %}
+                    <div class="article-authors">
+                        {{ article.authors }}
+                      </div>
+                {% endif %}
+                {% if article.journal %}
+                  <span class="journal">{{ article.journal }}</span>
+                {% endif %}
+                {% if article.journal_quartile %}
+                    <span class="quartile" data-quartile="{{ article.journal_quartile }}">
+                      {{ article.journal_quartile }}
+                    </span>
+                {% endif %}
+                {% if article.publication_year %}
+                    <span>· {{ article.publication_year }}</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="article-actions">
+              <a href="{% url 'project-article-edit' project.slug article.pk %}"
+                 class="btn-article-edit">
+                Edit
+              </a>
+              <a href="{% url 'project-article-delete' project.slug article.pk %}"
+                 class="btn-article-delete">
+                Delete
+              </a>
+            </div>
           </div>
-        </div>
+        {% empty %}
+          <p>No articles yet.</p>
+        {% endfor %}
 
-        <div class="article-actions">
-          <a href="{% url 'project-article-edit' project.slug article.pk %}"
-             class="btn-article-edit">
-            Edit
-          </a>
-          <a href="{% url 'project-article-delete' project.slug article.pk %}"
-             class="btn-article-delete">
-            Delete
+        <div class="project-actions-bottom">
+          <a href="{% url 'project-article-add' project.slug %}" class="btn-project-action">
+            + Add article
           </a>
         </div>
       </div>
-    {% empty %}
-      <p>No articles yet.</p>
-    {% endfor %}
-
-    <div class="project-actions-bottom">
-      <a href="{% url 'project-article-add' project.slug %}" class="btn-project-action">
-        + Add article
-      </a>
-    </div>
   </div>
 {% endblock %}

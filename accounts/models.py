@@ -85,8 +85,12 @@ class ScientistProfile(TimeStampedModel):
     @property
     def all_projects(self):
         return Project.objects.filter(
-            Q(leader=self) | Q(members=self)
+            memberships__scientist=self
         ).distinct()
+
+    @property
+    def project_count(self):
+        return self.all_projects.count()
 
     def __str__(self):
         return self.full_name

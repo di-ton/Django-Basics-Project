@@ -17,10 +17,12 @@
         </div>
 
         <div class="profile-section">
-            <h3>Research interests</h3>
-            <p class="profile-text">
-                {{ scientist.research_interests }}
-            </p>
+            {% if scientist.research_interests %}
+                <h3>Research interests</h3>
+                <p class="profile-text">
+                    {{ scientist.research_interests }}
+                </p>
+            {% endif %}
         </div>
 
         <div class="profile-section">
@@ -29,7 +31,7 @@
             <ul class="profile-list">
                 {% if scientist.orcid_id %}
                     <li>
-                        <strong>ORCID:</strong>
+                        <strong>ORCID ID:</strong>
                         <a href="https://orcid.org/{{ scientist.orcid_id }}"
                            target="_blank"
                            rel="noopener">
@@ -40,14 +42,8 @@
 
                 {% if scientist.scopus_id %}
                     <li>
-                        <strong>Scopus ID:</strong>
+                        <strong>Scopus Author ID:</strong>
                         {{ scientist.scopus_id }}
-                    </li>
-                {% endif %}
-                {% if scientist.research_interests %}
-                    <li>
-                        <strong>Research interests:</strong>
-                        {{ scientist.research_interests }}
                     </li>
                 {% endif %}
             </ul>

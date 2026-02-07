@@ -1,9 +1,10 @@
 {% extends "projects/project-base.html" %}
 
 {% block project_content %}
+<div class="event-page">
   <h2>Scientific Events</h2>
 
-  <div class="article-list">
+  <div class="event-list">
 
     {% for event in events %}
       <div class="event-card">
@@ -100,5 +101,6 @@
           </a>
     </div>
   </div>
+</div>
 {% endblock %}
 

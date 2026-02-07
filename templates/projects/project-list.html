@@ -1,35 +1,35 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-    <h2>Projects</h2>
+    <div class="page-project-list">
+        <div class="page-project-list-header">
+            <h2>Projects associated with the profile</h2>
+        </div>
+        {% if projects %}
+          <div class="project-list">
 
-    <p class="project-subtitle">
-      Projects you participate in
-    </p>
+            {% for project in projects %}
+              <div class="project-card">
 
-    {% if projects %}
-      <div class="projects-list">
+                <h3 class="project-title">
+                  <a href="{% url 'project-overview' project.slug %}">
+                    {{ project.title }}
+                  </a>
+                </h3>
 
-        {% for project in projects %}
-          <div class="project-card">
+                {% if project.user_membership %}
+                  <div class="project-role">
+                    Role: {{ project.user_membership.get_role_display }}
+                  </div>
+                {% endif %}
 
-            <h3 class="project-title">
-              <a href="{% url 'project-overview' project.slug %}">
-                {{ project.title }}
-              </a>
-            </h3>
-
-            {% if project.user_membership %}
-              <div class="project-role">
-                Role: {{ project.user_membership.get_role_display }}
               </div>
-            {% endif %}
+            {% endfor %}
 
           </div>
-        {% endfor %}
+        {% else %}
+          <p class="empty-state">No projects available.</p>
+        {% endif %}
+    </div>
 
-      </div>
-    {% else %}
-      <p>No projects available.</p>
-    {% endif %}
 {% endblock %}

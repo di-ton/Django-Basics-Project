@@ -46,11 +46,6 @@ class ProfileCreateView(LoginRequiredMixin, CreateView):
     form_class = ScientistProfileForm
     template_name = "accounts/profile-create.html"
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     if hasattr(request.user, "scientist_profile"):
-    #         return redirect("profile-details")
-    #     return super().dispatch(request, *args, **kwargs)
-
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -88,7 +83,14 @@ class ProfileDetailsView(LoginRequiredMixin, ProfileRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context["project_count"] = self.object.user.projects.count()
+
+        scientist = self.object
+        context["project_count"] = (
+            scientist.project_memberships
+            .values("project")
+            .distinct()
+            .count()
+        )
         return context
 
 

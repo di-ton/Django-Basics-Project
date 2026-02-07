@@ -10,7 +10,7 @@
     max-width: 720px;
     background-color: #ffffff;
     border-radius: 10px;
-    padding: 2.5rem;
+    padding: 1.3rem 3rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
@@ -202,18 +202,20 @@
 }
 
 /* Delete button */
-.btn-danger {
-    background-color: #dc2626;
-    color: #ffffff;
+.profile-actions .btn-danger {
+    background-color: #fecaca;
+    color: #b91c1c;
+    font-size: 0.95rem;
     padding: 0.6rem 1.5rem;
     border-radius: 6px;
-    border: none;
     cursor: pointer;
     font-weight: 500;
+    border: 1px solid #b91c1c;
 }
 
-.btn-danger:hover {
+.profile-actions .btn-danger:hover {
     background-color: #b91c1c;
+    color: #fecaca;
 }
 
 /* Form alignment */

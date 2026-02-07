@@ -74,7 +74,7 @@ class ProjectOrganizationsView(ProjectMixin, ListView):
     context_object_name = "organizations"
 
     def get_queryset(self):
-        return self.get_project().organizations.all()
+        return self.get_project().organizations.all().order_by('-is_base_organization', 'name')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -95,21 +95,22 @@ class ProjectOrganizationCreateView(ProjectMixin, CreateView):
         name = form.cleaned_data["name"]
 
         try:
-            # Try to create a new organization
-            self.object = form.save()
+            self.object = form.save() # Try to create a new organization
         except IntegrityError:
             # Organization already exists → reuse it
             self.object = ScientificOrganization.objects.get(
                 name__iexact=name
             )
 
-        # Attach to project (idempotent)
+            for field in ["country", "address", "website", "is_base_organization"]:
+                setattr(self.object, field, form.cleaned_data.get(field))
+
+            self.object.save()
+
+
         project.organizations.add(self.object)
 
-        return redirect(
-            "project-organizations",
-            slug=project.slug
-        )
+        return redirect("project-organizations", slug=project.slug)
 
 
 @login_required

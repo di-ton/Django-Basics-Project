@@ -2,10 +2,9 @@
 {% load static %}
 
 {% block project_content %}
-<h2>Organizations</h2>
 
 <section class="project-organizations">
-
+  <h2>Organizations</h2>
   {% if organizations %}
     <div class="organizations-list">
 
@@ -13,9 +12,26 @@
         <div class="organization-card">
 
           <!-- ORGANIZATION NAME -->
-          <h3 class="organization-name">
-            {{ organization.name }}
-          </h3>
+          <h3 class="organization-name">{{ organization.name }}</h3>
+
+          <!-- BASE ORGANIZATION FLAG -->
+          {% if organization.is_base_organization %}
+            <div class="organization-flag">Base organization</div>
+          {% else %}
+            <div class="organization-flag">Partner organization</div>
+          {% endif %}
+
+        <!-- WEBSITE -->
+          <div class="organization-website">
+              <strong>Website:</strong>
+              {% if organization.website %}
+                <a href="{{ organization.website }}" target="_blank" rel="noopener noreferrer">
+                  {{ organization.website }}
+                </a>
+              {% else %}
+                <span class="no-website">—</span>
+              {% endif %}
+          </div>
 
           <!-- COUNTRY -->
           {% if organization.country %}
@@ -23,6 +39,7 @@
               <strong>Country:</strong> {{ organization.country }}
             </div>
           {% endif %}
+
 
           <!-- ADDRESS -->
           {% if organization.address %}
@@ -32,31 +49,12 @@
             </div>
           {% endif %}
 
-          <!-- WEBSITE -->
-          {% if organization.website %}
-            <div class="organization-meta">
-              <strong>Website:</strong>
-              <a href="{{ organization.website }}"
-                 target="_blank"
-                 rel="noopener">
-                {{ organization.website }}
-              </a>
-            </div>
-          {% endif %}
-
           <!-- DESCRIPTION -->
           {% if organization.description %}
             <div class="organization-description">
               <strong>Description:</strong>
               <p>{{ organization.description|linebreaks }}</p>
             </div>
-          {% endif %}
-
-          <!-- BASE ORGANIZATION FLAG -->
-          {% if organization.is_base_organization %}
-            <div class="organization-flag">Base organization</div>
-          {% else %}
-              <div class="organization-flag">Partner organization</div>
           {% endif %}
 
             {% if can_manage %}

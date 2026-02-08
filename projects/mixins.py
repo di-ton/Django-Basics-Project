@@ -1,4 +1,3 @@
-from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from .models import Project, ScientificEvent
 
@@ -12,16 +11,6 @@ class ProjectMixin:
         context["project"] = self.get_project()
         return context
 
-
-class ProjectWritePermissionMixin:
-    def dispatch(self, request, *args, **kwargs):
-        project = self.get_project()
-        profile = request.user.scientistprofile
-
-        if profile != project.leader and not project.members.filter(pk=profile.pk).exists():
-            return HttpResponseForbidden()
-
-        return super().dispatch(request, *args, **kwargs)
 
 
 class EventMixin:

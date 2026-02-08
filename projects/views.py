@@ -1,23 +1,21 @@
-from django import forms
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import IntegrityError
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 
-from accounts.models import ScientistProfile
 from projects.choices import CategoryChoices
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, ArticleCreateForm, \
     ArticleUpdateForm, ScientificEventCreateForm, ScientificEventUpdateForm, ProjectMembershipForm, \
     ScientificOrganizationForm, EventParticipationForm
-from projects.mixins import ProjectMixin, ProjectWritePermissionMixin, EventMixin
+from projects.mixins import ProjectMixin, EventMixin
 from projects.models import Article, ScientificEvent, Project, ProjectMembership, ScientificOrganization, \
     EventParticipation
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
     template_name = "projects/project-form.html"
     form_class = ProjectCreateForm
@@ -31,6 +29,85 @@ class ProjectCreateView(CreateView):
             "project-members-add",
             kwargs={"slug": self.object.slug}
         )
+
+
+class ProjectOverviewView(ProjectMixin, TemplateView):
+    template_name = "projects/project-overview.html"
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = self.get_project()
+
+        member_count = project.memberships.filter(role="member").count()
+        leader_count = project.memberships.filter(role="leader").count()
+
+        context["members_count"] = member_count + leader_count
+
+        context["articles_count"] = project.articles.count()
+        context["events_count"] = project.events.count()
+
+        return context
+
+
+class ProjectUpdateView(ProjectMixin, UpdateView):
+    model = Project
+    template_name = "projects/project-form.html"
+    form_class = ProjectUpdateForm
+
+    def get_success_url(self):
+        return reverse("project-overview", kwargs={"slug": self.object.slug})
+
+
+
+class ProjectListView(LoginRequiredMixin, ListView):
+    model = Project
+    template_name = "projects/project-list.html"
+    context_object_name = "projects"
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if not user.is_authenticated:
+            return Project.objects.none()
+
+        profile = user.scientist_profile
+
+        projects = Project.objects.filter(
+            memberships__scientist=profile
+        ).distinct()
+
+        return projects
+
+class CategoryListView(TemplateView):
+    template_name = "projects/category-list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = CategoryChoices.choices
+        return context
+
+
+class ProjectByCategoryView(ListView):
+    model = Project
+    template_name = "projects/project-by-category.html"
+    context_object_name = "projects"
+
+    def get_queryset(self):
+        self.category = self.kwargs["category"]
+
+        if self.category not in CategoryChoices.values:
+            return Project.objects.none()
+
+        return Project.objects.filter(category=self.category)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["category_label"] = dict(CategoryChoices.choices).get(
+            self.category, self.category
+        )
+        return context
+
 
 class ProjectMembershipCreateView(ProjectMixin, CreateView):
     model = ProjectMembership
@@ -68,6 +145,46 @@ class ProjectMembershipCreateView(ProjectMixin, CreateView):
             kwargs={"slug": self.kwargs["slug"]}
         )
 
+
+@login_required
+def project_member_remove(request, slug, member_id):
+    project = get_object_or_404(Project, slug=slug)
+    membership = get_object_or_404(
+        ProjectMembership,
+        pk=member_id,
+        project=project,
+    )
+
+    if not project.can_manage(request.user):
+        return HttpResponseForbidden("Not allowed")
+
+    if membership.scientist and membership.scientist.user == project.created_by:
+        return HttpResponseForbidden("Project creator cannot be removed")
+
+    if request.method == "POST":
+        membership.delete()
+
+    return redirect("project-members", project.slug)
+
+
+
+class ProjectMembersView(ProjectMixin, TemplateView):
+    template_name = "projects/project-members.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = self.get_project()
+
+        memberships = project.memberships.select_related("scientist")
+
+        context["leader"] = memberships.filter(role="leader").first()
+        context["members"] = memberships.filter(role="member")
+        context["can_manage"] = project.can_manage(self.request.user)
+
+        return context
+
+
+
 class ProjectOrganizationsView(ProjectMixin, ListView):
     model = ScientificOrganization
     template_name = "projects/project-organizations.html"
@@ -87,17 +204,14 @@ class ProjectOrganizationCreateView(ProjectMixin, CreateView):
     form_class = ScientificOrganizationForm
     template_name = "projects/project-organizations-form.html"
 
-    # def get_project(self):
-    #     return get_object_or_404(Project, slug=self.kwargs["slug"])
 
     def form_valid(self, form):
         project = self.get_project()
         name = form.cleaned_data["name"]
 
         try:
-            self.object = form.save() # Try to create a new organization
+            self.object = form.save()
         except IntegrityError:
-            # Organization already exists → reuse it
             self.object = ScientificOrganization.objects.get(
                 name__iexact=name
             )
@@ -126,119 +240,14 @@ def project_organization_remove(request, slug, organization_id):
 
     return redirect("project-organizations", project.slug)
 
-# class ProjectMembershipDeleteView(DeleteView):
-#     model = ProjectMembership
-#     template_name = "projects/project-membership-delete.html"
-#
-#     def dispatch(self, request, *args, **kwargs):
-#         membership = self.get_object()
-#
-#         # Optional safety: only leader can remove members
-#         if not membership.project.memberships.filter(
-#             scientist=request.user.scientist_profile,
-#             role="leader"
-#         ).exists():
-#             return HttpResponseForbidden("You are not allowed to do this.")
-#
-#         return super().dispatch(request, *args, **kwargs)
-#
-#     def get_success_url(self):
-#         return reverse(
-#             "project-members-add",
-#             kwargs={"slug": self.object.project.slug}
-#         )
-
-@login_required
-def project_member_remove(request, slug, member_id):
-    project = get_object_or_404(Project, slug=slug)
-    membership = get_object_or_404(
-        ProjectMembership,
-        pk=member_id,
-        project=project,
-    )
-
-    if not project.can_manage(request.user):
-        return HttpResponseForbidden("Not allowed")
-
-    if membership.scientist and membership.scientist.user == project.created_by:
-        return HttpResponseForbidden("Project creator cannot be removed")
-
-    if request.method == "POST":
-        membership.delete()
-
-    return redirect("project-members", project.slug)
-
-
-class ProjectOverviewView(ProjectMixin, TemplateView):
-    template_name = "projects/project-overview.html"
-
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        project = self.get_project()
-
-        member_count = project.memberships.filter(role="member").count()
-        leader_count = project.memberships.filter(role="leader").count()
-
-        context["members_count"] = member_count + leader_count
-
-        context["articles_count"] = project.articles.count()
-        context["events_count"] = project.events.count()
-
-        return context
-
-
-class ProjectUpdateView(ProjectMixin, UpdateView):
-    model = Project
-    template_name = "projects/project-form.html"
-    form_class = ProjectUpdateForm
-
-    def get_success_url(self):
-        return reverse("project-overview", kwargs={"slug": self.object.slug})
-
-
-
-class ProjectMembersView(ProjectMixin, TemplateView):
-    template_name = "projects/project-members.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        project = self.get_project()
-
-        memberships = project.memberships.select_related("scientist")
-
-        context["leader"] = memberships.filter(role="leader").first()
-        context["members"] = memberships.filter(role="member")
-        context["can_manage"] = project.can_manage(self.request.user)
-
-        return context
 
 
 
 
-class ProjectListView(ListView):
-    model = Project
-    template_name = "projects/project-list.html"
-    context_object_name = "projects"
 
-    def get_queryset(self):
-        user = self.request.user
-        print("VIEW USER:", user, user.email)
 
-        if not user.is_authenticated:
-            print("USER NOT AUTHENTICATED")
-            return Project.objects.none()
 
-        profile = user.scientist_profile
-        print("PROFILE ID:", profile.pk)
 
-        projects = Project.objects.filter(
-            memberships__scientist=profile
-        ).distinct()
-
-        print("PROJECT COUNT:", projects.count())
-
-        return projects
 
 
 class ProjectArticlesView(ProjectMixin, ListView):
@@ -247,16 +256,6 @@ class ProjectArticlesView(ProjectMixin, ListView):
 
     def get_queryset(self):
         return Article.objects.filter(project=self.get_project()).order_by("-publication_year")
-
-
-
-class ProjectEventsView(ProjectMixin, ListView):
-    model = ScientificEvent
-    template_name = "projects/project_events.html"
-    context_object_name = "events"
-
-    def get_queryset(self):
-        return ScientificEvent.objects.filter(project=self.get_project())
 
 
 
@@ -305,8 +304,14 @@ class ArticleDeleteView(ProjectMixin, DeleteView):
         )
 
 
-class EventCreateForm:
-    pass
+
+class ProjectEventsView(ProjectMixin, ListView):
+    model = ScientificEvent
+    template_name = "projects/project_events.html"
+    context_object_name = "events"
+
+    def get_queryset(self):
+        return ScientificEvent.objects.filter(project=self.get_project())
 
 
 class EventCreateView(ProjectMixin, CreateView):
@@ -324,9 +329,6 @@ class EventCreateView(ProjectMixin, CreateView):
             kwargs={"slug": self.object.project.slug},
         )
 
-
-class EventUpdateForm:
-    pass
 
 
 class EventUpdateView(ProjectMixin, UpdateView):
@@ -355,36 +357,6 @@ class EventDeleteView(ProjectMixin, DeleteView):
             "project-events",
             kwargs={"slug": self.object.project.slug},
         )
-
-
-class CategoryListView(TemplateView):
-    template_name = "projects/category-list.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["categories"] = CategoryChoices.choices
-        return context
-
-
-class ProjectByCategoryView(ListView):
-    model = Project
-    template_name = "projects/project-by-category.html"
-    context_object_name = "projects"
-
-    def get_queryset(self):
-        self.category = self.kwargs["category"]
-
-        if self.category not in CategoryChoices.values:
-            return Project.objects.none()
-
-        return Project.objects.filter(category=self.category)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["category_label"] = dict(CategoryChoices.choices).get(
-            self.category, self.category
-        )
-        return context
 
 
 

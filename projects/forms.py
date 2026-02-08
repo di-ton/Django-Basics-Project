@@ -1,5 +1,4 @@
 from django import forms
-
 from accounts.models import ScientistProfile
 from projects.models import ScientificEvent, Project, Article, ProjectMembership, ScientificOrganization, \
     EventParticipation
@@ -47,7 +46,6 @@ class ProjectUpdateForm(ProjectBaseForm):
 
 
 class ProjectMembershipForm(forms.ModelForm):
-
     class Meta:
         model = ProjectMembership
         fields = [
@@ -61,28 +59,26 @@ class ProjectMembershipForm(forms.ModelForm):
         self.project = kwargs.pop("project", None)
         super().__init__(*args, **kwargs)
 
-        # Scientist is optional
         self.fields["scientist"].required = False
         self.fields["scientist"].empty_label = "— No profile selected —"
 
-        # Clear, neutral labels
         self.fields["name"].label = "Full name"
         self.fields["email"].label = "Email"
         self.fields["scientist"].label = "Link to an existing profile (optional)"
 
-        # Exclude scientists already linked to this project
         if self.project:
             self.fields["scientist"].queryset = (
-                ScientistProfile.objects.exclude(
-                    project_memberships__project=self.project
-                )
+                ScientistProfile.objects
+                .exclude(project_memberships__project=self.project)
+                .order_by("first_name")[:15]
             )
 
     def clean(self):
         cleaned_data = super().clean()
         role = cleaned_data.get("role")
+        email = cleaned_data.get("email")
+        scientist = cleaned_data.get("scientist")
 
-        # Enforce one leader per project
         if role == "leader" and self.project:
             if ProjectMembership.objects.filter(
                 project=self.project,
@@ -92,24 +88,47 @@ class ProjectMembershipForm(forms.ModelForm):
                     "This project already has a leader."
                 )
 
+        if email and not scientist:
+            profile = ScientistProfile.objects.filter(
+                user__email__iexact=email
+            ).first()
+            if profile:
+                cleaned_data["scientist"] = profile
+
         return cleaned_data
+
 
 # class ProjectMembershipForm(forms.ModelForm):
 #     class Meta:
 #         model = ProjectMembership
-#         fields = ["name", "email", "scientist", "role"]
+#         fields = [
+#             "name",
+#             "email",
+#             "scientist",
+#             "role",
+#         ]
 #
 #     def __init__(self, *args, **kwargs):
 #         self.project = kwargs.pop("project", None)
 #         super().__init__(*args, **kwargs)
 #
 #         self.fields["scientist"].required = False
+#         self.fields["scientist"].widget = forms.TextInput(
+#             attrs={
+#                 "placeholder": "Search scientist…"
+#             }
+#         )
+#
+#         # self.fields["scientist"].empty_label = "— No profile selected —"
+#
+#         self.fields["name"].label = "Full name"
+#         self.fields["email"].label = "Email"
+#         self.fields["scientist"].label = "Link to an existing profile (optional)"
 #
 #         if self.project:
 #             self.fields["scientist"].queryset = (
-#                 ScientistProfile.objects.exclude(
-#                     project_memberships__project=self.project
-#                 )
+#                 ScientistProfile.objects
+#                 .exclude(project_memberships__project=self.project)
 #             )
 #
 #     def clean(self):
@@ -127,22 +146,11 @@ class ProjectMembershipForm(forms.ModelForm):
 #
 #         return cleaned_data
 
-# class ProjectOrganizationsForm(forms.ModelForm):
-#     class Meta:
-#         model = Project
-#         fields = ["organizations"]
-#         widgets = {
-#             "organizations": forms.CheckboxSelectMultiple
-#         }
 
 class ScientificOrganizationForm(forms.ModelForm):
     class Meta:
         model = ScientificOrganization
         fields = ["name", "country", "address", "website", "is_base_organization"]
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields["is_base_organization"].label = "Base organization"
 
 
 
@@ -220,8 +228,10 @@ class ScientificEventBaseForm(forms.ModelForm):
             )
         return cleaned
 
+
 class ScientificEventCreateForm(ScientificEventBaseForm):
     pass
+
 
 class ScientificEventUpdateForm(ScientificEventBaseForm):
     pass

@@ -41,13 +41,13 @@
             Create project
           {% endif %}
         </button>
-        <a href="{% url 'project-overview' project.slug %}" class="btn-secondary">
-            Cancel
-        </a>
-
+        {% if project %}
+          <a href="{% url 'project-overview' project.slug %}" class="btn-secondary">Cancel</a>
+        {% else %}
+          <a href="{% url 'home' %}" class="btn-secondary">Cancel</a>
+        {% endif %}
       </div>
     </form>
-
   </div>
 </div>
 {% endblock %}

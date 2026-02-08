@@ -9,7 +9,7 @@ from accounts.choices import AcademicDegreeChoices, AcademicPositionChoices
 from accounts.managers import UserManager
 from accounts.validators import OrcidIdValidator, ScopusIDValidator
 from common.models import TimeStampedModel
-from projects.models import Project
+from projects.models import Project, ProjectMembership
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -141,4 +141,10 @@ class ScientistProfile(TimeStampedModel):
         if is_new and not self.slug:
             self.slug = slugify(f"{self.first_name}-{self.last_name}-{self.user.pk}")
             super().save(update_fields=["slug"])
+
+        if is_new and self.user.email:
+            ProjectMembership.objects.filter(
+                scientist__isnull=True,
+                email__iexact=self.user.email
+            ).update(scientist=self)
 

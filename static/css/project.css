@@ -133,7 +133,6 @@
 }
 
 
-/* SECTIONS */
 .project-section {
     margin-top: 2rem;
 }
@@ -152,10 +151,19 @@
 }
 
 
-
 /* MEMBERS */
+.project-members-form-page {
+  margin: 1rem auto 1.5rem;
+  max-width: 750px;
+}
+
+.project-members-form-page > h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
 .project-members {
-  margin: 2.5rem auto 1.5rem;
+  margin: 1rem auto 1.5rem;
   max-width: 1100px;
 }
 
@@ -310,6 +318,7 @@
 
 .page-project-list-header h2 {
   font-size: 1.4rem;
+  padding-left: 0.3rem;
   margin-bottom: 0.3rem;
   color: #0f3d2e;
 }

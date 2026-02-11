@@ -1,6 +1,6 @@
 from django.urls import path, include
 from projects import views
-from projects.views import EventParticipationCreateView, EventParticipationDeleteView
+from projects.views import EventParticipationCreateView, EventParticipationDeleteView, ProjectDeleteView
 
 urlpatterns = [
     path("", views.ProjectCreateView.as_view(), name="project-create"),
@@ -11,6 +11,7 @@ urlpatterns = [
     path("<slug:slug>/", include([
         path("", views.ProjectOverviewView.as_view(), name="project-overview"),
         path("update/", views.ProjectUpdateView.as_view(), name="project-update"),
+        path("delete/", views.ProjectDeleteView.as_view(), name="project-delete"),
         path("add-members/", views.ProjectMembershipCreateView.as_view(), name="project-members-add"),
         path("organization/create/", views.ProjectOrganizationCreateView.as_view(), name="project-organization-add"),
         path("organizations/", views.ProjectOrganizationsView.as_view(), name="project-organizations"),

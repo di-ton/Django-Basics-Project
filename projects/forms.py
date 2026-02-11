@@ -45,6 +45,15 @@ class ProjectUpdateForm(ProjectBaseForm):
     pass
 
 
+class ProjectDeleteForm(ProjectBaseForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.disabled = True
+
+
 class ProjectMembershipForm(forms.ModelForm):
     class Meta:
         model = ProjectMembership

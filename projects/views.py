@@ -3,13 +3,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import IntegrityError
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
 
 from projects.choices import CategoryChoices
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, ArticleCreateForm, \
     ArticleUpdateForm, ScientificEventCreateForm, ScientificEventUpdateForm, ProjectMembershipForm, \
-    ScientificOrganizationForm, EventParticipationForm
+    ScientificOrganizationForm, EventParticipationForm, ProjectDeleteForm
 from projects.mixins import ProjectMixin, EventMixin
 from projects.models import Article, ScientificEvent, Project, ProjectMembership, ScientificOrganization, \
     EventParticipation
@@ -57,6 +57,18 @@ class ProjectUpdateView(ProjectMixin, UpdateView):
 
     def get_success_url(self):
         return reverse("project-overview", kwargs={"slug": self.object.slug})
+
+
+class ProjectDeleteView(ProjectMixin, DeleteView):
+    model = Project
+    template_name = "projects/project-delete.html"
+    success_url = reverse_lazy("home")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = ProjectDeleteForm(instance=self.object)
+        return context
+
 
 
 

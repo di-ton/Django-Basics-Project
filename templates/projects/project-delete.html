@@ -1,30 +1,81 @@
 {% extends "projects/project-base.html" %}
 
 {% block project_content %}
-<div class="project-section">
+<div class="project-container">
 
-  <h2>Delete Project</h2>
+  <div class="project-card">
+    <h2 class="delete-title">Delete Project</h2>
+    <div class="delete-inner">
 
-  <div class="delete-warning">
-    <p>
-      You are about to permanently delete the project:
-    </p>
-    <p>
-      <strong>{{ project.title }}</strong>
-    </p>
+      <div class="delete-warning">
+        <p>You are about to permanently delete the project:</p>
+        <p><strong>{{ object.title }}</strong></p>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <form method="post" class="project-form">
+          {% csrf_token %}
+
+          {% for field in form %}
+            <div class="form-group">
+              <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+              </label>
+
+              {{ field }}
+
+              {% if field.help_text %}
+                <span class="form-help">{{ field.help_text }}</span>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+          <div class="form-actions">
+            <button type="submit" class="btn-project-delete">
+              Yes, delete project
+            </button>
+
+            <a href="{% url 'project-overview' object.slug %}" class="btn-secondary">
+              Cancel
+            </a>
+          </div>
+        </form>
+
+    </div>
+
   </div>
-
-  <form method="post" class="delete-form">
-    {% csrf_token %}
-
-    <button type="submit" class="btn-danger">
-      Yes, delete project
-    </button>
-
-    <a href="{% url 'project_detail' project.slug %}" class="btn-secondary">
-      Cancel
-    </a>
-  </form>
-
 </div>
 {% endblock %}
+
+
+{#{% extends "projects/project-base.html" %}#}
+{##}
+{#{% block project_content %}#}
+{#<div class="project-section">#}
+{##}
+{#  <h2>Delete Project</h2>#}
+{##}
+{#  <div class="delete-warning">#}
+{#    <p>#}
+{#      You are about to permanently delete the project:#}
+{#    </p>#}
+{#    <p>#}
+{#      <strong>{{ project.title }}</strong>#}
+{#    </p>#}
+{#  </div>#}
+{##}
+{#  <form method="post" class="delete-form">#}
+{#    {% csrf_token %}#}
+{##}
+{#    <button type="submit" class="btn-danger">#}
+{#      Yes, delete project#}
+{#    </button>#}
+{##}
+{#    <a href="{% url 'project_overview' project.slug %}" class="btn-secondary">#}
+{#      Cancel#}
+{#    </a>#}
+{#  </form>#}
+{##}
+{#</div>#}
+{#{% endblock %}#}

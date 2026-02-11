@@ -50,7 +50,14 @@
             {% if request.user.is_authenticated %}
               <a href="{% url 'project-update' project.slug %}"
                  class="{% if request.resolver_match.url_name == 'project-update' %}active{% endif %}">
-                Edit Project
+                Edit
+              </a>
+            {% endif %}
+
+            {% if request.user == project.created_by %}
+              <a href="{% url 'project-delete' project.slug %}"
+                 class="{% if request.resolver_match.url_name == 'project-delete' %}active{% endif %}">
+                Delete
               </a>
             {% endif %}
           </nav>

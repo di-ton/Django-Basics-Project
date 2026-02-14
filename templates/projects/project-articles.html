@@ -31,27 +31,30 @@
                 {% endif %}
               </div>
             </div>
-
-            <div class="article-actions">
-              <a href="{% url 'project-article-edit' project.slug article.pk %}"
-                 class="btn-article-edit">
-                Edit
-              </a>
-              <a href="{% url 'project-article-delete' project.slug article.pk %}"
-                 class="btn-article-delete">
-                Delete
-              </a>
-            </div>
+            {% if can_manage %}
+                <div class="article-actions">
+                  <a href="{% url 'project-article-edit' project.slug article.pk %}"
+                     class="btn-article-edit">
+                    Edit
+                  </a>
+                  <a href="{% url 'project-article-delete' project.slug article.pk %}"
+                     class="btn-article-delete">
+                    Delete
+                  </a>
+                </div>
+            {% endif %}
           </div>
         {% empty %}
           <p>No articles yet.</p>
         {% endfor %}
 
-        <div class="project-actions-bottom">
-          <a href="{% url 'project-article-add' project.slug %}" class="btn-project-action">
-            + Add article
-          </a>
-        </div>
+        {% if can_manage %}
+            <div class="project-actions-bottom">
+              <a href="{% url 'project-article-add' project.slug %}" class="btn-project-action">
+                + Add article
+              </a>
+            </div>
+        {% endif %}
       </div>
   </div>
 {% endblock %}

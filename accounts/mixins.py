@@ -7,7 +7,7 @@ class ProfileRequiredMixin:
         if not request.user.is_authenticated:
             return redirect("login")
 
-        # SAFE OneToOne existence check
+        # OneToOne existence check
         if not request.user.scientist_profile:
             return redirect("profile-create")
 

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
@@ -68,8 +69,6 @@ class ProjectDeleteView(ProjectMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context["form"] = ProjectDeleteForm(instance=self.object)
         return context
-
-
 
 
 class ProjectListView(LoginRequiredMixin, ListView):
@@ -178,6 +177,35 @@ def project_member_remove(request, slug, member_id):
 
     return redirect("project-members", project.slug)
 
+# class ProjectMemberRemoveView(LoginRequiredMixin, View):
+#     model = ProjectMembership
+#     template_name = "projects/project-membership-delete.html"
+#
+#     def post(self, request, slug, member_id):
+#         project = get_object_or_404(Project, slug=slug)
+#
+#         membership = get_object_or_404(
+#             ProjectMembership,
+#             pk=member_id,
+#             project=project,
+#         )
+#
+#
+#         if not project.can_manage(request.user):
+#             return HttpResponseForbidden("Not allowed")
+#
+#
+#         if (
+#             membership.scientist
+#             and membership.scientist.user == project.created_by
+#         ):
+#             return HttpResponseForbidden(
+#                 "Project creator cannot be removed"
+#             )
+#
+#         membership.delete()
+#
+#         return redirect("project-members", project.slug)
 
 
 class ProjectMembersView(ProjectMixin, TemplateView):
@@ -189,9 +217,17 @@ class ProjectMembersView(ProjectMixin, TemplateView):
 
         memberships = project.memberships.select_related("scientist")
 
-        context["leader"] = memberships.filter(role="leader").first()
-        context["members"] = memberships.filter(role="member")
-        context["can_manage"] = project.can_manage(self.request.user)
+        leader = memberships.filter(role="leader").first()
+        members_qs = memberships.filter(role="member")
+
+        paginator = Paginator(members_qs, 4)
+        page_number = self.request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        context["leader"] = leader
+        context["members"] = page_obj
+        context["page_obj"] = page_obj
+        context["paginator"] = paginator
 
         return context
 
@@ -201,14 +237,12 @@ class ProjectOrganizationsView(ProjectMixin, ListView):
     model = ScientificOrganization
     template_name = "projects/project-organizations.html"
     context_object_name = "organizations"
+    paginate_by = 3
 
     def get_queryset(self):
         return self.get_project().organizations.all().order_by('-is_base_organization', 'name')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["can_manage"] = self.get_project().can_manage(self.request.user)
-        return context
+
 
 
 class ProjectOrganizationCreateView(ProjectMixin, CreateView):
@@ -251,14 +285,6 @@ def project_organization_remove(request, slug, organization_id):
         project.organizations.remove(organization)
 
     return redirect("project-organizations", project.slug)
-
-
-
-
-
-
-
-
 
 
 
@@ -306,7 +332,7 @@ class ArticleDeleteView(ProjectMixin, DeleteView):
     template_name = "articles/article-delete.html"
 
     def get_queryset(self):
-        # SECURITY: only allow deleting articles from this project
+        # only delete articles from this project
         return Article.objects.filter(project=self.get_project())
 
     def get_success_url(self):
@@ -319,7 +345,7 @@ class ArticleDeleteView(ProjectMixin, DeleteView):
 
 class ProjectEventsView(ProjectMixin, ListView):
     model = ScientificEvent
-    template_name = "projects/project_events.html"
+    template_name = "projects/project-events.html"
     context_object_name = "events"
 
     def get_queryset(self):

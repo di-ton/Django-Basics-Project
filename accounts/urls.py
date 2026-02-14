@@ -14,7 +14,7 @@ urlpatterns = [
     path("update/", views.ProfileUpdateView.as_view(), name="profile-update"),
     path("delete/", views.UserDeleteView.as_view(), name="profile-delete"),
 
-    # Public profile by slug (dynamic)
+    # Public profile by slug
     path("<slug:slug>/", views.PublicProfileDetailView.as_view(), name="profile-public",
     )
 ]

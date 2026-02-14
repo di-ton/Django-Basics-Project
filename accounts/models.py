@@ -2,7 +2,6 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Q
 from django.utils.text import slugify
 
 from accounts.choices import AcademicDegreeChoices, AcademicPositionChoices
@@ -14,7 +13,6 @@ from projects.models import Project, ProjectMembership
 
 class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
-    # REQUIRED_FIELDS = []
 
     email = models.EmailField(unique=True)
 

@@ -9,7 +9,7 @@
   from this project?
 </p>
 
-<form method="post">
+<form method="post" action="{% url 'project-members-delete' project.slug membership.id %}">
   {% csrf_token %}
   <button type="submit" class="btn-danger">Remove</button>
   <a href="{% url 'project-members-add' object.project.slug %}">

@@ -1,15 +1,14 @@
-/* Project Organizations section */
 .project-organizations {
-    margin: 2.5rem auto 1.5rem;
+    margin: 2.3rem auto 1.5rem;
     max-width: 1100px;
 }
 
 .project-organizations h2 {
   color: #0f3d2e;
-  padding-bottom: 1.2rem;
+  padding-bottom: 1.1rem;
 }
 
-/* Organizations list layout */
+
 .organizations-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -30,7 +29,7 @@
     transform: translateY(-2px);
 }
 
-/* Organization name */
+
 .organization-name {
     margin: 0 0 0.3rem 0;
     font-size: 1.2rem;
@@ -46,14 +45,14 @@
     text-decoration: underline;
 }
 
-/* Organization meta (country, etc.) */
+
 .organization-meta {
     font-size: 0.9rem;
     color: #6b7280;
     margin-bottom: 0.6rem;
 }
 
-/* Organization website */
+
 .organization-website {
     font-size: 0.85rem;
     margin-bottom: 0.5rem;
@@ -68,7 +67,7 @@
     text-decoration: underline;
 }
 
-/* Organization description */
+
 .organization-description {
     font-size: 0.9rem;
     color: #374151;
@@ -80,7 +79,7 @@
     margin-bottom: 0.6rem;
 }
 
-/* Empty state */
+
 .project-organizations p {
     font-size: 0.9rem;
     color: #6b7280;

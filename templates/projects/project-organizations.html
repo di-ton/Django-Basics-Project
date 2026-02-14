@@ -11,17 +11,14 @@
       {% for organization in organizations %}
         <div class="organization-card">
 
-          <!-- ORGANIZATION NAME -->
           <h3 class="organization-name">{{ organization.name }}</h3>
 
-          <!-- BASE ORGANIZATION FLAG -->
           {% if organization.is_base_organization %}
             <div class="organization-flag">Base organization</div>
           {% else %}
             <div class="organization-flag">Partner organization</div>
           {% endif %}
 
-        <!-- WEBSITE -->
           <div class="organization-website">
               <strong>Website:</strong>
               {% if organization.website %}
@@ -33,15 +30,12 @@
               {% endif %}
           </div>
 
-          <!-- COUNTRY -->
           {% if organization.country %}
             <div class="organization-meta">
               <strong>Country:</strong> {{ organization.country }}
             </div>
           {% endif %}
 
-
-          <!-- ADDRESS -->
           {% if organization.address %}
             <div class="organization-meta">
               <strong>Address:</strong><br>
@@ -49,7 +43,6 @@
             </div>
           {% endif %}
 
-          <!-- DESCRIPTION -->
           {% if organization.description %}
             <div class="organization-description">
               <strong>Description:</strong>
@@ -68,19 +61,43 @@
 
         </div>
       {% endfor %}
-
     </div>
+    {% if page_obj %}
+    <div class="members-navigation">
+
+        {% if page_obj.has_previous %}
+            <a class="slider-btn"
+               href="?page={{ page_obj.previous_page_number }}">
+                &#10094;
+            </a>
+        {% else %}
+            <span class="slider-btn disabled">&#10094;</span>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a class="slider-btn"
+               href="?page={{ page_obj.next_page_number }}">
+                &#10095;
+            </a>
+        {% else %}
+            <span class="slider-btn disabled">&#10095;</span>
+        {% endif %}
+        </div>
+    {% endif %}
+
+
   {% else %}
     <p>No organizations have been associated with this project.</p>
   {% endif %}
 
-  <!-- ADD ORGANIZATION BUTTON -->
-  <div class="project-actions-bottom">
-    <a href="{% url 'project-organization-add' project.slug %}"
-       class="btn-project-action">
-      + Add organization
-    </a>
-  </div>
+  {% if can_manage %}
+      <div class="project-actions-bottom">
+        <a href="{% url 'project-organization-add' project.slug %}"
+           class="btn-project-action">
+          + Add organization
+        </a>
+      </div>
+  {% endif %}
 
 </section>
 {% endblock %}

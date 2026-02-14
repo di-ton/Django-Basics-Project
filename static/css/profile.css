@@ -14,7 +14,7 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Header */
+
 .profile-header {
     text-align: center;
     margin-top: 1rem;
@@ -31,7 +31,7 @@
     font-size: 1rem;
 }
 
-/* Sections */
+
 .profile-section {
     margin-bottom: 2rem;
 }
@@ -43,7 +43,7 @@
     padding-bottom: 0.4rem;
 }
 
-/* Lists */
+
 .profile-list {
     list-style: none;
     padding: 0;
@@ -55,14 +55,14 @@
     font-size: 0.95rem;
 }
 
-/* Text */
+
 .profile-text {
     font-size: 0.95rem;
     line-height: 1.6;
     color: #333;
 }
 
-/* Actions */
+
 .profile-actions {
     text-align: center;
     margin-top: 2rem;
@@ -172,13 +172,12 @@
     border: 1px solid #fecaca;
 }
 
-/* Warning text */
+/* WARNING BOX */
 .danger-text {
     color: #b91c1c;
     font-weight: 500;
 }
 
-/* Warning box */
 .delete-warning {
     background-color: #fef2f2;
     border: 1px solid #fecaca;
@@ -189,7 +188,7 @@
 }
 
 .delete-warning p:first-of-type {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
 }
 
 .delete-warning ul {
@@ -201,7 +200,7 @@
     margin-bottom: 0.3rem;
 }
 
-/* Delete button */
+
 .profile-actions .btn-danger {
     background-color: #fecaca;
     color: #b91c1c;
@@ -218,22 +217,22 @@
     color: #fecaca;
 }
 
-/* Form alignment */
+
 .delete-form {
     margin-top: 2rem;
 }
 
-/* Public profile */
+
 .profile-card--public {
     max-width: 760px;
 }
 
-/* Public name emphasis */
+
 .profile-card--public .profile-name {
     font-size: 2.2rem;
 }
 
-/* Public links */
+
 .profile-card--public a {
     color: #2563eb;
     text-decoration: none;
@@ -243,9 +242,6 @@
     text-decoration: underline;
 }
 
-/* Auth layout */
-
-/* Header */
 .auth-header {
     text-align: center;
     margin-bottom: 1.8rem;
@@ -262,14 +258,14 @@
 }
 
 
-/* Errors */
+
 .form-error {
     margin-top: 0.3rem;
     font-size: 0.8rem;
     color: #dc2626;
 }
 
-/* Submit button */
+
 .auth-submit {
     width: 100%;
     margin-top: 1.5rem;

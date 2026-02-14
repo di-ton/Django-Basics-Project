@@ -2,17 +2,7 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
 
-from common.forms import SearchForm
 from projects.models import Project
-
-
-# class HomePageView(TemplateView):
-#     template_name = "common/home-page.html"
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["search_form"] = SearchForm(self.request.GET or None)
-#         return context
 
 
 class HomePageView(ListView):

@@ -1,9 +1,6 @@
-from urllib.request import Request
-
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.db.models import Count
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, DetailView, DeleteView
@@ -27,11 +24,6 @@ class RegisterView(CreateView):
         login(self.request, user)
         return redirect("profile-create")
 
-    # # Signal for profile creation
-    # def form_valid(self, form):
-    #     self.object = form.save()
-    #     login(self.request, self.object)
-    #     return super().form_valid(form)
 
 
 

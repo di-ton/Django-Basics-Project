@@ -10,10 +10,8 @@
       <li><a href="{% url 'project-list' %}">Your Projects</a></li>
 
       {% if request.user.scientist_profile %}
-{#        <li><a href="{% url 'profile-details' %}">Profile</a></li>#}
           <li>
             <a href="{% url 'profile-details' %}">
-{#                {% include "common/profile_image.html" with scientist=request.user.scientist_profile %}#}
                 {% if request.user.scientist_profile.profile_picture %}
                     <img src="{{ request.user.scientist_profile.profile_picture.url }}"
                          alt="Profile" class="nav-profile-pic">
@@ -30,9 +28,6 @@
         <li><a href="{% url 'profile-create' %}">Create Profile</a></li>
       {% endif %}
 
-{#      <li>#}
-{#        <a href="{% url 'logout' %}" class="btn-link">Logout</a>#}
-{#      </li>#}
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit" class="btn-link">Logout</button>

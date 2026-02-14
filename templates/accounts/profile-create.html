@@ -28,7 +28,6 @@
                 <small>Paste a link to an online image</small>
             </div>
 
-            {# Loop over the rest of the fields #}
             {% for field in form %}
                 {% if field.name != "profile_picture" and field.name != "profile_picture_url" %}
                     <div class="form-group">

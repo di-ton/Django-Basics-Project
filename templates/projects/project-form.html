@@ -1,53 +1,53 @@
 {% extends "common/base.html" %}
 
 {% block content %}
-<div class="project-container">
-  <div class="project-card">
+    <div class="project-container">
+        <div class="project-card">
 
-    <h2>
-      {% if project %}
-        Edit Project
-      {% else %}
-        Create Project
-      {% endif %}
-    </h2>
-
-    <form method="post" class="project-form">
-      {% csrf_token %}
-
-      {% for field in form %}
-        <div class="form-group">
-          <label for="{{ field.id_for_label }}">
-            {{ field.label }}
-          </label>
-
-          {{ field }}
-
-          {% if field.help_text %}
-            <span class="form-help">{{ field.help_text }}</span>
-          {% endif %}
-
-          {% for error in field.errors %}
-            <div class="form-error">{{ error }}</div>
-          {% endfor %}
-        </div>
-      {% endfor %}
-
-      <div class="form-actions">
-        <button type="submit" class="btn-project-org-action">
+        <h2>
           {% if project %}
-            Save changes
+            Edit Project
           {% else %}
-            Create project
+            Create Project
           {% endif %}
-        </button>
-        {% if project %}
-          <a href="{% url 'project-overview' project.slug %}" class="btn-secondary">Cancel</a>
-        {% else %}
-          <a href="{% url 'home' %}" class="btn-secondary">Cancel</a>
-        {% endif %}
-      </div>
-    </form>
-  </div>
-</div>
+        </h2>
+
+        <form method="post" class="project-form">
+          {% csrf_token %}
+
+          {% for field in form %}
+            <div class="form-group">
+              <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+              </label>
+
+              {{ field }}
+
+              {% if field.help_text %}
+                <span class="form-help">{{ field.help_text }}</span>
+              {% endif %}
+
+              {% for error in field.errors %}
+                <div class="form-error">{{ error }}</div>
+              {% endfor %}
+            </div>
+          {% endfor %}
+
+          <div class="form-actions">
+            <button type="submit" class="btn-project-org-action">
+              {% if project %}
+                Save changes
+              {% else %}
+                Create project
+              {% endif %}
+            </button>
+            {% if project %}
+              <a href="{% url 'project-overview' project.slug %}" class="btn-secondary">Cancel</a>
+            {% else %}
+              <a href="{% url 'home' %}" class="btn-secondary">Cancel</a>
+            {% endif %}
+          </div>
+        </form>
+        </div>
+    </div>
 {% endblock %}

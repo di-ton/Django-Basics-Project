@@ -14,7 +14,6 @@
         <form method="post" class="profile-form" enctype="multipart/form-data">
             {% csrf_token %}
 
-            {# Handle profile picture fields first #}
             <div class="form-group">
                 <label for="{{ form.profile_picture.id_for_label }}">
                     {{ form.profile_picture.label }}
@@ -39,7 +38,6 @@
                 <small>Paste a link to an online image</small>
             </div>
 
-            {# Loop over the rest of the fields #}
             {% for field in form %}
                 {% if field.name != "profile_picture" and field.name != "profile_picture_url" %}
                     <div class="form-group">

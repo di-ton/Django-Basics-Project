@@ -1,3 +1,52 @@
 from django.contrib import admin
 
-# Register your models here.
+from projects.models import ScientificOrganization, Project, ProjectMembership, Article, ScientificEvent, \
+    EventParticipation
+
+
+@admin.register(ScientificOrganization)
+class ScientificOrganizationAdmin(admin.ModelAdmin):
+    list_display = ("name", "country", "is_base_organization")
+    search_fields = ("name", "country")
+    prepopulated_fields = {"slug": ("name",)}
+    list_filter = ("is_base_organization", "country")
+
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ("title", "acronym", "status", "category", "created_by")
+    list_filter = ("status", "category")
+    search_fields = ("title", "acronym", "keywords", "project_number")
+    prepopulated_fields = {"slug": ("title",)}
+    filter_horizontal = ("organizations",)
+
+
+@admin.register(ProjectMembership)
+class ProjectMembershipAdmin(admin.ModelAdmin):
+    list_display = ("project", "name", "role", "scientist")
+    list_filter = ("role",)
+    search_fields = ("name", "email", "project__title")
+
+
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ("title", "project", "journal", "publication_year")
+    list_filter = ("publication_year", "journal_quartile")
+    search_fields = ("title", "journal", "authors", "doi")
+
+
+@admin.register(ScientificEvent)
+class ScientificEventAdmin(admin.ModelAdmin):
+    list_display = ("name", "project", "start_date", "end_date")
+    list_filter = ("start_date",)
+    search_fields = ("name", "location")
+
+
+@admin.register(EventParticipation)
+class EventParticipationAdmin(admin.ModelAdmin):
+    list_display = ("title", "event", "participation_type")
+    list_filter = ("participation_type",)
+    search_fields = ("title", "authors")
+
+

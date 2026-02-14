@@ -1,11 +1,14 @@
 {% extends 'projects/project-base.html' %}
 {% load static %}
+{% load profile_pic_tags %}
 
 {% block project_content %}
+
 
 <div class="project-members">
   <div class="project-members-list">
     <h2>Project members</h2>
+
 
     {# LEADER #}
     {% if leader %}
@@ -15,13 +18,7 @@
           <a href="{% url 'profile-public' leader.scientist.slug %}">
         {% endif %}
 
-          {% if leader.scientist and leader.scientist.profile_picture %}
-            <img src="{{ leader.scientist.profile_picture.url }}" class="member-pic">
-          {% elif leader.scientist and leader.scientist.profile_picture_url %}
-            <img src="{{ leader.scientist.profile_picture_url }}" class="member-pic">
-          {% else %}
-            <img src="{% static 'images/no_image.png' %}" class="member-pic">
-          {% endif %}
+            <img src="{% profile_image leader.scientist %}" class="member-pic">
 
         {% if leader.scientist %}
           </a>
@@ -49,7 +46,7 @@
             </form>
           </div>
         {% endif %}
-    </div>
+      </div>
     {% endif %}
 
     {# MEMBERS #}
@@ -60,13 +57,7 @@
           <a href="{% url 'profile-public' membership.scientist.slug %}">
         {% endif %}
 
-          {% if membership.scientist and membership.scientist.profile_picture %}
-            <img src="{{ membership.scientist.profile_picture.url }}" class="member-pic">
-          {% elif membership.scientist and membership.scientist.profile_picture_url %}
-            <img src="{{ membership.scientist.profile_picture_url }}" class="member-pic">
-          {% else %}
-            <img src="{% static 'images/no_image.png' %}" class="member-pic">
-          {% endif %}
+            <img src="{% profile_image membership.scientist %}" class="member-pic">
 
         {% if membership.scientist %}
           </a>
@@ -97,12 +88,38 @@
     {% empty %}
       <p>No members have been added yet.</p>
     {% endfor %}
-  </div>
-</div>
-<div class="project-actions-bottom">
-  <a href="{% url 'project-members-add' project.slug %}"
-     class="btn-project-action">
-    + Add members
-  </a>
-</div>
+    </div>
+
+    {% if page_obj %}
+    <div class="members-navigation">
+
+        {% if page_obj.has_previous %}
+            <a class="slider-btn"
+               href="?page={{ page_obj.previous_page_number }}">
+                &#10094;
+            </a>
+        {% else %}
+            <span class="slider-btn disabled">&#10094;</span>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a class="slider-btn"
+               href="?page={{ page_obj.next_page_number }}">
+                &#10095;
+            </a>
+        {% else %}
+            <span class="slider-btn disabled">&#10095;</span>
+        {% endif %}
+        </div>
+    {% endif %}
+    </div>
+
+    {% if can_manage %}
+        <div class="project-actions-bottom">
+          <a href="{% url 'project-members-add' project.slug %}"
+             class="btn-project-action">
+            + Add members
+          </a>
+        </div>
+    {% endif %}
 {% endblock %}

@@ -7,7 +7,7 @@
 
 .profile-card {
     width: 100%;
-    max-width: 720px;
+    max-width: 700px;
     background-color: #ffffff;
     border-radius: 10px;
     padding: 1.3rem 3rem;
@@ -22,7 +22,7 @@
 }
 
 .profile-name {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 0.3rem;
 }
 
@@ -57,7 +57,7 @@
 
 
 .profile-text {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     line-height: 1.6;
     color: #333;
 }
@@ -96,6 +96,11 @@
     display: block;
     font-weight: 500;
     margin-bottom: 0.4rem;
+    margin-top: 0.6rem;
+}
+
+.form-separator {
+    padding-bottom: 0.2rem;
 }
 
 .form-group input,
@@ -114,8 +119,8 @@
 }
 
 .profile-picture {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     margin: 0 auto;
     overflow: hidden;
     display: flex;
@@ -136,12 +141,6 @@
     margin-top: 0.3rem;
     font-size: 0.8rem;
     color: #6b7280;
-}
-
-.form-error {
-    margin-top: 0.3rem;
-    font-size: 0.8rem;
-    color: #dc2626;
 }
 
 
@@ -224,12 +223,12 @@
 
 
 .profile-card--public {
-    max-width: 760px;
+    max-width: 700px;
 }
 
 
 .profile-card--public .profile-name {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
 }
 
 
@@ -271,4 +270,30 @@
     margin-top: 1.5rem;
 }
 
+.profile-project-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
 
+.profile-project-list li {
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+}
+
+
+.profile-project-list a {
+    color: #0f766e;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.profile-project-list a:hover {
+    text-decoration: underline;
+}
+
+.profile-project-list .project-number {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-left: 0.4rem;
+}

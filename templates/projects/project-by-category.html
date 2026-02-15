@@ -12,6 +12,9 @@
                 <a href="{% url 'project-overview' project.slug %}">
                     {{ project.title }}
                 </a>
+                <div class="project-meta">
+                    {{ project.project_number }}
+                </div>
             </li>
           {% endfor %}
         </ul>

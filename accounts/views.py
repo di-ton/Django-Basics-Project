@@ -9,7 +9,7 @@ from accounts.forms import ScientistProfileForm, CustomAuthenticationForm
 from accounts.mixins import ProfileRequiredMixin
 from accounts.models import ScientistProfile
 from accounts.forms import UserRegisterForm, ScientistProfileUpdateForm
-
+from projects.models import Project
 
 User = get_user_model()
 
@@ -60,6 +60,18 @@ class PublicProfileDetailView(DetailView):
             slug=self.kwargs["slug"],
         )
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        scientist = self.object
+
+        projects = Project.objects.filter(
+            memberships__scientist=scientist
+        ).distinct()
+
+        context["projects"] = projects
+
+        return context
 
 
 class ProfileDetailsView(LoginRequiredMixin, ProfileRequiredMixin, DetailView):

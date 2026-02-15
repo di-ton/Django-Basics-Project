@@ -12,7 +12,7 @@
             </h1>
 
             <p class="profile-meta">
-                {{ scientist.academic_degree }} · {{ scientist.affiliation }}
+                {{ scientist.get_academic_degree_display }} · {{ scientist.affiliation }}
             </p>
         </div>
 
@@ -48,6 +48,24 @@
                 {% endif %}
             </ul>
         </div>
+        {% if projects %}
+            <div class="profile-section">
+                <h3>Projects</h3>
+
+                <ul class="profile-project-list">
+                    {% for project in projects %}
+                        <li>
+                            <a href="{% url 'project-overview' project.slug %}">
+                                {{ project.title }}
+                            </a>
+                            <span class="project-number">
+                                ({{ project.project_number }})
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
     </div>
 </div>

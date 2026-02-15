@@ -3,7 +3,7 @@
 {% block content %}
     <div class="page-project-list">
         <div class="page-project-list-header">
-            <h2>Projects associated with the profile</h2>
+            <h2>Projects associated with your profile</h2>
         </div>
         {% if projects %}
           <div class="project-list">
@@ -16,12 +16,14 @@
                     {{ project.title }}
                   </a>
                 </h3>
-
-                {% if project.user_membership %}
-                  <div class="project-role">
-                    Role: {{ project.user_membership.get_role_display }}
-                  </div>
-                {% endif %}
+                <div class="project-meta">
+                    <div>Project number: {{ project.project_number }}</div>
+                  {% if project.user_membership %}
+                    <div class="project-role">
+                      {{ project.user_membership.get_role_display }}
+                    </div>
+                  {% endif %}
+                </div>
 
               </div>
             {% endfor %}

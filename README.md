@@ -7,7 +7,7 @@ sciProSpace is a Django-based web application designed to manage and showcase sc
 The project follows a standard Django architecture with the following main components:
 
 *   **sciProSpace/**: The main project configuration directory.
-*   **accounts/**: Handles user authentication, registration, and profile management.
+*   **accounts/**: Handles user authentication, registration, and profile management. The registration process consists of two steps: entering an email and password, followed by completing the user profile information.
 *   **projects/**: Manages the core functionality related to projects. This includes:
     *   **Overview**: General information about the project.
     *   **Members**: Management of project members and their roles (Leader, Member).
@@ -79,3 +79,11 @@ The project follows a standard Django architecture with the following main compo
     ```
 
     Access the application at `http://127.0.0.1:8000/`.
+    
+    > **Note:** The application interface is currently optimized for desktop devices.
+
+---
+
+### Project Information
+
+This project was created by **Diana Toneva** as an exam project for the Django Basics course at SoftUni.

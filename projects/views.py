@@ -76,17 +76,32 @@ class ProjectListView(LoginRequiredMixin, ListView):
     template_name = "projects/project-list.html"
     context_object_name = "projects"
 
+    # def get_queryset(self):
+    #     user = self.request.user
+    #
+    #     if not user.is_authenticated:
+    #         return Project.objects.none()
+    #
+    #     profile = user.scientist_profile
+    #
+    #     projects = Project.objects.filter(
+    #         memberships__scientist=profile
+    #     ).distinct()
+    #
+    #     return projects
+
     def get_queryset(self):
         user = self.request.user
-
-        if not user.is_authenticated:
-            return Project.objects.none()
-
         profile = user.scientist_profile
 
         projects = Project.objects.filter(
             memberships__scientist=profile
         ).distinct()
+
+        for project in projects:
+            project.user_membership = project.memberships.filter(
+                scientist=profile
+            ).first()
 
         return projects
 

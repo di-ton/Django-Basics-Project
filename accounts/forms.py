@@ -129,14 +129,14 @@ class ScientistProfileForm(forms.ModelForm):
 
     orcid_id = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "ORCID ID"}),
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter your ORCID ID"}),
         label="ORCID ID:",
     )
 
     scopus_id = forms.CharField(
         required=False,
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Scopus ID"}),
-        label="Scopus ID:",
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter your Scopus Author ID"}),
+        label="Scopus Author ID:",
     )
 
 
@@ -164,7 +164,7 @@ class ScientistProfileForm(forms.ModelForm):
         label="Profile picture URL:",
         widget=forms.URLInput(attrs={
             "class": "form-control",
-            "placeholder": "Paste a link to an online image",
+            "placeholder": "Paste a link to your online image",
         }),
     )
 
@@ -175,14 +175,14 @@ class ScientistProfileForm(forms.ModelForm):
         orcid = cleaned_data.get("orcid_id")
         scopus = cleaned_data.get("scopus_id")
         if not orcid and not scopus:
-            raise forms.ValidationError("Please provide at least one of ORCID ID or Scopus ID.")
+            raise forms.ValidationError("Please provide at least one of ORCID ID or Scopus Author ID.")
 
         uploaded = cleaned_data.get("profile_picture")
         url = cleaned_data.get("profile_picture_url")
 
         if uploaded and url:
             raise forms.ValidationError(
-                "Please choose either an uploaded picture OR a URL, not both."
+                "Please choose either an uploaded picture or a URL, not both."
             )
 
         return cleaned_data

@@ -77,6 +77,7 @@ class Project(TimeStampedModel):
         related_name="created_projects"
     )
 
+
     def can_manage(self, user):
         if not user.is_authenticated:
             return False
@@ -148,6 +149,8 @@ class ProjectMembership(models.Model):
         max_length=20,
         choices=ROLE_CHOICES
     )
+
+
 
     class Meta:
         constraints = [

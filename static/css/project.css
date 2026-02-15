@@ -19,7 +19,7 @@
 .project-card h2 {
     padding-top: 0.2rem;
     padding-bottom: 1rem;
-    padding-left: 2.9rem;
+    padding-left: 2rem;
     color: #0f3d2e;
 }
 
@@ -41,8 +41,14 @@
 
 
 .project-meta {
-    color: #555;
-    font-size: 0.95rem;
+  margin-top: 0.6rem;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.project-role {
+  margin-top: 0.3rem;
+  color: #065f46;
 }
 
 
@@ -234,8 +240,6 @@
   font-weight: 600;
   text-decoration: none;
 }
-
-
 
 .member-card {
     display: flex;
@@ -520,12 +524,12 @@
     text-decoration: none;
 }
 
-.project-card {
+.project-list .project-card {
   width: 100%;
   max-width: 900px;
   background: #ffffff;
   border-radius: 12px;
-  padding: 1.6rem;
+  padding: 1.6rem 1.6rem 1.8rem;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }

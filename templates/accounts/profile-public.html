@@ -32,9 +32,7 @@
                 {% if scientist.orcid_id %}
                     <li>
                         <strong>ORCID ID:</strong>
-                        <a href="https://orcid.org/{{ scientist.orcid_id }}"
-                           target="_blank"
-                           rel="noopener">
+                        <a href="https://orcid.org/{{ scientist.orcid_id }}" target="_blank" rel="noopener">
                             {{ scientist.orcid_id }}
                         </a>
                     </li>
@@ -56,7 +54,7 @@
                     {% for project in projects %}
                         <li>
                             <a href="{% url 'project-overview' project.slug %}">
-                                {{ project.title }}
+                                {{ project.title|capfirst }}
                             </a>
                             <span class="project-number">
                                 ({{ project.project_number }})

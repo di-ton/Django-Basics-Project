@@ -18,7 +18,7 @@ from projects.models import Article, ScientificEvent, Project, ProjectMembership
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
-    template_name = "projects/project-form.html"
+    template_name = 'projects/project-create.html'
     form_class = ProjectCreateForm
 
     def form_valid(self, form):
@@ -53,7 +53,7 @@ class ProjectOverviewView(ProjectMixin, TemplateView):
 
 class ProjectUpdateView(ProjectMixin, UpdateView):
     model = Project
-    template_name = "projects/project-form.html"
+    template_name = "projects/project-update.html"
     form_class = ProjectUpdateForm
 
     def get_success_url(self):
@@ -75,20 +75,7 @@ class ProjectListView(LoginRequiredMixin, ListView):
     model = Project
     template_name = "projects/project-list.html"
     context_object_name = "projects"
-
-    # def get_queryset(self):
-    #     user = self.request.user
-    #
-    #     if not user.is_authenticated:
-    #         return Project.objects.none()
-    #
-    #     profile = user.scientist_profile
-    #
-    #     projects = Project.objects.filter(
-    #         memberships__scientist=profile
-    #     ).distinct()
-    #
-    #     return projects
+    ordering = ["-start_date"]
 
     def get_queryset(self):
         user = self.request.user
@@ -191,36 +178,6 @@ def project_member_remove(request, slug, member_id):
         membership.delete()
 
     return redirect("project-members", project.slug)
-
-# class ProjectMemberRemoveView(LoginRequiredMixin, View):
-#     model = ProjectMembership
-#     template_name = "projects/project-membership-delete.html"
-#
-#     def post(self, request, slug, member_id):
-#         project = get_object_or_404(Project, slug=slug)
-#
-#         membership = get_object_or_404(
-#             ProjectMembership,
-#             pk=member_id,
-#             project=project,
-#         )
-#
-#
-#         if not project.can_manage(request.user):
-#             return HttpResponseForbidden("Not allowed")
-#
-#
-#         if (
-#             membership.scientist
-#             and membership.scientist.user == project.created_by
-#         ):
-#             return HttpResponseForbidden(
-#                 "Project creator cannot be removed"
-#             )
-#
-#         membership.delete()
-#
-#         return redirect("project-members", project.slug)
 
 
 class ProjectMembersView(ProjectMixin, TemplateView):
@@ -364,7 +321,7 @@ class ProjectEventsView(ProjectMixin, ListView):
     context_object_name = "events"
 
     def get_queryset(self):
-        return ScientificEvent.objects.filter(project=self.get_project())
+        return ScientificEvent.objects.filter(project=self.get_project()).order_by("-start_date")
 
 
 class EventCreateView(ProjectMixin, CreateView):
@@ -401,6 +358,7 @@ class EventUpdateView(ProjectMixin, UpdateView):
 class EventDeleteView(ProjectMixin, DeleteView):
     model = ScientificEvent
     template_name = "events/event-delete.html"
+    context_object_name = "event"
 
     def get_queryset(self):
         return ScientificEvent.objects.filter(project=self.get_project())

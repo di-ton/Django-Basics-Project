@@ -1,13 +1,13 @@
 {% extends "projects/project-base.html" %}
 
 {% block project_content %}
-<div class="project-section">
+<div class="article-section-delete">
 
   <h2>Delete Event</h2>
 
   <div class="delete-warning">
     <p>
-      You are about to delete the event:
+      You are about to delete this event:
     </p>
     <p>
       <strong>{{ event.name }}</strong>
@@ -17,11 +17,11 @@
   <form method="post" class="delete-form">
     {% csrf_token %}
 
-    <button type="submit" class="btn-danger">
-      Yes, delete event
+    <button type="submit" class="btn-article-delete">
+      Yes, delete the event
     </button>
 
-    <a href="{% url 'project-events' project.slug %}" class="btn-secondary">
+    <a href="{% url 'project-events' project.slug %}" class="btn-article-cancel">
       Cancel
     </a>
   </form>

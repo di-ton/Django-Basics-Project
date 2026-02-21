@@ -9,27 +9,36 @@
   <div class="project-members-list">
     <h2>Project members</h2>
 
-
     {# LEADER #}
     {% if leader %}
       <div class="member-card leader-card">
 
+{#        {% if leader.scientist %}#}
+{#          <a href="{% url 'profile-public' leader.scientist.slug %}">#}
+{#        {% endif %}#}
+{##}
+{#            <img src="{% profile_image leader.scientist %}" class="member-pic">#}
+{##}
+{#        {% if leader.scientist %}#}
+{#          </a>#}
+{#        {% endif %}#}
         {% if leader.scientist %}
           <a href="{% url 'profile-public' leader.scientist.slug %}">
-        {% endif %}
-
             <img src="{% profile_image leader.scientist %}" class="member-pic">
-
-        {% if leader.scientist %}
           </a>
+        {% else %}
+          <img src="{% profile_image leader.scientist %}" class="member-pic">
         {% endif %}
 
         <div class="member-info">
-          <strong>{{ leader.name }}</strong><br>
-          <span class="leader-label">Project leader</span><br>
+          <strong>{{ leader.name }}</strong>
+          <br>
+          <span class="leader-label">Project leader</span>
+          <br>
 
           {% if leader.scientist %}
-            {{ leader.scientist.get_academic_position_display }}<br>
+            {{ leader.scientist.get_academic_position_display }}
+              <br>
             {{ leader.scientist.affiliation }}
           {% endif %}
         </div>
@@ -53,14 +62,21 @@
     {% for membership in members %}
       <div class="member-card">
 
+{#        {% if membership.scientist %}#}
+{#          <a href="{% url 'profile-public' membership.scientist.slug %}">#}
+{#        {% endif %}#}
+{##}
+{#            <img src="{% profile_image membership.scientist %}" class="member-pic">#}
+{##}
+{#        {% if membership.scientist %}#}
+{#          </a>#}
+{#        {% endif %}#}
         {% if membership.scientist %}
           <a href="{% url 'profile-public' membership.scientist.slug %}">
-        {% endif %}
-
             <img src="{% profile_image membership.scientist %}" class="member-pic">
-
-        {% if membership.scientist %}
           </a>
+        {% else %}
+            <img src="{% profile_image membership.scientist %}" class="member-pic">
         {% endif %}
 
         <div class="member-info">
@@ -116,8 +132,7 @@
 
     {% if can_manage %}
         <div class="project-actions-bottom">
-          <a href="{% url 'project-members-add' project.slug %}"
-             class="btn-project-action">
+          <a href="{% url 'project-members-add' project.slug %}" class="btn-project-action">
             + Add members
           </a>
         </div>

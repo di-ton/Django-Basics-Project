@@ -27,18 +27,15 @@
               </div>
               {% if can_manage %}
                   <div class="event-actions">
-                    <a href="{% url 'project-event-edit' project.slug event.pk %}"
-                       class="btn-article-edit">
+                    <a href="{% url 'project-event-edit' project.slug event.pk %}" class="btn-article-edit">
                       Edit
                     </a>
-                    <a href="{% url 'project-event-delete' project.slug event.pk %}"
-                       class="btn-article-delete">
+                    <a href="{% url 'project-event-delete' project.slug event.pk %}" class="btn-article-delete">
                       Delete
                     </a>
                   </div>
               {% endif %}
             </div>
-
 
             <div class="event-participations">
               <h4 class="event-participations-title">Participations</h4>
@@ -47,7 +44,7 @@
                 <div class="participation-item">
                   <div class="participation-main">
                     <div class="participation-title">
-                      {{ participation.title }}
+                      {{ participation.title|capfirst }}
                     </div>
 
                     {% if participation.authors %}
@@ -78,25 +75,23 @@
               {% endfor %}
               {% if can_manage %}
                   <div class="event-participations-actions">
-                    <a href="{% url 'event-participation-add' project.slug event.pk %}"
-                       class="btn-project-action">
+                    <a href="{% url 'event-participation-add' project.slug event.pk %}" class="btn-project-action">
                       + Add participation
                     </a>
                  </div>
               {% endif %}
             </div>
-
           </div>
+        </div>
         {% empty %}
           <p>No events yet.</p>
         {% endfor %}
-    </div>
+
     {% if can_manage %}
         <div class="project-actions-bottom">
-              <a href="{% url 'project-event-add' project.slug %}"
-                 class="btn-project-action">
-                + Add event
-              </a>
+          <a href="{% url 'project-event-add' project.slug %}" class="btn-project-action">
+            + Add event
+          </a>
         </div>
     {% endif %}
   </div>

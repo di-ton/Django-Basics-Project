@@ -31,12 +31,12 @@
 }
 
 .project-header h1 {
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-bottom: 0.4rem;
     font-weight: 600;
     letter-spacing: -0.01em;
     line-height: 1.2;
-    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.14);
 }
 
 
@@ -63,6 +63,7 @@
 }
 
 .project-nav a {
+    font-size: 1.05rem;
     text-decoration: none;
     font-weight: 600;
     color: #0f3d2e;
@@ -107,10 +108,13 @@
 .project-desc {
   font-size: 1.05rem;
   padding: 1.5rem;
-  line-height: 1.65;
+  line-height: 1.6;
   color: #333;
   background: #f6fdfb;
   border-radius: 8px;
+  text-align: justify;
+  text-justify: inter-word;
+  text-indent: 2em;
 }
 
 .project-metadata {
@@ -131,6 +135,7 @@
   font-weight: 600;
   color: #1f2937;
   margin-top: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
 .project-metadata dd {
@@ -160,17 +165,26 @@
 
 /* MEMBERS */
 .project-members-form-page {
-  margin: 1rem auto 1.5rem;
+  margin: 0 auto;
   max-width: 750px;
 }
 
 .project-members-form-page > h2 {
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-members-instructions {
+    background: #f6fcfa;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    color: #444;
 }
 
 .project-members {
-  margin: 0.5rem auto 1.2rem;
+  margin: 0.5rem auto;
   max-width: 1100px;
 }
 
@@ -354,7 +368,7 @@
 }
 
 .page-project-list-header h2 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   padding-left: 0.3rem;
   margin-bottom: 0.3rem;
   color: #0f3d2e;
@@ -405,6 +419,25 @@
     margin-top: 2rem;
 }
 
+
+.btn-project-member-action {
+    width: 70%;
+    display: block;
+    padding: 0.6rem 1.6rem;
+    border: none;
+    background-color: #0f766e;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.btn-project-member-action:hover {
+    background-color: #0c5f58;
+}
+
 .btn-primary {
     padding: 0.6rem 1.6rem;
     border: none;
@@ -431,8 +464,8 @@
     color: #065f46;
     border: 2px solid #d1d5db;
     border-radius: 6px;
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 600;
     text-decoration: none;
     cursor: pointer;
 }
@@ -448,8 +481,6 @@
 }
 
 /* CATEGORY LIST PAGE */
-
-
 .site-content .category-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -492,7 +523,6 @@
 
 
 /* PROJECT BY CATEGORY PAGE */
-
 .project-category-page {
   max-width: 1100px;
   margin: 2rem auto;
@@ -624,12 +654,10 @@
 }
 
 
-
 .delete-title {
     color: #0f3d2e;
     padding: 0;
 }
-
 
 
 .delete-warning {

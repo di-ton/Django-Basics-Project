@@ -9,7 +9,7 @@ class HomePageView(ListView):
     model = Project
     template_name = "common/home-page.html"
     context_object_name = "projects"
-    ordering = ["-created_at"]
+    ordering = ["-start_date"]
     paginate_by = 4
 
     def get_queryset(self):

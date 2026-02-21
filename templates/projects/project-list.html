@@ -13,7 +13,7 @@
 
                 <h3 class="project-title">
                   <a href="{% url 'project-overview' project.slug %}">
-                    {{ project.title }}
+                    {{ project.title|capfirst }}
                   </a>
                 </h3>
                 <div class="project-meta">
@@ -27,7 +27,6 @@
 
               </div>
             {% endfor %}
-
           </div>
         {% else %}
           <p class="empty-state">No projects available.</p>

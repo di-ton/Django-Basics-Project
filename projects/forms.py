@@ -75,12 +75,26 @@ class ProjectMembershipForm(forms.ModelForm):
         self.fields["email"].label = "Email"
         self.fields["scientist"].label = "Link to an existing profile (optional)"
 
+        # if self.project:
+        #     self.fields["scientist"].queryset = (
+        #         ScientistProfile.objects
+        #         .exclude(project_memberships__project=self.project)
+        #         .order_by("first_name")[:15]
+        #     )
+
         if self.project:
-            self.fields["scientist"].queryset = (
-                ScientistProfile.objects
-                .exclude(project_memberships__project=self.project)
-                .order_by("first_name")[:15]
+            qs = ScientistProfile.objects.exclude(
+                project_memberships__project=self.project
             )
+
+            # If form is bound (POST), always allow submitted value
+            if self.is_bound:
+                submitted_id = self.data.get(self.add_prefix("scientist"))
+                if submitted_id:
+                    qs = qs | ScientistProfile.objects.filter(pk=submitted_id)
+
+            # Limit visually but not logically
+            self.fields["scientist"].queryset = qs.order_by("first_name")
 
     def clean(self):
         cleaned_data = super().clean()
@@ -177,7 +191,7 @@ class ArticleBaseForm(forms.ModelForm):
         ]
 
         labels = {
-            "journal_quartile": "Journal quartile",
+            "journal_quartile": "Journal quartile (WoS or SCImago)",
             "publication_year": "Publication year",
         }
 

@@ -16,16 +16,15 @@
           <div class="projects-grid">
             {% for project in projects %}
               <article class="project-entity">
+                <p class="category">
+                  Category: {{ project.get_category_display }}
+                </p>
 
                 <h3>
                   <a href="{% url 'project-overview' project.slug %}">
                     {{ project.title }}
                   </a>
                 </h3>
-
-                <p class="category">
-                  Category: {{ project.get_category_display }}
-                </p>
 
                 <p class="leader">Project leader:
                   {% for m in project.memberships.all %}

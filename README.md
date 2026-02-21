@@ -1,6 +1,6 @@
 # sciProSpace
 
-sciProSpace is a Django-based web application designed to manage and showcase scientific projects. It allows users to create accounts, manage their profiles, and explore publicly available research projects in a structured and organized way. The platform focuses on presenting scientific work, highlighting project details, and making research outputs accessible to visitors.
+sciProSpace is a Django-based web application designed to manage and showcase scientific projects. It enables users to create accounts, manage their profiles, and explore publicly available research projects in a structured and organized manner. The platform focuses on presenting scientific work, highlighting project details, and making research results accessible to the scientific community.
 
 ## Project Structure
 
@@ -23,7 +23,7 @@ The project follows a standard Django architecture with the following main compo
 
 ### Prerequisites
 
-*   Python 3.x
+*   Python 3.10+
 *   PostgreSQL
 
 ### Installation Steps
@@ -49,7 +49,9 @@ The project follows a standard Django architecture with the following main compo
     ```
 
 4.  **Environment Configuration:**
-    Create a `.env` file in the root directory of the project. This file should contain the following credentials and configuration settings:
+    A `.env.example` file with the required environment variables is included in the project.
+    Create a `.env` file in the root directory by copying it and updating the values.
+    This file should contain the following credentials and configuration settings:
 
     ```env
     DJANGO_SECRET_KEY=your_secret_key_here
@@ -72,7 +74,8 @@ The project follows a standard Django architecture with the following main compo
     python manage.py migrate
     python manage.py loaddata initial_data.json
     ```
-
+    An `initial_data.json` fixture file is included in the project.
+    It contains sample data for three scientific projects, including detailed project overviews, associated members and scientific organizations, as well as related articles and scientific events at which the project results were presented.
 6.  **Run the Development Server:**
     ```bash
     python manage.py runserver

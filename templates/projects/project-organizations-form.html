@@ -1,37 +1,39 @@
 {% extends "projects/project-base.html" %}
 
 {% block project_content %}
-<h2>Add organization</h2>
+<div class="project-organization-form">
+    <h2>Add organization</h2>
 
-<form method="post" class="project-form">
-  {% csrf_token %}
+    <form method="post" class="project-form">
+      {% csrf_token %}
 
-  {% for field in form %}
-      {% if field.name == "is_base_organization" %}
-        <div class="form-group checkbox-group">
-          <label>
-            {{ field }}
-            {{ field.label }}
-          </label>
-          {{ field.errors }}
-        </div>
-      {% else %}
-        <div class="form-group">
-          {{ field.label_tag }}
-          {{ field }}
-          {{ field.errors }}
-        </div>
-      {% endif %}
-    {% endfor %}
+      {% for field in form %}
+          {% if field.name == "is_base_organization" %}
+            <div class="form-group checkbox-group">
+              <label>
+                {{ field }}
+                {{ field.label }}
+              </label>
+              {{ field.errors }}
+            </div>
+          {% else %}
+            <div class="form-group">
+              {{ field.label_tag }}
+              {{ field }}
+              {{ field.errors }}
+            </div>
+          {% endif %}
+        {% endfor %}
 
-  <div class="form-actions">
-    <button type="submit" class="btn-project-org-action">
-      Save organization
-    </button>
+      <div class="form-actions">
+        <button type="submit" class="btn-project-org-action">
+          Save organization
+        </button>
 
-    <a href="{% url 'project-organizations' project.slug %}" class="btn-secondary">
-      Cancel
-    </a>
-  </div>
-</form>
+        <a href="{% url 'project-organizations' project.slug %}" class="btn-secondary">
+          Cancel
+        </a>
+      </div>
+    </form>
+</div>
 {% endblock %}

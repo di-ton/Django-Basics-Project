@@ -17,7 +17,7 @@
         {% for project in projects %}
           <li class="search-result-item">
             <a href="{% url 'project-overview' project.slug %}">
-              {{ project.title }}
+              {{ project.title|capfirst }}
             </a>
           </li>
         {% endfor %}

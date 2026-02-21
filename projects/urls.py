@@ -12,13 +12,14 @@ urlpatterns = [
         path("", views.ProjectOverviewView.as_view(), name="project-overview"),
         path("update/", views.ProjectUpdateView.as_view(), name="project-update"),
         path("delete/", views.ProjectDeleteView.as_view(), name="project-delete"),
-        path("add-members/", views.ProjectMembershipCreateView.as_view(), name="project-members-add"),
-        path("organization/create/", views.ProjectOrganizationCreateView.as_view(), name="project-organization-add"),
-        path("organizations/", views.ProjectOrganizationsView.as_view(), name="project-organizations"),
 
-        path("organizations/<int:organization_id>/remove/", views.project_organization_remove, name="project-organization-delete"),
+        path("add-members/", views.ProjectMembershipCreateView.as_view(), name="project-members-add"),
         path("members/", views.ProjectMembersView.as_view(), name="project-members"),
         path("members/<int:member_id>/remove/", views.project_member_remove, name="project-members-delete"),
+
+        path("organization/create/", views.ProjectOrganizationCreateView.as_view(), name="project-organization-add"),
+        path("organizations/", views.ProjectOrganizationsView.as_view(), name="project-organizations"),
+        path("organizations/<int:organization_id>/remove/", views.project_organization_remove, name="project-organization-delete"),
 
         path("articles/add/", views.ArticleCreateView.as_view(), name="project-article-add"),
         path("articles/", views.ProjectArticlesView.as_view(), name="project-articles"),

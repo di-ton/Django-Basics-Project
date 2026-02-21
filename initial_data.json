@@ -1,0 +1,2393 @@
+[
+{
+  "model": "accounts.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$oFB4iWB6hptr6wSlhNnK2O$J+Iu7DnkcCFFnyvvQ3E6in4VFEJOWcuX1NWMxST9sRo=",
+    "last_login": "2026-02-14T15:19:09.516Z",
+    "is_superuser": true,
+    "email": "admin@admin.com",
+    "is_active": true,
+    "is_staff": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$uW4yjezhECLB6QdewlK3mx$cUHiQGsyU26RGKibUzeiUUxkMQ1d3L5jq3+Kj/Y4FUU=",
+    "last_login": "2026-02-21T13:15:03.513Z",
+    "is_superuser": false,
+    "email": "ditoneva@abv.bg",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.scientistprofile",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-02-19T16:29:25.802Z",
+    "updated_at": "2026-02-19T16:29:25.802Z",
+    "first_name": "Diana",
+    "last_name": "Toneva",
+    "academic_degree": "PHD",
+    "academic_position": "ASSOCIATE_PROF",
+    "affiliation": "IEMPAM-BAS",
+    "orcid_id": "0000-0001-7424-9704",
+    "scopus_id": "55361431000",
+    "profile_picture": "",
+    "profile_picture_url": "https://i1.rgstatic.net/ii/profile.image/278065235152896-1443307326385_Q128/Diana-Toneva-2.jpg",
+    "research_interests": "Forensic Anthropology, Osteology, Physical Anthropology, 3D Imaging, Geometric Morphometrics",
+    "is_approved": true,
+    "slug": "diana-toneva-6"
+  }
+},
+{
+  "model": "projects.scientificorganization",
+  "pk": 1,
+  "fields": {
+    "name": "IEMPAM-BAS",
+    "country": "Bulgaria",
+    "address": "Sofia 1113, Acad. Georgi Bonchev Str., bl. 25",
+    "website": "https://www.iempam.bas.bg/",
+    "description": "",
+    "slug": "iempam-bas",
+    "is_base_organization": true
+  }
+},
+{
+  "model": "projects.scientificorganization",
+  "pk": 2,
+  "fields": {
+    "name": "IICT-BAS",
+    "country": "Bulgaria",
+    "address": "Sofia 1113, Acad. Georgi Bonchev Str., bl. 2",
+    "website": "https://www.iict.bas.bg/",
+    "description": "",
+    "slug": "iict-bas",
+    "is_base_organization": false
+  }
+},
+{
+  "model": "projects.scientificorganization",
+  "pk": 14,
+  "fields": {
+    "name": "Medical University - Sofia",
+    "country": "Bulgaria",
+    "address": "Sofia 1431, bul. \"Acad. Ivan Geshov\" No 15",
+    "website": "https://mu-sofia.bg/",
+    "description": "",
+    "slug": "medical-university-sofia",
+    "is_base_organization": false
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-02-19T16:43:14.097Z",
+    "updated_at": "2026-02-20T19:32:02.933Z",
+    "title": "Research on skeletal system applying morphometrics and artificial intelligence approaches",
+    "acronym": "ReSyMorAI",
+    "keywords": "bones, machine learning, 3D imaging, geometric morphometrics",
+    "description": "The main objective of the project is to seek new knowledge about sex- and age-specific morphometric characteristics and manifestations of asymmetry in the skeletal system of the contemporary Bulgarian population. This is carried out using 3D imaging through non-invasive virtual anatomical dissections, image processing, segmentation of human body structures, and the application of classical statistical methods, including geometric morphometrics, as well as artificial intelligence algorithms for data analysis and the development of mathematical models for intelligent problem-solving in various classes of biomedical tasks.\r\nThe multidisciplinary approaches for data collection and analysis contribute to a deeper understanding of the relationships between shape, size, and the manifestation of asymmetry in selected skeletal structures, as well as their association with biological characteristics such as sex and age in the contemporary Bulgarian population.",
+    "funder": "Bulgarina National Science Fund",
+    "project_number": "КП-06-H51/4 - 11.11.2021",
+    "start_date": "2021-11-11",
+    "status": "ongoing",
+    "category": "BIO",
+    "slug": "resymorai-4",
+    "created_by": 6,
+    "organizations": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-02-19T18:10:40.482Z",
+    "updated_at": "2026-02-21T07:30:59.781Z",
+    "title": "Investigation of human anatomic variations on three-dimensional models using innovative and interdisciplinary approaches and organization of a Virtual Anatomy Collection",
+    "acronym": null,
+    "keywords": "skull, anatomical variations, 3D models",
+    "description": "The project focuses on advancing the study of anatomical variations of the human skull through innovative and interdisciplinary approaches grounded in three-dimensional modeling. Its main aims are as follows: 1) To investigate anatomical variations of the skull using 3D volume and polygonal models generated through different digitization technologies; 2) To perform comparative qualitative and quantitative analyses by applying statistical methods of geometric morphometrics; 3) To develop an ontology of skull anatomical variations that defines taxonomies, hierarchies, and relationships among variations; 4) To create a Virtual Anatomy Collection based on Linked Open Data that serves as a structured, interoperable database; 5) To enable the application of data mining methods for identifying patterns and regularities in the etiology and localization of anatomical variations.",
+    "funder": "Bulgarina National Science Fund",
+    "project_number": "ДН11/9 – 15.12.2017",
+    "start_date": "2017-12-15",
+    "status": "completed",
+    "category": "BIO",
+    "slug": "skull-anatomical-variations-3d-models-5",
+    "created_by": 6,
+    "organizations": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-02-20T17:19:55.309Z",
+    "updated_at": "2026-02-20T17:19:55.309Z",
+    "title": "Virtual anthropology – an innovative and interdisciplinary approach for investigations in the field of biomedicine",
+    "acronym": null,
+    "keywords": "virtual anthropology, bones, biological profile",
+    "description": "The project includes the following tasks: 1) Validation of a method for sex determination in Bulgarians based on metric characteristics of the skull by the development of discriminant functions; 2) Development of a new method for estimation of the physiological age based on a quantitative assessment of the degree of suture obliteration; 3) Creation of database and development of sex and age specific standards of the soft tissue thicknesses for the Bulgarian population and adaptation of a method for virtual reconstruction of the soft tissues on the skull; 4) Development of advanced methods for image processing of medical CT data. The project combines interdisciplinary approaches, applied for the first time in Bulgaria.",
+    "funder": "Bulgarina National Science Fund",
+    "project_number": "ДН01/15 - 20.12.2016",
+    "start_date": "2016-12-20",
+    "status": "completed",
+    "category": "BIO",
+    "slug": "virtual-anthropology-bones-biological-profile-6",
+    "created_by": 6,
+    "organizations": [
+      1,
+      2,
+      14
+    ]
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 18,
+  "fields": {
+    "project": 4,
+    "name": "Diana Toneva",
+    "email": "ditoneva@abv.bg",
+    "scientist": 6,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 19,
+  "fields": {
+    "project": 4,
+    "name": "Silviya Nikolova",
+    "email": "sil_nikolova@abv.bg",
+    "scientist": null,
+    "role": "leader"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 20,
+  "fields": {
+    "project": 4,
+    "name": "Dora Zlatareva",
+    "email": "dorazlat@medfac.mu-sofia.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 21,
+  "fields": {
+    "project": 4,
+    "name": "Gennady Agre",
+    "email": "gennady.agre@iict.bas.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 22,
+  "fields": {
+    "project": 4,
+    "name": "Stanislav Harizanov",
+    "email": "sharizanov@parallel.bas.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 23,
+  "fields": {
+    "project": 4,
+    "name": "Nevena Fileva",
+    "email": "nfileva@medfac.mu-sofia.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 24,
+  "fields": {
+    "project": 4,
+    "name": "Georgi Milenov",
+    "email": "g.milenov@medfac.mu-sofia.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 25,
+  "fields": {
+    "project": 4,
+    "name": "Elena Tasheva-Terzieva",
+    "email": "elena.tasheva@gmail.com",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 26,
+  "fields": {
+    "project": 5,
+    "name": "Diana Toneva",
+    "email": "ditoneva@abv.bg",
+    "scientist": 6,
+    "role": "leader"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 28,
+  "fields": {
+    "project": 5,
+    "name": "Dora Zlatareva",
+    "email": "dorazlat@medfac.mu-sofia.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 30,
+  "fields": {
+    "project": 5,
+    "name": "Vassil Hadjidekov",
+    "email": "hadjidekov@gmail.com",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 31,
+  "fields": {
+    "project": 5,
+    "name": "Ivan Georgiev",
+    "email": "ivan.georgiev@parallel.bas.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 32,
+  "fields": {
+    "project": 5,
+    "name": "Kiril Simov",
+    "email": "kivs@bultreebank.org",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 33,
+  "fields": {
+    "project": 5,
+    "name": "Elena Tasheva-Terzieva",
+    "email": "elena.tasheva@gmail.com",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 34,
+  "fields": {
+    "project": 5,
+    "name": "Neli Ivanova",
+    "email": "neli_bonev@abv.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 35,
+  "fields": {
+    "project": 5,
+    "name": "Gennady Agre",
+    "email": "gennady.agre@iict.bas.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 36,
+  "fields": {
+    "project": 5,
+    "name": "Stanislav Harizanov",
+    "email": "sharizanov@parallel.bas.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 37,
+  "fields": {
+    "project": 5,
+    "name": "Silviya Nikolova",
+    "email": "sil_nikolova@abv.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 38,
+  "fields": {
+    "project": 6,
+    "name": "Diana Toneva",
+    "email": "ditoneva@abv.bg",
+    "scientist": 6,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 39,
+  "fields": {
+    "project": 6,
+    "name": "Silviya Nikolova",
+    "email": "sil_nikolova@abv.bg",
+    "scientist": null,
+    "role": "leader"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 41,
+  "fields": {
+    "project": 6,
+    "name": "Angel Dandov",
+    "email": "angel.dandov@gmail.com",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 42,
+  "fields": {
+    "project": 6,
+    "name": "Vassil Hadjidekov",
+    "email": "hadjidekov@gmail.com",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 43,
+  "fields": {
+    "project": 6,
+    "name": "Dora Zlatareva",
+    "email": "dorazlat@medfac.mu-sofia.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 44,
+  "fields": {
+    "project": 6,
+    "name": "Stanislav Harizanov",
+    "email": "sharizanov@parallel.bas.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 45,
+  "fields": {
+    "project": 6,
+    "name": "Vessela Kareva",
+    "email": "v.statkova@gmail.com",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 46,
+  "fields": {
+    "project": 6,
+    "name": "Ivan Georgiev",
+    "email": "ivan.georgiev@parallel.bas.bg",
+    "scientist": null,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-02-19T17:03:27.427Z",
+    "updated_at": "2026-02-19T17:03:27.427Z",
+    "project": 4,
+    "title": "Sexual dimorphism in shape and size of the neurocranium",
+    "authors": "Toneva, D., Nikolova, S., Tasheva-Terzieva, E., Zlatareva, D., Lazarov, N.",
+    "journal": "International Journal of Legal Medicine",
+    "journal_quartile": "Q1",
+    "publication_year": 2022,
+    "doi": "https://doi.org/10.1007/s00414-022-02876-0",
+    "article_url": "https://link.springer.com/article/10.1007/s00414-022-02876-0"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-02-19T17:05:49.794Z",
+    "updated_at": "2026-02-19T17:05:49.794Z",
+    "project": 4,
+    "title": "A Geometric Morphometric Study on Sexual Dimorphism in Viscerocranium",
+    "authors": "Toneva, D., Nikolova, S., Tasheva-Terzieva, E., Zlatareva, D., Lazarov, N.",
+    "journal": "Biology",
+    "journal_quartile": "Q1",
+    "publication_year": 2022,
+    "doi": "https://doi.org/10.3390/biology11091333",
+    "article_url": "https://www.mdpi.com/2079-7737/11/9/1333"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-02-19T17:07:31.140Z",
+    "updated_at": "2026-02-19T17:07:31.140Z",
+    "project": 4,
+    "title": "Osseous Bridges of  the Sphenoid Bone: Frequency, Bilateral and Sex Distribution",
+    "authors": "Nikolova, S., Toneva, D., Zlatareva, D., Fileva, N.",
+    "journal": "Biology",
+    "journal_quartile": "Q1",
+    "publication_year": 2023,
+    "doi": "https://doi.org/10.3390/biology12040492",
+    "article_url": "https://www.mdpi.com/2079-7737/12/4/492"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 9,
+  "fields": {
+    "created_at": "2026-02-19T17:10:09.730Z",
+    "updated_at": "2026-02-19T17:10:09.730Z",
+    "project": 4,
+    "title": "Anatomical variations in the  frontal and occipital bones: A comparative study of neurocranial morphology",
+    "authors": "Nikolova, S., Toneva, D., Lazarov, N.",
+    "journal": "Anthropological Science",
+    "journal_quartile": "Q2",
+    "publication_year": 2023,
+    "doi": "https://doi.org/10.1537/ase.230112",
+    "article_url": "https://www.jstage.jst.go.jp/article/ase/advpub/0/advpub_230112/_article/-char/en"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 10,
+  "fields": {
+    "created_at": "2026-02-19T17:12:41.866Z",
+    "updated_at": "2026-02-19T17:12:41.866Z",
+    "project": 4,
+    "title": "Sex estimation based on mandibular measurements",
+    "authors": "Toneva, D., Nikolova, S., Agre, G., Zlatareva, D., Fileva, N., Lazarov, N.",
+    "journal": "Anthropologischer Anzeiger",
+    "journal_quartile": "Q3",
+    "publication_year": 2024,
+    "doi": "10.1127/anthranz/2023/1733",
+    "article_url": "https://www.schweizerbart.de/papers/anthranz/detail/prepub/102984/Sex_estimation_based_on_mandibular_measurements"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 11,
+  "fields": {
+    "created_at": "2026-02-19T17:14:07.438Z",
+    "updated_at": "2026-02-19T17:14:07.438Z",
+    "project": 4,
+    "title": "Enhancing Sex Estimation Accuracy with Cranial Angle Measurements and Machine Learning",
+    "authors": "Toneva D., Nikolova S., Agre G., Harizanov S., Fileva N., Milenov G., Zlatareva D.",
+    "journal": "Biology",
+    "journal_quartile": "Q1",
+    "publication_year": 2024,
+    "doi": "https://doi.org/10.3390/biology13100780",
+    "article_url": "https://www.mdpi.com/2079-7737/13/10/780"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 12,
+  "fields": {
+    "created_at": "2026-02-19T17:15:35.203Z",
+    "updated_at": "2026-02-21T14:09:24.111Z",
+    "project": 4,
+    "title": "Basis Cranii Interna in Metopism: A Comparative Geometric Morphometric Study",
+    "authors": "Nikolova, S., Toneva, D.",
+    "journal": "Biology",
+    "journal_quartile": "Q1",
+    "publication_year": 2026,
+    "doi": "https://doi.org/10.3390/biology15010036",
+    "article_url": "https://www.mdpi.com/2079-7737/15/1/36"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 13,
+  "fields": {
+    "created_at": "2026-02-19T17:16:43.692Z",
+    "updated_at": "2026-02-19T17:16:43.692Z",
+    "project": 4,
+    "title": "Endocranial Morphology in Metopism Biology",
+    "authors": "Nikolova, S., Toneva, D., Agre, G.",
+    "journal": "Biology",
+    "journal_quartile": "Q1",
+    "publication_year": 2025,
+    "doi": "https://doi.org/10.3390/biology14070835",
+    "article_url": "https://www.mdpi.com/2079-7737/14/7/835"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 14,
+  "fields": {
+    "created_at": "2026-02-19T17:17:55.154Z",
+    "updated_at": "2026-02-19T17:17:55.154Z",
+    "project": 4,
+    "title": "Evaluating the Effectiveness of Coxal Bone Measurements for Sex Estimation via Machine Learning",
+    "authors": "Toneva, D., Nikolova, S., Agre, G., Fileva, N., Milenov, G., Zlatareva, D.",
+    "journal": "Biology",
+    "journal_quartile": "Q1",
+    "publication_year": 2025,
+    "doi": "https://doi.org/10.3390/biology14070866",
+    "article_url": "https://www.mdpi.com/2079-7737/14/7/866"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 15,
+  "fields": {
+    "created_at": "2026-02-19T18:30:40.194Z",
+    "updated_at": "2026-02-19T18:30:40.194Z",
+    "project": 5,
+    "title": "Relation between metopic suture persistence and frontal sinus development",
+    "authors": "Nikolova S., Toneva D., Georgiev I., Lazarov N.",
+    "journal": "In: Challenging Issues on Paranasal Sinuses, Wang T.-C. (Ed.)",
+    "journal_quartile": "NA",
+    "publication_year": 2018,
+    "doi": "10.5772/intechopen.79376",
+    "article_url": "https://www.intechopen.com/books/challenging-issues-on-paranasal-sinuses/relation-between-metopic-suture-persistence-and-frontal-sinus-development"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 16,
+  "fields": {
+    "created_at": "2026-02-19T18:31:50.132Z",
+    "updated_at": "2026-02-19T18:31:50.132Z",
+    "project": 5,
+    "title": "Sex estimation by Mastoid Triangle using 3D models",
+    "authors": "Toneva D., Nikolova S., Zlatareva D., Hadjidekov V., Lazarov N.",
+    "journal": "HOMO",
+    "journal_quartile": "Q2",
+    "publication_year": 2019,
+    "doi": "10.1127/homo/2019/1010",
+    "article_url": "https://www.schweizerbart.de/papers/homo/detail/70/91584/"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 17,
+  "fields": {
+    "created_at": "2026-02-19T18:32:44.148Z",
+    "updated_at": "2026-02-19T18:32:44.148Z",
+    "project": 5,
+    "title": "Frontal sinus dimensions in the presence of persistent metopic suture",
+    "authors": "Nikolova S., Toneva D.",
+    "journal": "Acta morphologica et anthropologica",
+    "journal_quartile": "NA",
+    "publication_year": 2019,
+    "doi": "",
+    "article_url": "http://www.iempam.bas.bg/journals/acta/acta26a/90-96.pdf"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 18,
+  "fields": {
+    "created_at": "2026-02-19T18:33:19.490Z",
+    "updated_at": "2026-02-19T18:33:19.490Z",
+    "project": 5,
+    "title": "Morphological Study of Jugular Foramen in Bulgarian Adults",
+    "authors": "Toneva D., Nikolova S., Zlatareva D., Hadjidekov V.",
+    "journal": "Acta morphologica et anthropologica",
+    "journal_quartile": "NA",
+    "publication_year": 2019,
+    "doi": "",
+    "article_url": "http://www.iempam.bas.bg/journals/acta/acta26a/97-108.pdf"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 19,
+  "fields": {
+    "created_at": "2026-02-19T18:34:23.456Z",
+    "updated_at": "2026-02-19T18:34:23.456Z",
+    "project": 5,
+    "title": "Data mining for peculiarities in the configuration of neurocranium when the metopic suture persists",
+    "authors": "Nikolova S., Toneva D., Agre G., Lazarov N.",
+    "journal": "Anthropologischer Anzeiger",
+    "journal_quartile": "Q2",
+    "publication_year": 2020,
+    "doi": "10.1127/anthranz/2019/1051",
+    "article_url": "https://www.schweizerbart.de/papers/anthranz/detail/77/92490/Data_mining_for_peculiarities_in_the_configuration_of_neurocranium_when_the_metopic_suture_persists"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 20,
+  "fields": {
+    "created_at": "2026-02-19T18:35:22.646Z",
+    "updated_at": "2026-02-19T18:35:22.646Z",
+    "project": 5,
+    "title": "Impact of Resolution and Texture of Laser Scanning Generated Three-Dimensional Models on Landmark Identification",
+    "authors": "Toneva D., Nikolova S., Georgiev I., Lazarov N.",
+    "journal": "Anatomical Record – Advances in Integrative Anatomy and Evolutionary Biology",
+    "journal_quartile": "Q2",
+    "publication_year": 2020,
+    "doi": "10.1002/ar.24272",
+    "article_url": "https://anatomypubs.onlinelibrary.wiley.com/doi/full/10.1002/ar.24272"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 21,
+  "fields": {
+    "created_at": "2026-02-19T18:36:19.700Z",
+    "updated_at": "2026-02-19T18:36:19.700Z",
+    "project": 5,
+    "title": "Data mining for sex estimation based on cranial measurements",
+    "authors": "Toneva D., Nikolova S., Agre G., Zlatareva D., Hadjidekov V., Lazarov N.",
+    "journal": "Forensic Science International",
+    "journal_quartile": "Q1",
+    "publication_year": 2020,
+    "doi": "10.1016/j.forsciint.2020.110441",
+    "article_url": "https://www.sciencedirect.com/science/article/abs/pii/S0379073820303030?via%3Dihub"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 22,
+  "fields": {
+    "created_at": "2026-02-19T18:36:58.853Z",
+    "updated_at": "2026-02-19T18:36:58.853Z",
+    "project": 5,
+    "title": "Digital Morphometric Analysis and Comparison of Orbital Region in Metopic and Non-metopic Cranial Series",
+    "authors": "Nikolova S., Toneva D., Dandov A.",
+    "journal": "Acta morphologica et anthropologica",
+    "journal_quartile": "NA",
+    "publication_year": 2020,
+    "doi": "",
+    "article_url": "http://www.iempam.bas.bg/journals/acta/acta27a/53-60.pdf"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 23,
+  "fields": {
+    "created_at": "2026-02-19T18:37:47.419Z",
+    "updated_at": "2026-02-19T18:37:47.419Z",
+    "project": 5,
+    "title": "Squamous suture obliteration: frequency and investigation of the associated skull morphology",
+    "authors": "Nikolova S., Toneva D., Lazarov N.",
+    "journal": "Anatomical Science International",
+    "journal_quartile": "Q2",
+    "publication_year": 2021,
+    "doi": "10.1007/s12565-020-00555-x",
+    "article_url": "https://link.springer.com/article/10.1007/s12565-020-00555-x"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 24,
+  "fields": {
+    "created_at": "2026-02-19T18:39:04.119Z",
+    "updated_at": "2026-02-19T18:39:04.119Z",
+    "project": 5,
+    "title": "A comparative digital morphometric study of nasofrontal region in metopic and non-metopic cranial series",
+    "authors": "Nikolova S., Toneva D., Lazarov N.",
+    "journal": "Anthropologischer Anzeiger",
+    "journal_quartile": "Q2",
+    "publication_year": 2021,
+    "doi": "",
+    "article_url": "https://www.schweizerbart.de/papers/anthranz/detail/78/99456/"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 25,
+  "fields": {
+    "created_at": "2026-02-19T18:40:28.555Z",
+    "updated_at": "2026-02-19T18:43:48.493Z",
+    "project": 5,
+    "title": "Reliability of sagittal suture maturation for age-at-death prediction assessed by means of machine learning techniques",
+    "authors": "Nikolova S., Toneva D., Agre G.",
+    "journal": "Forensic Imaging",
+    "journal_quartile": "Q3",
+    "publication_year": 2021,
+    "doi": "10.1016/j.fri.2021.200461",
+    "article_url": "https://www.sciencedirect.com/science/article/abs/pii/S2666225621000324"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 26,
+  "fields": {
+    "created_at": "2026-02-19T18:43:28.505Z",
+    "updated_at": "2026-02-19T18:43:28.505Z",
+    "project": 5,
+    "title": "A dense approach for computation of facial soft tissue thickness data",
+    "authors": "Toneva D., Nikolova S., Harizanov S., Zlatareva D., Hadjidekov V.",
+    "journal": "Forensic Imaging",
+    "journal_quartile": "Q3",
+    "publication_year": 2021,
+    "doi": "10.1016/j.fri.2021.200460",
+    "article_url": "https://www.sciencedirect.com/science/article/abs/pii/S2666225621000312"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 27,
+  "fields": {
+    "created_at": "2026-02-19T18:44:56.396Z",
+    "updated_at": "2026-02-19T18:44:56.396Z",
+    "project": 5,
+    "title": "Machine learning approaches for sex estimation using cranial measurements",
+    "authors": "Toneva D., Nikolova S., Agre G., Zlatareva D., Hadjidekov V., Lazarov N.",
+    "journal": "International Journal of Legal Medicine",
+    "journal_quartile": "Q1",
+    "publication_year": 2021,
+    "doi": "10.1007/s00414-020-02460-4",
+    "article_url": "https://link.springer.com/article/10.1007/s00414-020-02460-4"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 28,
+  "fields": {
+    "created_at": "2026-02-19T18:46:00.157Z",
+    "updated_at": "2026-02-19T18:46:00.157Z",
+    "project": 5,
+    "title": "Influence of persistent metopic suture on sagittal suture closure",
+    "authors": "Nikolova S., Toneva D., Agre G., Lazarov N.",
+    "journal": "Annals of Anatomy",
+    "journal_quartile": "Q1",
+    "publication_year": 2022,
+    "doi": "10.1016/j.aanat.2021.151811",
+    "article_url": "https://www.sciencedirect.com/science/article/pii/S0940960221001370?via%3Dihub"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 29,
+  "fields": {
+    "created_at": "2026-02-19T18:46:58.332Z",
+    "updated_at": "2026-02-19T18:46:58.332Z",
+    "project": 5,
+    "title": "Cranial morphology in metopism: A comparative geometric morphometric study",
+    "authors": "Nikolova S., Toneva D., Tasheva-Terzieva E., Lazarov N.",
+    "journal": "Annals of Anatomy",
+    "journal_quartile": "Q1",
+    "publication_year": 2022,
+    "doi": "10.1016/j.aanat.2022.151951",
+    "article_url": "https://www.sciencedirect.com/science/article/abs/pii/S0940960222000668?via%3Dihub"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 30,
+  "fields": {
+    "created_at": "2026-02-19T18:48:34.166Z",
+    "updated_at": "2026-02-19T18:48:34.166Z",
+    "project": 5,
+    "title": "Metopic skull with occipitalization of the atlas",
+    "authors": "Nikolova S., Toneva D.",
+    "journal": "Folia Morphologica",
+    "journal_quartile": "Q3",
+    "publication_year": 2023,
+    "doi": "10.5603/FM.a2022.0079",
+    "article_url": "https://journals.viamedica.pl/folia_morphologica/article/view/FM.a2022.0079/75025"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 31,
+  "fields": {
+    "created_at": "2026-02-20T17:39:40.934Z",
+    "updated_at": "2026-02-20T17:39:40.934Z",
+    "project": 6,
+    "title": "Facial soft tissue thicknesses in Bulgarian adults: relation to sex, body mass index and bilateral asymmetry",
+    "authors": "Toneva D., Nikolova S., Georgiev I., Harizanov S., Zlatareva D., Hadjidekov V., Lazarov N.",
+    "journal": "Folia Morphologica",
+    "journal_quartile": "Q3",
+    "publication_year": 2018,
+    "doi": "10.5603/FM.a2017.0114",
+    "article_url": "https://journals.viamedica.pl/folia_morphologica/article/view/55611"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 32,
+  "fields": {
+    "created_at": "2026-02-20T17:41:52.368Z",
+    "updated_at": "2026-02-20T17:41:52.368Z",
+    "project": 6,
+    "title": "Sex estimation by size and shape of foramen magnum based on CT imaging.",
+    "authors": "Toneva D., Nikolova S., Harizanov S., Georgiev I., Zlatareva D., Hadjidekov V., Dandov A., Lazarov N.",
+    "journal": "Legal Medicine",
+    "journal_quartile": "Q1",
+    "publication_year": 2018,
+    "doi": "https://doi.org/10.1016/j.legalmed.2018.09.009",
+    "article_url": "https://www.sciencedirect.com/science/article/abs/pii/S1344622318301652?via%3Dihub"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 33,
+  "fields": {
+    "created_at": "2026-02-20T17:42:56.197Z",
+    "updated_at": "2026-02-20T17:42:56.197Z",
+    "project": 6,
+    "title": "Sagittal suture maturation: Morphological  reorganization, relation to aging, and reliability as an age-at-death indicator",
+    "authors": "Nikolova S., Toneva D., Georgiev I., Lazarov N.",
+    "journal": "American Journal of Physical Anthropology",
+    "journal_quartile": "Q1",
+    "publication_year": 2019,
+    "doi": "https://doi.org/10.1002/ajpa.23810",
+    "article_url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/ajpa.23810"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 34,
+  "fields": {
+    "created_at": "2026-02-20T17:44:21.075Z",
+    "updated_at": "2026-02-21T07:08:50.080Z",
+    "project": 6,
+    "title": "Sex estimation  by Mastoid Triangle using 3D models",
+    "authors": "Toneva D., Nikolova S., Zlatareva D., Hadjidekov V., Lazarov N.",
+    "journal": "HOMO",
+    "journal_quartile": "Q2",
+    "publication_year": 2019,
+    "doi": "10.1127/homo/2019/1010",
+    "article_url": "https://www.schweizerbart.de/papers/homo/detail/70/91584/Sex_estimation_by_Mastoid_Triangle_using_3D_models"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 35,
+  "fields": {
+    "created_at": "2026-02-20T17:45:46.479Z",
+    "updated_at": "2026-02-20T17:45:46.479Z",
+    "project": 6,
+    "title": "Data mining for peculiarities in the configuration  of neurocranium when the metopic suture persists",
+    "authors": "Nikolova S., Toneva D., Agre G., Lazarov N.",
+    "journal": "Anthropologischer Anzeiger",
+    "journal_quartile": "Q2",
+    "publication_year": 2020,
+    "doi": "10.1127/anthranz/2019/1051",
+    "article_url": "https://www.schweizerbart.de/papers/anthranz/detail/77/92490/"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 36,
+  "fields": {
+    "created_at": "2026-02-20T17:47:08.232Z",
+    "updated_at": "2026-02-21T07:08:32.961Z",
+    "project": 6,
+    "title": "Data mining for sex estimation based on cranial measurements",
+    "authors": "Toneva D., Nikolova S., Agre G., Zlatareva D., Hadjidekov V., Lazarov N.",
+    "journal": "Forensic Science International,",
+    "journal_quartile": "Q1",
+    "publication_year": 2020,
+    "doi": "https://doi.org/10.1016/j.forsciint.2020.110441",
+    "article_url": "https://www.sciencedirect.com/science/article/abs/pii/S0379073820303030?via%3Dihub"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 37,
+  "fields": {
+    "created_at": "2026-02-20T17:48:46.494Z",
+    "updated_at": "2026-02-20T17:48:46.494Z",
+    "project": 6,
+    "title": "Squamous suture obliteration: frequency and investigation  of the associated skull morphology",
+    "authors": "Nikolova S., Toneva D., Lazarov N.",
+    "journal": "Anatomical Science International",
+    "journal_quartile": "Q2",
+    "publication_year": 2021,
+    "doi": "https://doi.org/10.1007/s12565-020-00555-x",
+    "article_url": "https://link.springer.com/article/10.1007/s12565-020-00555-x"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 38,
+  "fields": {
+    "created_at": "2026-02-20T17:49:49.872Z",
+    "updated_at": "2026-02-21T07:08:11.930Z",
+    "project": 6,
+    "title": "Machine learning approaches for sex estimation using cranial measurements",
+    "authors": "Toneva D., Nikolova S., Agre G., Zlatareva D., Hadjidekov V., Lazarov N.",
+    "journal": "International Journal of Legal Medicine",
+    "journal_quartile": "Q1",
+    "publication_year": 2021,
+    "doi": "https://doi.org/10.1007/s00414-020-02460-4",
+    "article_url": "https://link.springer.com/article/10.1007/s00414-020-02460-4"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 39,
+  "fields": {
+    "created_at": "2026-02-20T17:51:21.064Z",
+    "updated_at": "2026-02-20T17:51:21.064Z",
+    "project": 6,
+    "title": "A CT-study of the cranial suture morphology and its reorganization during the obliteration",
+    "authors": "Nikolova S., Toneva D., Georgiev I., Harizanov S., Zlatareva D., Hadjidekov V., Lazarov N.",
+    "journal": "Collegium Antropologicum",
+    "journal_quartile": "Q3",
+    "publication_year": 2017,
+    "doi": "",
+    "article_url": "https://www.collantropol.hr/antropo/article/view/1563"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 40,
+  "fields": {
+    "created_at": "2026-02-20T17:53:02.091Z",
+    "updated_at": "2026-02-20T17:53:02.091Z",
+    "project": 6,
+    "title": "Morphometric analysis of the  frontal sinus: application of industrial digital radiography and virtual endocast",
+    "authors": "Nikolova S., Toneva D., Georgiev I., Dandov A., Lazarov N.",
+    "journal": "Journal of  Forensic Radiology and Imaging",
+    "journal_quartile": "Q3",
+    "publication_year": 2018,
+    "doi": "https://doi.org/10.1016/j.jofri.2018.02.001",
+    "article_url": "https://www.sciencedirect.com/science/article/abs/pii/S2212478017300758"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 41,
+  "fields": {
+    "created_at": "2026-02-20T17:54:14.656Z",
+    "updated_at": "2026-02-20T17:54:14.656Z",
+    "project": 6,
+    "title": "Frontal sinus dimensions in the presence of persistent metopic suture",
+    "authors": "Nikolova S., Toneva D",
+    "journal": "Acta morphologica et anthropologica",
+    "journal_quartile": "NA",
+    "publication_year": 2019,
+    "doi": "",
+    "article_url": "https://www.iempam.bas.bg/journals/acta/acta26a/90-96.pdf"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 42,
+  "fields": {
+    "created_at": "2026-02-20T17:55:13.000Z",
+    "updated_at": "2026-02-20T17:55:13.000Z",
+    "project": 6,
+    "title": "Morphological Study of Jugular  Foramen in Bulgarian Adults",
+    "authors": "Toneva D., Nikolova S., Zlatareva D., Hadjidekov V.",
+    "journal": "Acta morphologica et anthropologica",
+    "journal_quartile": "NA",
+    "publication_year": 2019,
+    "doi": "",
+    "article_url": "https://www.iempam.bas.bg/journals/acta/acta26a/97-108.pdf"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 43,
+  "fields": {
+    "created_at": "2026-02-20T17:56:04.657Z",
+    "updated_at": "2026-02-20T17:56:04.657Z",
+    "project": 6,
+    "title": "Digital Morphometric Analysis and Comparison of Orbital  Region in Metopic and Non-metopic Cranial Series",
+    "authors": "Nikolova S., Toneva D., Dandov A.",
+    "journal": "Acta morphologica et anthropologica",
+    "journal_quartile": "NA",
+    "publication_year": 2020,
+    "doi": "",
+    "article_url": "http://www.iempam.bas.bg/journals/acta/acta27a/53-60.pdf"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 44,
+  "fields": {
+    "created_at": "2026-02-20T17:57:22.652Z",
+    "updated_at": "2026-02-20T17:57:22.652Z",
+    "project": 6,
+    "title": "Relation between metopic suture persistence  and frontal sinus development",
+    "authors": "Nikolova S., Toneva D., Georgiev I., Lazarov N.",
+    "journal": "In: Challenging Issues on Paranasal Sinuses, Wang T.-C. (Ed.)",
+    "journal_quartile": "NA",
+    "publication_year": 2018,
+    "doi": "10.5772/intechopen.79376",
+    "article_url": "https://www.intechopen.com/books/challenging-issues-on-paranasal-sinuses/relation-between-metopic-suture-persistence-and-frontal-sinus-development"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 45,
+  "fields": {
+    "created_at": "2026-02-20T17:59:42.598Z",
+    "updated_at": "2026-02-20T17:59:42.598Z",
+    "project": 6,
+    "title": "A comparative digital morphometric study of nasofrontal  region in metopic and non-metopic cranial series",
+    "authors": "Nikolova S., Toneva D., Lazarov N.",
+    "journal": "Anthropologischer Anzeiger",
+    "journal_quartile": "Q2",
+    "publication_year": 2021,
+    "doi": "10.1127/anthranz/2021/1388",
+    "article_url": "https://www.schweizerbart.de/papers/anthranz/detail/78/99456/A_comparative_digital_morphometric_study_of_nasofr?af=crossref"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 46,
+  "fields": {
+    "created_at": "2026-02-20T18:01:20.865Z",
+    "updated_at": "2026-02-20T18:01:20.865Z",
+    "project": 6,
+    "title": "Reliability of sagittal suture maturation for age-at-death prediction assessed by means of machine learning techniques",
+    "authors": "Nikolova S., Toneva D., Agre G.",
+    "journal": "Forensic Imaging",
+    "journal_quartile": "Q3",
+    "publication_year": 2021,
+    "doi": "https://doi.org/10.1016/j.fri.2021.200461",
+    "article_url": "https://www.sciencedirect.com/science/article/abs/pii/S2666225621000324"
+  }
+},
+{
+  "model": "projects.article",
+  "pk": 47,
+  "fields": {
+    "created_at": "2026-02-20T18:02:41.524Z",
+    "updated_at": "2026-02-20T18:02:41.524Z",
+    "project": 6,
+    "title": "A dense approach for  computation of facial soft tissue thickness data,",
+    "authors": "Toneva D, Nikolova S., Harizanov S., Zlatareva D., Hadjidekov V.",
+    "journal": "Forensic Imaging",
+    "journal_quartile": "Q3",
+    "publication_year": 2021,
+    "doi": "https://doi.org/10.1016/j.fri.2021.200460",
+    "article_url": "https://www.sciencedirect.com/science/article/abs/pii/S2666225621000312"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-02-19T17:27:11.981Z",
+    "updated_at": "2026-02-21T14:09:40.724Z",
+    "project": 4,
+    "name": "14th Congress of the International Society of Forensic Radiology and Imaging",
+    "location": "Fukui, Japan",
+    "start_date": "2025-05-15",
+    "end_date": "2025-05-17",
+    "event_url": "https://isfri2025.org/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-02-19T17:30:38.294Z",
+    "updated_at": "2026-02-19T17:30:38.294Z",
+    "project": 4,
+    "name": "19th Annual Meeting of the Bulgarian Section of SIAM",
+    "location": "Sofia, Bulgaria",
+    "start_date": "2024-12-11",
+    "end_date": "2024-12-13",
+    "event_url": "https://www.math.bas.bg/bgsiam/bgsiam24_announcement.htm"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-02-19T17:41:30.398Z",
+    "updated_at": "2026-02-19T17:41:30.398Z",
+    "project": 4,
+    "name": "12th RAD Conference",
+    "location": "Herzeg Novi, Montenegro",
+    "start_date": "2024-06-17",
+    "end_date": "2024-06-21",
+    "event_url": "https://rad2024.rad-conference.org/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-02-19T17:46:58.560Z",
+    "updated_at": "2026-02-19T17:46:58.560Z",
+    "project": 4,
+    "name": "XII International Symposium on Clinical Anatomy",
+    "location": "Varna, Bulgaria",
+    "start_date": "2024-10-10",
+    "end_date": "2024-10-13",
+    "event_url": "https://conferences.mu-varna.bg/?view=16&lang=bg"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-02-19T17:49:22.674Z",
+    "updated_at": "2026-02-19T17:49:22.674Z",
+    "project": 4,
+    "name": "11th RAD Conference",
+    "location": "Herzeg Novi, Montenegro",
+    "start_date": "2023-06-19",
+    "end_date": "2023-06-23",
+    "event_url": "https://rad2023.rad-conference.org/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-02-19T17:56:08.463Z",
+    "updated_at": "2026-02-19T17:56:08.463Z",
+    "project": 4,
+    "name": "26th National Congress of the Bulgarian Anatomical Society with international participation",
+    "location": "Sofia, Bulgaria",
+    "start_date": "2023-09-29",
+    "end_date": "2023-10-01",
+    "event_url": "https://www.anatomy.bg/events/26-national-congress-bas"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 9,
+  "fields": {
+    "created_at": "2026-02-19T18:58:44.152Z",
+    "updated_at": "2026-02-19T18:58:44.152Z",
+    "project": 4,
+    "name": "116th Annual Meeting of Anatomische Gesellschaft",
+    "location": "Berlin, Germany",
+    "start_date": "2022-09-20",
+    "end_date": "2022-09-23",
+    "event_url": "https://anatomical.aey-congresse.de/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 10,
+  "fields": {
+    "created_at": "2026-02-20T18:05:10.991Z",
+    "updated_at": "2026-02-20T18:05:10.991Z",
+    "project": 6,
+    "name": "International Conference NDT Days 2017",
+    "location": "Sozopol, Bulgaria",
+    "start_date": "2017-06-12",
+    "end_date": "2017-06-16",
+    "event_url": ""
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 11,
+  "fields": {
+    "created_at": "2026-02-20T18:06:22.185Z",
+    "updated_at": "2026-02-20T18:06:22.185Z",
+    "project": 6,
+    "name": "36th ANTHROPOLOGY AND HEALTH CONFERENCE Anthropology in the Service of  Global Health",
+    "location": "Dubrovnik, Croatia",
+    "start_date": "2017-06-16",
+    "end_date": "2017-06-18",
+    "event_url": "http://www.inantro.hr/en/2017/01/12/anthropology-and-health/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 12,
+  "fields": {
+    "created_at": "2026-02-20T18:08:22.820Z",
+    "updated_at": "2026-02-20T18:08:22.820Z",
+    "project": 6,
+    "name": "2nd International Conference Mathematics Days in Sofia",
+    "location": "Sofia, Bulgaria",
+    "start_date": "2017-07-10",
+    "end_date": "2017-07-14",
+    "event_url": "http://mds2017.math.bas.bg/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 13,
+  "fields": {
+    "created_at": "2026-02-20T18:09:40.939Z",
+    "updated_at": "2026-02-20T18:09:40.939Z",
+    "project": 6,
+    "name": "XXIII Congress of the Bulgarian Anatomical Society",
+    "location": "Varna, Bulgaria",
+    "start_date": "2017-10-05",
+    "end_date": "2017-10-07",
+    "event_url": ""
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 14,
+  "fields": {
+    "created_at": "2026-02-20T18:11:22.773Z",
+    "updated_at": "2026-02-20T18:11:22.773Z",
+    "project": 6,
+    "name": "12th Annual Meeting of the Bulgarian Section of SIAM",
+    "location": "Sofia, Bulgaria",
+    "start_date": "2017-12-20",
+    "end_date": "2017-12-22",
+    "event_url": "http://www.math.bas.bg/IMIdocs/BGSIAM/bgsiam17_announcement.htm"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 15,
+  "fields": {
+    "created_at": "2026-02-20T18:13:18.820Z",
+    "updated_at": "2026-02-20T18:13:18.820Z",
+    "project": 6,
+    "name": "47-ма пролетна конференция на Съюза на математиците в България",
+    "location": "Borovets, Bulgaria",
+    "start_date": "2018-04-02",
+    "end_date": "2018-04-06",
+    "event_url": "http://www.math.bas.bg/smb/2018_PK/index.html"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 16,
+  "fields": {
+    "created_at": "2026-02-20T18:14:29.831Z",
+    "updated_at": "2026-02-20T18:14:29.831Z",
+    "project": 6,
+    "name": "2nd World Conference and Exhibition on Forensic Science",
+    "location": "Rome, italy",
+    "start_date": "2018-06-11",
+    "end_date": "2018-06-12",
+    "event_url": "https://scientificfederation.com/forensic-science-2018/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 17,
+  "fields": {
+    "created_at": "2026-02-20T18:16:05.830Z",
+    "updated_at": "2026-02-20T18:16:05.830Z",
+    "project": 6,
+    "name": "Семинар по „Паралелни алгоритми и научни пресмятания“ ИИКТ-БАН",
+    "location": "Sofia, Bulgaria",
+    "start_date": "2018-06-18",
+    "end_date": "2018-06-18",
+    "event_url": ""
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 18,
+  "fields": {
+    "created_at": "2026-02-20T18:17:34.941Z",
+    "updated_at": "2026-02-20T18:17:34.941Z",
+    "project": 6,
+    "name": "Конференция по медицинска хуманитаристика “Сянка и прах”",
+    "location": "Sofia, Bulgaria",
+    "start_date": "2018-06-27",
+    "end_date": "2018-06-29",
+    "event_url": "http://amh-bg.com/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 19,
+  "fields": {
+    "created_at": "2026-02-20T18:18:55.582Z",
+    "updated_at": "2026-02-20T18:18:55.582Z",
+    "project": 6,
+    "name": "Bulgarian Young Scientists – JRC Ispra Visit",
+    "location": "Ispra,  Italy",
+    "start_date": "2018-06-27",
+    "end_date": "2019-06-29",
+    "event_url": ""
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 20,
+  "fields": {
+    "created_at": "2026-02-20T18:20:51.126Z",
+    "updated_at": "2026-02-20T18:20:51.126Z",
+    "project": 6,
+    "name": "26th International Symposium on Morphological Sciences",
+    "location": "Prague, Czech Republic",
+    "start_date": "2018-07-05",
+    "end_date": "2018-07-07",
+    "event_url": ""
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 21,
+  "fields": {
+    "created_at": "2026-02-20T18:22:20.576Z",
+    "updated_at": "2026-02-20T18:22:20.576Z",
+    "project": 6,
+    "name": "21st Congress of European Anthropological Association",
+    "location": "Odense,  Denmark",
+    "start_date": "2018-08-22",
+    "end_date": "2018-08-25",
+    "event_url": "http://www.eaa2018.com"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 22,
+  "fields": {
+    "created_at": "2026-02-20T18:24:31.050Z",
+    "updated_at": "2026-02-20T18:24:31.050Z",
+    "project": 6,
+    "name": "7th CMAPT Workshop Computational Mathematics and APproximation Theory",
+    "location": "Sozopol, Bulgaria",
+    "start_date": "2018-09-02",
+    "end_date": "2018-09-08",
+    "event_url": "http://www.numa.uni-linz.ac.at/CMAPT/2018/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 23,
+  "fields": {
+    "created_at": "2026-02-20T18:26:43.461Z",
+    "updated_at": "2026-02-20T18:26:43.461Z",
+    "project": 6,
+    "name": "13th Annual Meeting of the Bulgarian Section of SIAM",
+    "location": "Sofia, Bulgaria",
+    "start_date": "2018-12-18",
+    "end_date": "2018-12-20",
+    "event_url": "http://www.math.bas.bg/bgsiam/bgsiam18_announcement.htm"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 24,
+  "fields": {
+    "created_at": "2026-02-20T18:28:25.762Z",
+    "updated_at": "2026-02-20T18:28:25.762Z",
+    "project": 6,
+    "name": "XXIV National Congress of the Bulgarian Anatomical Society with International  Participation",
+    "location": "Stara Zagora, Bulgaria",
+    "start_date": "2019-05-31",
+    "end_date": "2019-06-02",
+    "event_url": ""
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 25,
+  "fields": {
+    "created_at": "2026-02-20T18:31:17.311Z",
+    "updated_at": "2026-02-20T18:31:17.311Z",
+    "project": 6,
+    "name": "7th International Conference on Radiation in Various Fields of Research",
+    "location": "Herzeg Novi, Montenegro",
+    "start_date": "2019-06-10",
+    "end_date": "2019-06-14",
+    "event_url": "https://rad2019.rad-conference.org/welcome.php"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 26,
+  "fields": {
+    "created_at": "2026-02-20T18:33:44.716Z",
+    "updated_at": "2026-02-20T18:33:44.716Z",
+    "project": 6,
+    "name": "10th Workshop Experimental Models and Methods in Biomedical Research",
+    "location": "Sofia, Bulgaria",
+    "start_date": "2019-07-03",
+    "end_date": "2019-07-05",
+    "event_url": ""
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 27,
+  "fields": {
+    "created_at": "2026-02-20T18:35:26.968Z",
+    "updated_at": "2026-02-21T14:18:35.730Z",
+    "project": 6,
+    "name": "73 Congresso Nazionale Società Italiana di Anatomia ed Istologia",
+    "location": "Napoli, Italy",
+    "start_date": "2019-09-22",
+    "end_date": "2019-09-23",
+    "event_url": "http://www.mcmcongressi.it/congresso-siai/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 28,
+  "fields": {
+    "created_at": "2026-02-20T18:37:14.948Z",
+    "updated_at": "2026-02-20T18:37:14.948Z",
+    "project": 6,
+    "name": "14th Annual Meeting of the Bulgarian Section of SIAM",
+    "location": "Sofia, Bulgaria",
+    "start_date": "2019-12-17",
+    "end_date": "2019-12-19",
+    "event_url": "http://www.math.bas.bg/bgsiam/bgsiam19_announcement.htm"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 29,
+  "fields": {
+    "created_at": "2026-02-20T18:39:57.608Z",
+    "updated_at": "2026-02-20T18:39:57.608Z",
+    "project": 6,
+    "name": "8th International Conference on Radiation in Various Fields of Research",
+    "location": "Herzeg Novi, Montenegro",
+    "start_date": "2020-07-20",
+    "end_date": "2020-07-24",
+    "event_url": "https://rad2020.rad-conference.org/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 30,
+  "fields": {
+    "created_at": "2026-02-20T18:42:53.099Z",
+    "updated_at": "2026-02-20T18:42:53.099Z",
+    "project": 6,
+    "name": "XI International Symposium of Clinical Anatomy",
+    "location": "Varna, Bulgaria",
+    "start_date": "2020-10-02",
+    "end_date": "2020-10-04",
+    "event_url": "https://www.mu-varna.bg/BG/AboutUs/Pages/XI-International-Symposium-of-Clinical-anatomy.aspx"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 31,
+  "fields": {
+    "created_at": "2026-02-20T18:54:16.235Z",
+    "updated_at": "2026-02-20T18:54:16.235Z",
+    "project": 5,
+    "name": "5th Serbian congress of neuroradiologists and advanced course in interventional  neuroradiology",
+    "location": "Belgrade, Serbia",
+    "start_date": "2018-06-01",
+    "end_date": "2018-06-03",
+    "event_url": "http://www.neuroradiologija.com/public/index.php?StranaID=49"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 32,
+  "fields": {
+    "created_at": "2026-02-20T18:56:16.741Z",
+    "updated_at": "2026-02-20T18:56:16.741Z",
+    "project": 5,
+    "name": "26th International Symposium on Morphological Sciences",
+    "location": "Prague, Czech Republic",
+    "start_date": "2018-07-05",
+    "end_date": "2018-07-07",
+    "event_url": ""
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 33,
+  "fields": {
+    "created_at": "2026-02-20T18:57:31.362Z",
+    "updated_at": "2026-02-20T18:57:31.362Z",
+    "project": 5,
+    "name": "21st Congress of European Anthropological Association",
+    "location": "Odense,  Denmark",
+    "start_date": "2018-08-22",
+    "end_date": "2018-08-25",
+    "event_url": "http://www.eaa2018.com"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 34,
+  "fields": {
+    "created_at": "2026-02-20T18:59:35.757Z",
+    "updated_at": "2026-02-20T18:59:35.757Z",
+    "project": 5,
+    "name": "7th CMAPT Workshop Computational Mathematics and APproximation Theory",
+    "location": "Sozopol, Bulgaria",
+    "start_date": "2018-09-02",
+    "end_date": "2018-09-08",
+    "event_url": "http://www.numa.uni-linz.ac.at/CMAPT/2018/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 35,
+  "fields": {
+    "created_at": "2026-02-20T19:01:07.574Z",
+    "updated_at": "2026-02-20T19:01:07.574Z",
+    "project": 5,
+    "name": "24th National Congress of the Bulgarian Anatomical Society with International Participation",
+    "location": "Stara Zagora, Bulgaria",
+    "start_date": "2019-05-31",
+    "end_date": "2019-06-02",
+    "event_url": ""
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 36,
+  "fields": {
+    "created_at": "2026-02-20T19:02:24.558Z",
+    "updated_at": "2026-02-20T19:02:24.558Z",
+    "project": 5,
+    "name": "7th International Conference on Radiation in Various Fields of Research",
+    "location": "Herzeg Novi, Montenegro",
+    "start_date": "2019-06-10",
+    "end_date": "2019-06-14",
+    "event_url": "https://rad2019.rad-conference.org/welcome.php"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 37,
+  "fields": {
+    "created_at": "2026-02-20T19:03:58.919Z",
+    "updated_at": "2026-02-20T19:03:58.919Z",
+    "project": 5,
+    "name": "10th Workshop Experimental models and methods in biomedical research",
+    "location": "Sofia, Bulgaria",
+    "start_date": "2019-07-03",
+    "end_date": "2019-07-05",
+    "event_url": ""
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 38,
+  "fields": {
+    "created_at": "2026-02-20T19:05:09.676Z",
+    "updated_at": "2026-02-20T19:05:09.676Z",
+    "project": 5,
+    "name": "8th International Conference on Radiation in Various Fields of Research",
+    "location": "Herzeg Novi, Montenegro",
+    "start_date": "2020-07-20",
+    "end_date": "2020-07-24",
+    "event_url": "https://rad2020.rad-conference.org/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 39,
+  "fields": {
+    "created_at": "2026-02-20T19:06:47.801Z",
+    "updated_at": "2026-02-20T19:06:47.801Z",
+    "project": 5,
+    "name": "Workshop on 3D digitisation, data processing and applications",
+    "location": "Nesebar, Bulgaria",
+    "start_date": "2020-09-08",
+    "end_date": "2020-09-11",
+    "event_url": "https://parallel.bas.bg/~john/3DPA2020"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 40,
+  "fields": {
+    "created_at": "2026-02-20T19:08:21.901Z",
+    "updated_at": "2026-02-20T19:08:21.901Z",
+    "project": 5,
+    "name": "XI International Symposium of Clinical Anatomy",
+    "location": "Varna, Bulgaria",
+    "start_date": "2020-10-02",
+    "end_date": "2020-10-04",
+    "event_url": "https://www.mu-varna.bg/BG/AboutUs/Pages/XI-International-Symposium-of-Clinical-anatomy.aspx"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 41,
+  "fields": {
+    "created_at": "2026-02-20T19:09:59.679Z",
+    "updated_at": "2026-02-20T19:09:59.679Z",
+    "project": 5,
+    "name": "XXV National Congress of the Bulgarian Anatomical Society with International Participation",
+    "location": "Pleven, Bulgaria",
+    "start_date": "2021-05-28",
+    "end_date": "2021-05-30",
+    "event_url": "https://mu-pleven.bg/index.php/bg/news/upcoming-events/5743-xxv-national-congress-of-the-bulgarian-anatomical-society-with-international-participation-28-30-may-2021"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 42,
+  "fields": {
+    "created_at": "2026-02-20T19:12:49.522Z",
+    "updated_at": "2026-02-20T19:12:49.522Z",
+    "project": 5,
+    "name": "Mathematics of Life 2021",
+    "location": "Hisarya, Bulgaria",
+    "start_date": "2021-09-13",
+    "end_date": "2021-09-16",
+    "event_url": "https://parallel.bas.bg/Conferences/MoL2021/index.html"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 43,
+  "fields": {
+    "created_at": "2026-02-20T19:14:39.463Z",
+    "updated_at": "2026-02-20T19:14:39.463Z",
+    "project": 5,
+    "name": "11th Congress of International Society of Forensic Radiology and Imaging",
+    "location": "Tokyo, Japan",
+    "start_date": "2022-05-12",
+    "end_date": "2022-05-14",
+    "event_url": "https://isfri2022.org/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 44,
+  "fields": {
+    "created_at": "2026-02-20T19:16:13.762Z",
+    "updated_at": "2026-02-20T19:16:13.762Z",
+    "project": 5,
+    "name": "10th Jubilee International Conference on Radiation in Various Fields of Research",
+    "location": "Herzeg Novi, Montenegro",
+    "start_date": "2022-06-13",
+    "end_date": "2022-06-17",
+    "event_url": "https://www.rad2022-spring.rad-conference.org/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 45,
+  "fields": {
+    "created_at": "2026-02-20T19:19:36.450Z",
+    "updated_at": "2026-02-20T19:19:36.450Z",
+    "project": 5,
+    "name": "10th International Conference on Numerical Methods and Applications",
+    "location": "Borovets, Bulgaria",
+    "start_date": "2022-08-22",
+    "end_date": "2022-08-26",
+    "event_url": "http://www.math.bas.bg/~nummeth/nma22/"
+  }
+},
+{
+  "model": "projects.scientificevent",
+  "pk": 46,
+  "fields": {
+    "created_at": "2026-02-20T19:21:58.862Z",
+    "updated_at": "2026-02-20T19:21:58.862Z",
+    "project": 5,
+    "name": "116th Annual Meeting of the Anatomische Gesellschaft",
+    "location": "Berlin, Germany",
+    "start_date": "2022-09-20",
+    "end_date": "2022-09-23",
+    "event_url": "https://anatomische-gesellschaft.de/events/tagungen/116-jahrestagung-der-anatomischen-gesellschaft-berlin-20-23-09-2022/"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 5,
+  "fields": {
+    "event": 3,
+    "title": "Sex differences in size and shape of os coxae: a geometric morphometric study",
+    "authors": "Zlatareva, D., Toneva, D., Nikolova, S., Fileva, N., Milenov, G",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 6,
+  "fields": {
+    "event": 3,
+    "title": "Machine learning approaches for sex estimation based on cranial angles",
+    "authors": "Nikolova, S., Toneva, D., Agre, G., Harizanov, S., Fileva, N., Zlatareva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 7,
+  "fields": {
+    "event": 4,
+    "title": "Detecting Symmetries via Least-Squares Optimization Algorithms",
+    "authors": "Borisov, M., Harizanov S., Toneva D., Nikolova S.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 8,
+  "fields": {
+    "event": 5,
+    "title": "Sexual dimorphism in shape and size of viscerocranium",
+    "authors": "Nikolova, S., Toneva, D., Tasheva-Terzieva, E., Zlatareva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 9,
+  "fields": {
+    "event": 5,
+    "title": "A geometric morphometric study on the pelvic inlet using CT scans",
+    "authors": "Zlatareva, D., Toneva, D., Nikolova, S., Milenov, G., Fileva, N.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 10,
+  "fields": {
+    "event": 6,
+    "title": "Endocranial surface in metopism",
+    "authors": "Nikolova S., Toneva D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 11,
+  "fields": {
+    "event": 7,
+    "title": "On application of some machine learning algorithms for sex identification based on linear mandibular measurements derived from CT scans",
+    "authors": "Agre, G., Toneva, D., Nikolova, S., Fileva, N., Zlatareva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 12,
+  "fields": {
+    "event": 7,
+    "title": "Bilateral and sex distribution of pterygospinous bridge in Bulgarians",
+    "authors": "Nikolova, S., Toneva, D., Zlatareva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 13,
+  "fields": {
+    "event": 7,
+    "title": "Decision trees for sex estimation based on mandibular measurements: A CT study",
+    "authors": "Zlatareva, D., Agre, G., Toneva, D., Nikolova, S., Fileva, N.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 14,
+  "fields": {
+    "event": 8,
+    "title": "Impact of supernumerary calvarial bones on the neurocranium morphology: A comparative geometric morphometric study",
+    "authors": "Nikolova, S., Toneva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 15,
+  "fields": {
+    "event": 8,
+    "title": "Assessment of sex differences in size and shape of human mandible using geometric morphometrics",
+    "authors": "Toneva, D., Nikolova, S., Fileva, N., Zlatareva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 16,
+  "fields": {
+    "event": 9,
+    "title": "Artificial neural network model for sex estimation based on mandibular measurements",
+    "authors": "Toneva, D., Nikolova, S., Agre, G., Zlatareva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 17,
+  "fields": {
+    "event": 10,
+    "title": "Restoration of Blurry and Noisy Medical Images",
+    "authors": "Harizanov, S.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 18,
+  "fields": {
+    "event": 11,
+    "title": "A CT-study of the cranial suture morphology and its reorganization during the obliteration",
+    "authors": "Nikolova S.,  Toneva D., Georgiev I., Harizanov S., Zlatareva D., Hadjidekov V., Lazarov \r\nN.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 19,
+  "fields": {
+    "event": 11,
+    "title": "Body mass index differences in facial soft tissue thicknesses in Bulgarian adults",
+    "authors": "Toneva D., Nikolova S.,  Georgiev I., Harizanov S., Zlatareva D., Hadjidekov V., Lazarov \r\nN.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 20,
+  "fields": {
+    "event": 12,
+    "title": "Advanced CT Data Processing: Denoising and Feature  Extraction",
+    "authors": "Harizanov S., Lirkov I., Georgiev, I.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 21,
+  "fields": {
+    "event": 13,
+    "title": "Assessment of sex differences in size and shape of foramen magnum on CT scans of Bulgarian  Adults",
+    "authors": "Toneva D, Nikolova S, Georgiev I, Harizanov S, Zlatareva D, Hadjidekov V, Lazarov N.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 22,
+  "fields": {
+    "event": 13,
+    "title": "Application of deblurring technique and segmentation on medical CT images for improved  visualization of the cranial sutures",
+    "authors": "Nikolova S, Harizanov S, Toneva D, Georgiev I, Zlatareva D, Hadjidekov V, Lazarov N.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 23,
+  "fields": {
+    "event": 14,
+    "title": "Improved cranial sutures visualization via digital image processing",
+    "authors": "Harizanov S, Nikolova S, Toneva D, Georgiev I.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 24,
+  "fields": {
+    "event": 15,
+    "title": "Digital Image Processing with application in Industrial Computed Tomography",
+    "authors": "Harizanov S.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 25,
+  "fields": {
+    "event": 16,
+    "title": "Mastoid triangle as a  sex indicator in Bulgarian adults: A CT-study",
+    "authors": "Zlatareva, D., Toneva, D., Nikolova, S., Hadjidekov, V.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 26,
+  "fields": {
+    "event": 17,
+    "title": "Обработка на дигитални изображения с приложение в индустриалната  компютърна томография",
+    "authors": "Харизанов, С.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 27,
+  "fields": {
+    "event": 18,
+    "title": "Virtual anthropology – an innovative and interdisciplinary  approach for investigations in the field of biomedicine",
+    "authors": "Nikolova S, Toneva D, Dandov A.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 28,
+  "fields": {
+    "event": 19,
+    "title": "Digital Image Processing with application in Industrial Computed Tomography",
+    "authors": "Harizanov, S.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 29,
+  "fields": {
+    "event": 20,
+    "title": "Application of industrial μCT for  cranial suture examination",
+    "authors": "Nikolova S, Toneva D, Georgiev I, Harizanov S, Lazarov N.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 30,
+  "fields": {
+    "event": 20,
+    "title": "Length of the styloid process  of the temporal bone and its relation to sex, age and laterality",
+    "authors": "Toneva D, Nikolova S, Zlatareva D, Hadjidekov V, Dandov A.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 31,
+  "fields": {
+    "event": 21,
+    "title": "A case of bilateral squamosal suture  obliteration in adult male skull",
+    "authors": "Nikolova S, Toneva D, Georgiev I.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 32,
+  "fields": {
+    "event": 21,
+    "title": "Morphological study of  jugular foramen using 3D models of adult skulls",
+    "authors": "Toneva D, Nikolova S, Zlatareva D, Hadjidekov V.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 33,
+  "fields": {
+    "event": 22,
+    "title": "Medical Image Resolution Enhancement with Applications in Virtual Anthropology",
+    "authors": "Georgiev, I., Harizanov, S., Nikolova, S., Toneva, D.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 34,
+  "fields": {
+    "event": 23,
+    "title": "Digital Cranial Suture Analysis with Application in Age Estimation",
+    "authors": "Georgiev, I., Gizdov, A., Harizanov, S., Nikolova, S., Toneva, D.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 35,
+  "fields": {
+    "event": 24,
+    "title": "Impact of sex and BMI on midsagittal facial soft tissue thicknesses in Bulgarian adults",
+    "authors": "Toneva, D., Nikolova, S., Zlatareva, D., Hadjidekov, V.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 36,
+  "fields": {
+    "event": 24,
+    "title": "Application of industrial  digital radiography for reliable morphometric analysis of the frontal sinus",
+    "authors": "Dandov, A., Nikolova, S., Toneva, D., Lazarov, N.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 37,
+  "fields": {
+    "event": 25,
+    "title": "Cross-sectional automatic assessment of the degree of sagittal suture closure on μCT volumetric  images of dry skulls applying artificial neural network and machine learning techniques",
+    "authors": "Nikolova, S., Toneva, D., Gizdov, A., Harizanov, S., Georgiev, I.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 38,
+  "fields": {
+    "event": 25,
+    "title": "Application of medical  CT imaging for investigation of sex differences in facial soft tissue thicknesses",
+    "authors": "Zlatareva, D., Toneva, D., Nikolova, S., Hadjidekov, V.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 39,
+  "fields": {
+    "event": 26,
+    "title": "Methods for facial soft tissue thickness measurements",
+    "authors": "Toneva, D., Nikolova, S.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 40,
+  "fields": {
+    "event": 26,
+    "title": "Application of industrial CT for investigation of the cranial  suture microstructure",
+    "authors": "Nikolova, S., Toneva, D.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 41,
+  "fields": {
+    "event": 27,
+    "title": "Virtual  anthropology – an interdisciplinary technique for studies in the field of biomedicine",
+    "authors": "Dandov, A., Nikolova, S., Toneva, D., Lazarov, N., Zlatareva, D.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 42,
+  "fields": {
+    "event": 28,
+    "title": "Increasing the  Resolution and Readability of Digital Images",
+    "authors": "Kamenov, D., Harizanov, S., Nikolova, S., Toneva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 43,
+  "fields": {
+    "event": 28,
+    "title": "Image segmentation via Echo state network",
+    "authors": "Koprinkova-Hristova, P., Georgiev, I.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 44,
+  "fields": {
+    "event": 29,
+    "title": "Comparison of two  methods for measuring facial soft tissue thicknesses based on CT images",
+    "authors": "Toneva, D., Nikolova, S., Zlatareva, D., Hadjidekov, V.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 45,
+  "fields": {
+    "event": 29,
+    "title": "Computed tomography: a  non-destructive method for investigation of bone tissue structure",
+    "authors": "Nikolova, S., Toneva, D., Agre, G., Lazarov, N.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 46,
+  "fields": {
+    "event": 30,
+    "title": "Facial approximation: comparison with the real face and  materialization by 3D printing",
+    "authors": "Nikolova, S., Toneva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 47,
+  "fields": {
+    "event": 30,
+    "title": "Decision trees for sex estimation based on cranial measurements",
+    "authors": "Toneva, D., Nikolova, S., Agre, G., Zlatareva, D., Hadjidekov, V.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 48,
+  "fields": {
+    "event": 31,
+    "title": "Cranial configuration in the presence of bregmatic bone - a case study",
+    "authors": "Zlatareva, D., Nikolova, S., Toneva, D., Hadjidekov, V.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 49,
+  "fields": {
+    "event": 32,
+    "title": "Length of the styloid process of the temporal bone and its relation to sex, age and laterality",
+    "authors": "Toneva D, Nikolova S, Zlatareva D, Hadjidekov V, Dandov A.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 50,
+  "fields": {
+    "event": 33,
+    "title": "A case of bilateral squamosal suture obliteration in adult male skull",
+    "authors": "Nikolova, S., Toneva, D., Georgiev, I.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 51,
+  "fields": {
+    "event": 33,
+    "title": "Morphological study of jugular foramen using 3D models of adult skulls",
+    "authors": "Toneva, D., Nikolova, S., Zlatareva, D., Hadjidekov, V.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 52,
+  "fields": {
+    "event": 34,
+    "title": "Medical image resolution enhancement with applications in virtual anthropology",
+    "authors": "Georgiev, I., Harizanov, S., Nikolova, S., Toneva, D.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 53,
+  "fields": {
+    "event": 35,
+    "title": "Configuration of nasoglabellar region in metopic and non-metopic cranial series",
+    "authors": "Nikolova, S., Toneva, D., Lazarov, N.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 54,
+  "fields": {
+    "event": 36,
+    "title": "Discovering of the most distinctive characteristics in the metopic skull configuration applying data mining techniques",
+    "authors": "Toneva, D., Nikolova, S., Agre, G., Georgiev, I., Lazarov, N.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 55,
+  "fields": {
+    "event": 37,
+    "title": "Application of industrial CT for investigation of the cranial suture microstructure",
+    "authors": "Nikolova, S., Toneva, D.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 56,
+  "fields": {
+    "event": 38,
+    "title": "Computed tomography: A non-destructive method for investigation of bone tissue structure",
+    "authors": "Nikolova, S., Toneva, D., Agre, G., Lazarov, N.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 57,
+  "fields": {
+    "event": 39,
+    "title": "How Machine Learning Can Help Anthropology",
+    "authors": "Agre, G.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 58,
+  "fields": {
+    "event": 39,
+    "title": "Generation and post-processing of surface models from medical CT image data",
+    "authors": "Toneva, D.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 59,
+  "fields": {
+    "event": 40,
+    "title": "Decision trees for sex estimation based on cranial measurements",
+    "authors": "Toneva, D., Nikolova, S., Agre, G., Zlatareva, D., Hadjidekov, V.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 60,
+  "fields": {
+    "event": 41,
+    "title": "Generation of three-dimensional images of skulls with anatomical variations",
+    "authors": "Toneva, D., Nikolova, S.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 61,
+  "fields": {
+    "event": 41,
+    "title": "A case of atlas assimilation in a metopic skull",
+    "authors": "Nikolova, S., Toneva, D.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 62,
+  "fields": {
+    "event": 42,
+    "title": "Applied Mathematics for Forensic Medicine",
+    "authors": "Toneva, D., Nikolova, S., Harizanov, S., Zhelev, I.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 63,
+  "fields": {
+    "event": 43,
+    "title": "Reliability of age-at-death estimation based on the sagittal suture maturation in metopic skulls",
+    "authors": "Nikolova, S., Toneva, D., Agre, G.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 64,
+  "fields": {
+    "event": 44,
+    "title": "Sex and bilateral differences in the position of mental foramen: A CT-study",
+    "authors": "Toneva, D., Nikolova, S., Zlatareva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 65,
+  "fields": {
+    "event": 44,
+    "title": "Visualization and investigation of paranasal sinuses via CT imaging",
+    "authors": "Nikolova, S., Toneva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 66,
+  "fields": {
+    "event": 44,
+    "title": "Sex estimation by mastoid process size based on CT imaging",
+    "authors": "Zlatareva, D., Toneva, D., Nikolova, S.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 67,
+  "fields": {
+    "event": 44,
+    "title": "Machine learning classification models for sex estimation based on cranial measurements derived from computed tomography images",
+    "authors": "Agre, G., Toneva, D., Nikolova, S., Zlatareva, D.",
+    "participation_type": "poster"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 68,
+  "fields": {
+    "event": 45,
+    "title": "Echo State Network for Features Extraction and Segmentation of Tomography Images",
+    "authors": "Koprinkova-Hristova, P., Georgiev, I., Nikolova, S., Toneva, D.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 69,
+  "fields": {
+    "event": 45,
+    "title": "Three-Dimensional Supervised Image Processing",
+    "authors": "Harizanov, S., Georgiev, I.",
+    "participation_type": "oral"
+  }
+},
+{
+  "model": "projects.eventparticipation",
+  "pk": 70,
+  "fields": {
+    "event": 46,
+    "title": "Frequency of interclinoid bridging in Bulgarians",
+    "authors": "Nikolova, S., Toneva, D.",
+    "participation_type": "poster"
+  }
+}
+]

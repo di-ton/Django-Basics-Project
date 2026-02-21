@@ -146,15 +146,16 @@
   width: 100%;
   max-width: 900px;
   align-items: center;
-  padding: 0.25rem;
+  padding: 0.2rem;
   border: 1px solid #065f46;
   border-radius: 6px;
+  margin-bottom: 1.9rem;
 }
 
 .event-content {
   display: block;
   margin: 0 auto;
-  padding: 1.2rem 1.4rem;
+  padding: 1rem 1.4rem;
 }
 
 .event-header {

@@ -1,25 +1,25 @@
 {% extends "projects/project-base.html" %}
 
 {% block project_content %}
-<div class="project-section">
+<div class="article-section-delete">
 
   <h2>Delete Article</h2>
 
   <div class="delete-warning">
     <p>
-      You are about to delete the article:
+      You are about to delete this article:
     </p>
-    <p><strong>{{ article.title }}</strong></p>
+    <p><strong>{{ article.title|capfirst }}</strong></p>
   </div>
 
   <form method="post" class="delete-form">
     {% csrf_token %}
 
-    <button type="submit" class="btn-danger">
+    <button type="submit" class="btn-article-delete">
       Yes, delete article
     </button>
 
-    <a href="{% url 'project-articles' project.slug %}" class="btn-secondary">
+    <a href="{% url 'project-articles' project.slug %}" class="btn-article-cancel">
       Cancel
     </a>
   </form>

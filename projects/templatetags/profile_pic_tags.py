@@ -16,4 +16,4 @@ def profile_image(scientist):
         if getattr(scientist, "profile_picture_url", None):
             return scientist.profile_picture_url
 
-    return static("images/no_image.png")
+    return static("images/no_profile_image.png")

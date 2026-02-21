@@ -1,6 +1,5 @@
 from django.shortcuts import redirect
 
-from accounts.models import ScientistProfile
 
 class ProfileRequiredMixin:
     def dispatch(self, request, *args, **kwargs):

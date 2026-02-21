@@ -13,15 +13,6 @@
     {% if leader %}
       <div class="member-card leader-card">
 
-{#        {% if leader.scientist %}#}
-{#          <a href="{% url 'profile-public' leader.scientist.slug %}">#}
-{#        {% endif %}#}
-{##}
-{#            <img src="{% profile_image leader.scientist %}" class="member-pic">#}
-{##}
-{#        {% if leader.scientist %}#}
-{#          </a>#}
-{#        {% endif %}#}
         {% if leader.scientist %}
           <a href="{% url 'profile-public' leader.scientist.slug %}">
             <img src="{% profile_image leader.scientist %}" class="member-pic">
@@ -62,15 +53,6 @@
     {% for membership in members %}
       <div class="member-card">
 
-{#        {% if membership.scientist %}#}
-{#          <a href="{% url 'profile-public' membership.scientist.slug %}">#}
-{#        {% endif %}#}
-{##}
-{#            <img src="{% profile_image membership.scientist %}" class="member-pic">#}
-{##}
-{#        {% if membership.scientist %}#}
-{#          </a>#}
-{#        {% endif %}#}
         {% if membership.scientist %}
           <a href="{% url 'profile-public' membership.scientist.slug %}">
             <img src="{% profile_image membership.scientist %}" class="member-pic">

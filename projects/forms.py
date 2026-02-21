@@ -75,25 +75,17 @@ class ProjectMembershipForm(forms.ModelForm):
         self.fields["email"].label = "Email"
         self.fields["scientist"].label = "Link to an existing profile (optional)"
 
-        # if self.project:
-        #     self.fields["scientist"].queryset = (
-        #         ScientistProfile.objects
-        #         .exclude(project_memberships__project=self.project)
-        #         .order_by("first_name")[:15]
-        #     )
-
         if self.project:
             qs = ScientistProfile.objects.exclude(
                 project_memberships__project=self.project
             )
 
-            # If form is bound (POST), always allow submitted value
             if self.is_bound:
                 submitted_id = self.data.get(self.add_prefix("scientist"))
                 if submitted_id:
                     qs = qs | ScientistProfile.objects.filter(pk=submitted_id)
 
-            # Limit visually but not logically
+
             self.fields["scientist"].queryset = qs.order_by("first_name")
 
     def clean(self):
@@ -120,54 +112,6 @@ class ProjectMembershipForm(forms.ModelForm):
 
         return cleaned_data
 
-
-# class ProjectMembershipForm(forms.ModelForm):
-#     class Meta:
-#         model = ProjectMembership
-#         fields = [
-#             "name",
-#             "email",
-#             "scientist",
-#             "role",
-#         ]
-#
-#     def __init__(self, *args, **kwargs):
-#         self.project = kwargs.pop("project", None)
-#         super().__init__(*args, **kwargs)
-#
-#         self.fields["scientist"].required = False
-#         self.fields["scientist"].widget = forms.TextInput(
-#             attrs={
-#                 "placeholder": "Search scientist…"
-#             }
-#         )
-#
-#         # self.fields["scientist"].empty_label = "— No profile selected —"
-#
-#         self.fields["name"].label = "Full name"
-#         self.fields["email"].label = "Email"
-#         self.fields["scientist"].label = "Link to an existing profile (optional)"
-#
-#         if self.project:
-#             self.fields["scientist"].queryset = (
-#                 ScientistProfile.objects
-#                 .exclude(project_memberships__project=self.project)
-#             )
-#
-#     def clean(self):
-#         cleaned_data = super().clean()
-#         role = cleaned_data.get("role")
-#
-#         if role == "leader" and self.project:
-#             if ProjectMembership.objects.filter(
-#                 project=self.project,
-#                 role="leader"
-#             ).exists():
-#                 raise forms.ValidationError(
-#                     "This project already has a leader."
-#                 )
-#
-#         return cleaned_data
 
 
 class ScientificOrganizationForm(forms.ModelForm):

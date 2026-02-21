@@ -49,6 +49,7 @@ The project follows a standard Django architecture with the following main compo
     ```
 
 4.  **Environment Configuration:**
+
     A `.env.example` file with the required environment variables is included in the project.
     Create a `.env` file in the root directory by copying it and updating the values.
     This file should contain the following credentials and configuration settings:
@@ -70,12 +71,15 @@ The project follows a standard Django architecture with the following main compo
     *   `DB_PORT`: The database port (default is `5432`).
 
 5.  **Apply Migrations and Load Initial Data:**
+
     ```bash
     python manage.py migrate
     python manage.py loaddata initial_data.json
     ```
+    
     An `initial_data.json` fixture file is included in the project.
     It contains sample data for three scientific projects, including detailed project overviews, associated members and scientific organizations, as well as related articles and scientific events at which the project results were presented.
+
 6.  **Run the Development Server:**
     ```bash
     python manage.py runserver

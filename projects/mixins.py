@@ -6,12 +6,6 @@ class ProjectMixin:
     def get_project(self):
         return get_object_or_404(Project, slug=self.kwargs["slug"])
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["project"] = self.get_project()
-    #
-    #     return context
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 

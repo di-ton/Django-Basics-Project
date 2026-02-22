@@ -2,6 +2,19 @@
 
 sciProSpace is a Django-based web application designed to manage and showcase scientific projects. It enables users to create accounts, manage their profiles, and explore publicly available research projects in a structured and organized manner. The platform focuses on presenting scientific work, highlighting project details, and making research results accessible to the scientific community.
 
+## Key Features
+
+- Two-step registration process (account creation followed by profile completion).
+- Role-based project membership with Leader and Member roles.
+- Automatic linking of existing profiles when adding project members by email.
+- Shared scientific organizations across multiple projects (preventing duplication).
+- Custom validation logic, including:
+  - Enforcement of a single Leader per project.
+  - Requirement of at least one scientific identifier (ORCID ID or Scopus Author ID) in profiles.
+  - Chronological validation of scientific event dates.
+- Responsive user interface supporting desktop, tablet, and mobile devices.
+
+
 ## Project Structure
 
 The project follows a standard Django architecture with the following main components:
@@ -97,8 +110,7 @@ Unauthenticated users can browse publicly available projects but cannot modify c
     ```
 
     Access the application at `http://127.0.0.1:8000/`.
-    
-    > **Note:** The application interface is responsive and supports desktop, tablet, and mobile devices.
+
 
 ---
 

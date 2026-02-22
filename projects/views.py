@@ -168,9 +168,11 @@ def project_member_remove(request, slug, member_id):
         project=project,
     )
 
+    # Only users with management rights can remove members
     if not project.can_manage(request.user):
         return HttpResponseForbidden("Not allowed")
 
+    # Prevent removing the project creator
     if membership.scientist and membership.scientist.user == project.created_by:
         return HttpResponseForbidden("Project creator cannot be removed")
 
@@ -216,7 +218,6 @@ class ProjectOrganizationsView(ProjectMixin, ListView):
 
 
 
-
 class ProjectOrganizationCreateView(ProjectMixin, CreateView):
     model = ScientificOrganization
     form_class = ScientificOrganizationForm
@@ -227,6 +228,7 @@ class ProjectOrganizationCreateView(ProjectMixin, CreateView):
         project = self.get_project()
         name = form.cleaned_data["name"]
 
+        # Ensure organizations are unique by name and avoid duplicates
         try:
             self.object = form.save()
         except IntegrityError:
@@ -290,6 +292,7 @@ class ArticleUpdateView(ProjectMixin, UpdateView):
     form_class = ArticleUpdateForm
     template_name = "articles/article-form.html"
 
+    # Ensure only objects related to this project are retrieved
     def get_queryset(self):
         return Article.objects.filter(project=self.get_project())
 

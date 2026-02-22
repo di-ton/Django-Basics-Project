@@ -322,3 +322,80 @@ main {
     font-weight: 500;
     color: #555;
 }
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+  .header {
+    padding: 8px 24px;
+  }
+
+  .search-wrapper {
+    width: 300px;
+  }
+
+  .search-form input {
+    width: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .header .search-form {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-wrapper {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .search-form input {
+    width: 100%;
+  }
+
+  .nav ul {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  main {
+    padding: 24px 16px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 1.5rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav ul {
+    gap: 12px;
+    font-size: 0.9rem;
+  }
+
+  .logo img {
+    height: 48px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    position: relative;
+    margin-top: 2rem;
+    bottom: auto;
+  }
+}

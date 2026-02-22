@@ -281,3 +281,36 @@
 .event-participations-actions {
   margin-top: 0.75rem;
 }
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .event-header {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .event-actions {
+        width: 100%;
+        justify-content: flex-start;
+        margin: 0.4rem 0;
+    }
+
+    .participation-item {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .participation-actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .participation-form-actions {
+        flex-direction: column;
+    }
+
+    .btn-small {
+        padding: 0.4rem 0.8rem;
+    }
+}

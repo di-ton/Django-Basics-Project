@@ -98,7 +98,7 @@ Unauthenticated users can browse publicly available projects but cannot modify c
 
     Access the application at `http://127.0.0.1:8000/`.
     
-    > **Note:** The application interface is currently optimized for desktop devices.
+    > **Note:** The application interface is responsive and supports desktop, tablet, and mobile devices.
 
 ---
 

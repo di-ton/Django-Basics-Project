@@ -19,12 +19,11 @@ class RegisterView(CreateView):
     form_class = UserRegisterForm
     template_name = 'accounts/register.html'
 
+    # Log in the user after account creation and redirect to complete profile setup
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return redirect("profile-create")
-
-
 
 
 class UserLoginView(LoginView):
@@ -62,9 +61,9 @@ class PublicProfileDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         scientist = self.object
 
+        # Retrieve all projects where this scientist participates
         projects = Project.objects.filter(
             memberships__scientist=scientist
         ).distinct()
@@ -89,6 +88,8 @@ class ProfileDetailsView(LoginRequiredMixin, ProfileRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
 
         scientist = self.object
+
+        # Count distinct projects the scientist participates in
         context["project_count"] = (
             scientist.project_memberships
             .values("project")

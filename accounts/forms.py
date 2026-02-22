@@ -172,11 +172,13 @@ class ScientistProfileForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
 
+        # Ensure at least one scientific identifier is provided (ORCID or Scopus)
         orcid = cleaned_data.get("orcid_id")
         scopus = cleaned_data.get("scopus_id")
         if not orcid and not scopus:
             raise forms.ValidationError("Please provide at least one of ORCID ID or Scopus Author ID.")
 
+        # Prevent providing both uploaded image and image URL
         uploaded = cleaned_data.get("profile_picture")
         url = cleaned_data.get("profile_picture_url")
 

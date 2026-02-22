@@ -50,6 +50,7 @@ class ProjectDeleteForm(ProjectBaseForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        # Disable all fields to make the form read-only on delete confirmation
         for field in self.fields.values():
             field.disabled = True
 
@@ -76,10 +77,13 @@ class ProjectMembershipForm(forms.ModelForm):
         self.fields["scientist"].label = "Link to an existing profile (optional)"
 
         if self.project:
+
+            # Exclude profiles already added to this project
             qs = ScientistProfile.objects.exclude(
                 project_memberships__project=self.project
             )
 
+            # Keep selected scientist in queryset when form is re-rendered
             if self.is_bound:
                 submitted_id = self.data.get(self.add_prefix("scientist"))
                 if submitted_id:
@@ -94,6 +98,7 @@ class ProjectMembershipForm(forms.ModelForm):
         email = cleaned_data.get("email")
         scientist = cleaned_data.get("scientist")
 
+        # Ensure only one leader per project
         if role == "leader" and self.project:
             if ProjectMembership.objects.filter(
                 project=self.project,
@@ -103,6 +108,7 @@ class ProjectMembershipForm(forms.ModelForm):
                     "This project already has a leader."
                 )
 
+        # Automatically link profile if email matches an existing user
         if email and not scientist:
             profile = ScientistProfile.objects.filter(
                 user__email__iexact=email
@@ -189,6 +195,7 @@ class ScientificEventBaseForm(forms.ModelForm):
         start = cleaned.get("start_date")
         end = cleaned.get("end_date")
 
+        # Validate that event end date is not before start date
         if start and end and end < start:
             raise forms.ValidationError(
                 "End date cannot be earlier than start date."

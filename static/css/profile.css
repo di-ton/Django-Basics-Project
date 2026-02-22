@@ -297,3 +297,39 @@
     color: #6b7280;
     margin-left: 0.4rem;
 }
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 1.5rem 2rem;
+    }
+
+    .profile-name {
+        font-size: 1.5rem;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .btn-secondary, .profile-actions .btn-danger {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card {
+        padding: 1.2rem 1rem;
+    }
+
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-name {
+        font-size: 1.3rem;
+    }
+}

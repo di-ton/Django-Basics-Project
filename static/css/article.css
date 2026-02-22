@@ -215,3 +215,26 @@
   line-height: 1.4;
   font-style: italic;
 }
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .article-card {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .article-actions {
+        opacity: 1;
+        justify-content: flex-start;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-article-cancel, .btn-article-delete {
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+    }
+}

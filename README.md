@@ -11,6 +11,7 @@ The project follows a standard Django architecture with the following main compo
 *   **projects/**: Manages the core functionality related to projects. This includes:
     *   **Overview**: General information about the project.
     *   **Members**: Management of project members and their roles (Leader, Member).
+    *   **Organizations**: Management of associated scientific organizations (base and partner organizations).
     *   **Articles**: Tracking of published scientific articles presenting results obtained during the project.
     *   **Scientific Events**: Management of scientific events at which project results were presented.
     *   **Forms**: Utilization of Django forms for creating and updating project details, memberships, articles, and events.
@@ -18,6 +19,16 @@ The project follows a standard Django architecture with the following main compo
 *   **templates/**: HTML templates for the application.
 *   **static/**: Static files (CSS, images).
 *   **media/**: User-uploaded content.
+
+## Authentication
+
+To create and manage projects, users must:
+- Register an account.
+- Complete their profile.
+- Log in to the system.
+
+Only authenticated users can create new projects and manage related members, scientific organizations, articles, and scientific events.
+Unauthenticated users can browse publicly available projects but cannot modify content.
 
 ## Setup and Installation
 

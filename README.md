@@ -47,8 +47,14 @@ Unauthenticated users can browse publicly available projects but cannot modify c
 
 ### Prerequisites
 
-*   Python 3.10+
+*   Python 3.10 or higher (tested with Python 3.11)
 *   PostgreSQL
+
+## Tech Stack
+
+- Django 5.2
+- psycopg2
+- python-dotenv
 
 ### Installation Steps
 
@@ -72,7 +78,15 @@ Unauthenticated users can browse publicly available projects but cannot modify c
     pip install -r requirements.txt
     ```
 
-4.  **Environment Configuration:**
+4. **Create PostgreSQL Database**
+
+    Make sure PostgreSQL is running, then create a database:
+    
+    ```bash
+    createdb your_db_name
+    ```
+
+5.  **Environment Configuration:**
 
     A `.env.example` file with the required environment variables is included in the project.
     Create a `.env` file in the root directory by copying it and updating the values.
@@ -94,7 +108,7 @@ Unauthenticated users can browse publicly available projects but cannot modify c
     *   `DB_HOST`: The database host (usually `localhost` or `127.0.0.1`).
     *   `DB_PORT`: The database port (default is `5432`).
 
-5.  **Apply Migrations and Load Initial Data:**
+6.  **Apply Migrations and Load Initial Data:**
 
     ```bash
     python manage.py migrate
@@ -104,7 +118,7 @@ Unauthenticated users can browse publicly available projects but cannot modify c
     An `initial_data.json` fixture file is included in the project.
     It contains sample data for three scientific projects, including detailed project overviews, associated members and scientific organizations, as well as related articles and scientific events at which the project results were presented.
 
-6.  **Run the Development Server:**
+7.  **Run the Development Server:**
     ```bash
     python manage.py runserver
     ```

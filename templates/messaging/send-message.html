@@ -1,0 +1,58 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+
+        <div class="auth-header">
+            <h2>Send Message</h2>
+        </div>
+
+        {% if recipient %}
+            <div class="reply-info">
+                <p>
+                    <strong>To:</strong> {{ recipient.scientist_profile.full_name }}
+                </p>
+            </div>
+        {% endif %}
+
+        {% if original %}
+            <div class="reply-info">
+                <p>
+                    <strong>Replying to:</strong>
+                    {{ original.sender.scientist_profile.full_name }}
+                </p>
+            </div>
+        {% endif %}
+
+        <form method="post" class="profile-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                {{ form.recipients.label_tag }}
+                {{ form.recipients }}
+            </div>
+
+            <div class="form-group">
+                {{ form.subject.label_tag }}
+                {{ form.subject }}
+            </div>
+
+            <div class="form-group">
+                {{ form.body.label_tag }}
+                {{ form.body }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                    Send Message
+                </button>
+                <a href="javascript:history.back()" class="btn-secondary">
+                    Cancel
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

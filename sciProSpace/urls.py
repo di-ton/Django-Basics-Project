@@ -24,8 +24,10 @@ urlpatterns = [
     path("", include("common.urls")),
     path("profile/", include("accounts.urls")),
     path("project/", include("projects.urls")),
+    path("api/", include("feedback.urls")),
+    path("messaging/", include("messaging.urls")),
 ]
 
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

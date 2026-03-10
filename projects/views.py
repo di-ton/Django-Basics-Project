@@ -5,8 +5,9 @@ from django.db import IntegrityError
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, FormView
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
 
+from feedback.models import Comment
 from projects.choices import CategoryChoices
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, ArticleCreateForm, \
     ArticleUpdateForm, ScientificEventCreateForm, ScientificEventUpdateForm, ProjectMembershipForm, \
@@ -406,7 +407,21 @@ class EventParticipationDeleteView(ProjectMixin, EventMixin, DeleteView):
         )
 
 
+class ProjectCommentsView(DetailView):
+    model = Project
+    template_name = "feedback/project-comments.html"
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["comments"] = Comment.objects.filter(
+            project=self.object,
+            parent__isnull=True
+        ).select_related("user").prefetch_related("replies")
+
+        return context
 
 
 

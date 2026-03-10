@@ -1,6 +1,7 @@
 from django.urls import path, include
 from projects import views
-from projects.views import EventParticipationCreateView, EventParticipationDeleteView, ProjectDeleteView
+from projects.views import EventParticipationCreateView, EventParticipationDeleteView, ProjectDeleteView, \
+    ProjectCommentsView
 
 urlpatterns = [
     path("", views.ProjectCreateView.as_view(), name="project-create"),
@@ -32,7 +33,10 @@ urlpatterns = [
         path("events/<int:pk>/remove/", views.EventDeleteView.as_view(), name="project-event-delete"),
 
         path("events/<int:event_pk>/participations/add/", EventParticipationCreateView.as_view(), name="event-participation-add"),
-        path("events/<int:event_pk>/participations/<int:pk>/delete/", EventParticipationDeleteView.as_view(), name="event-participation-delete",
-)
+        path("events/<int:event_pk>/participations/<int:pk>/delete/", EventParticipationDeleteView.as_view(), name="event-participation-delete"),
+
+
+        path("comments/", ProjectCommentsView.as_view(), name="project-comments-page"),
+
     ])),
 ]

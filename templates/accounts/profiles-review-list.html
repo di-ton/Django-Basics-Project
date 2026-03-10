@@ -1,0 +1,57 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+
+<div class="profile-container">
+    <div class="profile-card">
+
+        <div class="auth-header">
+            <h2>Profiles Needing Review</h2>
+            <p>Newly created profiles awaiting moderator review</p>
+        </div>
+
+        {% for profile in profiles %}
+
+            <div class="profile-section">
+                <h3>{{ profile.full_name }}</h3>
+
+                <ul class="profile-list">
+                    <li><strong>Email:</strong> {{ profile.user.email }}</li>
+                    <li><strong>Affiliation:</strong> {{ profile.affiliation }}</li>
+                    <li><strong>Degree:</strong> {{ profile.academic_degree }}</li>
+                    <li><strong>ORCID ID:</strong> {{ profile.orcid_id }}</li>
+                    <li><strong>Scopus Author ID:</strong> {{ profile.scopus_id }}</li>
+                </ul>
+
+                <div class="profile-actions">
+
+                    <!-- Mark as Reviewed -->
+                    <form method="post" action="{% url 'profile-review' profile.slug %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-primary">
+                            Mark as Reviewed
+                        </button>
+                    </form>
+
+                    <!-- Ban User -->
+                    <form method="post" action="{% url 'profile-ban' profile.slug %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-danger"
+                                onclick="return confirm('Are you sure you want to ban this user?');">
+                            Ban
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+        {% empty %}
+            <p class="profile-text">No profiles need review.</p>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}
+
+

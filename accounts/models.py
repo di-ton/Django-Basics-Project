@@ -1,5 +1,5 @@
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin, Group
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
@@ -9,6 +9,7 @@ from accounts.managers import UserManager
 from accounts.validators import OrcidIdValidator, ScopusIDValidator
 from common.models import TimeStampedModel
 from projects.models import Project, ProjectMembership
+from cloudinary.models import CloudinaryField
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -56,8 +57,15 @@ class ScientistProfile(TimeStampedModel):
         null=True,
         blank=True,
     )
-    profile_picture = models.ImageField(
-        upload_to="profile_pictures/",
+    # profile_picture = models.ImageField(
+    #     upload_to="profile_pictures/",
+    #     blank=True,
+    #     null=True,
+    # )
+
+    profile_picture = CloudinaryField(
+        "image",
+        folder="sciprospace",
         blank=True,
         null=True,
     )
@@ -68,7 +76,8 @@ class ScientistProfile(TimeStampedModel):
         help_text="Paste a link to your profile picture (optional)",
     )
     research_interests = models.TextField(blank=True)
-    is_approved = models.BooleanField(default=True) # for exam
+    is_approved = models.BooleanField(default=True)
+    is_reviewed = models.BooleanField(default=False)
 
     slug = models.SlugField(max_length=200, unique=True, blank=True, editable=False)
 
@@ -130,6 +139,12 @@ class ScientistProfile(TimeStampedModel):
                 "scopus_id": "Either ORCID or Scopus ID is required.",
             })
 
+        if self.profile_picture and self.profile_picture_url:
+            raise ValidationError({
+                "profile_picture": "Choose either an uploaded image or an image URL.",
+                "profile_picture_url": "Choose either an uploaded image or an image URL.",
+            })
+
     def save(self, *args, **kwargs):
         is_new = self._state.adding
 
@@ -146,3 +161,13 @@ class ScientistProfile(TimeStampedModel):
                 email__iexact=self.user.email
             ).update(scientist=self)
 
+        if is_new:
+            moderators = Group.objects.get(name="Profile Moderators").user_set.all()
+            for moderator in moderators:
+                # SIGNAL: notify moderator via email for newly created profiles
+                print(f"Notify {moderator.email}")
+
+    class Meta:
+        permissions = [
+            ("can_ban_profile", "Can ban profiles"),
+        ]

@@ -1,0 +1,56 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card message-card">
+
+        <div class="profile-header">
+            <h2 class="profile-name">Sent Messages</h2>
+        </div>
+        <div class="messages-nav">
+            <a href="{% url 'inbox' %}"
+               class="{% if request.resolver_match.url_name == 'inbox' %}active{% endif %}">
+                Inbox
+            </a>
+        </div>
+
+        {% if messages %}
+        <ul class="message-list">
+            {% for message in messages %}
+            <li class="message-item">
+
+                <a href="{% url 'message-detail' message.message.id %}">
+
+                    <div class="message-meta">
+                        <span class="message-sender">
+                            To:
+                            {% for r in message.message.recipients.all %}
+{#                                {{ r.scientist_profile.full_name }}{% if not forloop.last %}, {% endif %}#}
+                                {% if r != message.message.sender %}
+                                    {{ r.scientist_profile.full_name }}
+                                {% endif %}
+
+                            {% endfor %}
+                        </span>
+
+                        <span class="message-date">
+                            {{ message.message.created_at|date:"d M Y H:i" }}
+                        </span>
+                    </div>
+
+                    <div class="message-subject">
+                        {{ message.message.subject }}
+                    </div>
+
+                </a>
+
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="profile-text">No sent messages.</p>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

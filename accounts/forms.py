@@ -81,6 +81,33 @@ class UserUpdateForm(forms.ModelForm):
         fields = ("email",)
 
 
+
+class UserDeletePreviewForm(forms.ModelForm):
+    email = forms.EmailField(
+        label="Account email address:",
+        disabled=True,
+        widget=forms.EmailInput(attrs={"class": "form-control", "readonly": True}),
+    )
+
+    full_name = forms.CharField(
+        label="Full name:",
+        disabled=True,
+        widget=forms.TextInput(attrs={"class": "form-control", "readonly": True}),
+    )
+
+    class Meta:
+        model = User
+        fields = ("email",)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.instance and hasattr(self.instance, "scientist_profile"):
+            self.fields["full_name"].initial = self.instance.scientist_profile.full_name
+
+
+
+
 class ScientistProfileForm(forms.ModelForm):
     class Meta:
         model = ScientistProfile
@@ -154,9 +181,7 @@ class ScientistProfileForm(forms.ModelForm):
     profile_picture = forms.ImageField(
         required=False,
         label="Upload profile picture:",
-        widget=forms.ClearableFileInput(attrs={
-            "class": "form-control",
-        }),
+        widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
     )
 
     profile_picture_url = forms.URLField(

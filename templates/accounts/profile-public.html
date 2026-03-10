@@ -14,6 +14,13 @@
             <p class="profile-meta">
                 {{ scientist.get_academic_degree_display }} · {{ scientist.affiliation }}
             </p>
+            {% if request.user.is_authenticated and scientist.user and request.user != scientist.user %}
+                <div class="profile-actions profile-send-message">
+                    <a href="{% url 'send-message' scientist.slug %}" class="btn-secondary">
+                        Send Message
+                    </a>
+                </div>
+            {% endif %}
         </div>
 
         <div class="profile-section">

@@ -9,6 +9,11 @@
       {% if request.user.scientist_profile %}
       <li><a href="{% url 'project-create' %}">Add Project</a></li>
       <li><a href="{% url 'project-list' %}">Your Projects</a></li>
+      {% if perms.accounts.can_ban_profile %}
+        <li><a href="{% url 'profiles-review-list' %}">
+            Review Profiles
+        </a></li>
+      {% endif %}
 
       <li>
         <a href="{% url 'profile-details' %}">
@@ -21,6 +26,14 @@
             {% else %}
                 <img src="{% static 'images/no_profile_image.png' %}"
                      alt="Profile" class="nav-profile-pic">
+            {% endif %}
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'inbox' %}">
+            <i class="fa-solid fa-envelope"></i>
+            {% if unread_messages_count %}
+                <span class="badge">{{ unread_messages_count }}</span>
             {% endif %}
         </a>
       </li>

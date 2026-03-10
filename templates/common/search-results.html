@@ -3,7 +3,6 @@
 {% block content %}
 
 <div class="search-results">
-
     <h1>Search results</h1>
 
     {% if request.GET.text %}
@@ -12,7 +11,10 @@
       </p>
     {% endif %}
 
+    <!-- PROJECTS -->
     {% if projects %}
+      <h2>Projects</h2>
+
       <ul class="search-results-list">
         {% for project in projects %}
           <li class="search-result-item">
@@ -22,11 +24,27 @@
           </li>
         {% endfor %}
       </ul>
-    {% else %}
-      <p class="search-empty">No projects match your search.</p>
     {% endif %}
 
-  </div>
+    <!-- MEMBERS -->
+    {% if profiles %}
+      <h2>Profiles</h2>
 
+      <ul class="search-results-list">
+        {% for profile in profiles %}
+          <li class="search-result-item">
+            <a href="{% url 'profile-public' profile.slug %}">
+              {{ profile.full_name }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
 
+    {% if not projects and not profiles %}
+      <p class="search-empty">No results match your search.</p>
+    {% endif %}
+
+</div>
 {% endblock %}
+

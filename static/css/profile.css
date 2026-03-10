@@ -18,7 +18,7 @@
 .profile-header {
     text-align: center;
     margin-top: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.8rem;
 }
 
 .profile-name {
@@ -70,7 +70,7 @@
 
 .btn-secondary {
     display: inline-block;
-    padding: 0.6rem 1.4rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 6px;
     background-color: #defcf2;
     color: #0f766e;
@@ -81,6 +81,10 @@
 
 .btn-secondary:hover {
     background-color: #bde8e1;
+}
+
+.profile-send-message .btn-secondary {
+    color: #0f766e;
 }
 
 
@@ -139,6 +143,7 @@
 .form-help {
     display: block;
     margin-top: 0.3rem;
+    margin-left: 0.8rem;
     font-size: 0.8rem;
     color: #6b7280;
 }
@@ -158,12 +163,23 @@
 
 .danger-link {
     color: #7f1d1d;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     text-decoration: underline;
 }
 
 .danger-link:hover {
     color: #b91c1c;
+}
+
+.password-link {
+    color: #0f766e;
+    font-size: 0.95rem;
+    text-decoration: underline;
+    margin-right: 0.8rem;
+}
+
+.password-link:hover {
+    color: #094e49;
 }
 
 
@@ -216,9 +232,20 @@
     color: #fecaca;
 }
 
+.form-control[disabled] {
+    background-color: #f8f9fa;
+    color: #495057;
+    border: 1px solid #ced4da;
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+.form-group {
+    margin: 15px 0;
+}
 
 .delete-form {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 
@@ -333,3 +360,21 @@
         font-size: 1.3rem;
     }
 }
+
+.forgotten-password-link {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.forgotten-password-link a {
+    color: #0f766e;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgotten-password-link a:hover {
+    text-decoration: underline;
+}
+
+

@@ -1,0 +1,54 @@
+{% extends "projects/project-base.html" %}
+
+{% block project_content %}
+<div class="profile-container">
+    <div class="profile-card">
+
+        <div class="auth-header">
+            <h2>Contact Project Team</h2>
+            <p>Project: <strong>{{ project.title }}</strong></p>
+        </div>
+
+        <form method="post" class="profile-form">
+            {% csrf_token %}
+
+            <label for="id_recipients">Recipients</label>
+              <div class="recipients-list">
+                {% for checkbox in form.recipients %}
+                    <label class="recipient-item">
+                        {{ checkbox.tag }}
+                        {{ checkbox.choice_label }}
+                    </label>
+                {% endfor %}
+                </div>
+                <small class="form-help">
+                    You can select one or more project members.
+                </small>
+
+
+
+            <div class="form-group">
+                <label for="id_subject">Subject</label>
+                {{ form.subject }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_body">Message</label>
+                {{ form.body }}
+            </div>
+
+            <div class="profile-actions">
+                <button type="submit" class="btn-secondary">
+                    Send Message
+                </button>
+
+                <a href="{% url 'project-overview' project.slug %}" class="btn-secondary">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+{% endblock %}

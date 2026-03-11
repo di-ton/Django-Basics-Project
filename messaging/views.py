@@ -23,19 +23,7 @@ class InboxView(LoginRequiredMixin, ListView):
             .select_related("message", "message__sender")
             .order_by("-message__created_at")
         )
-#
-#
-# class SentMessagesView(LoginRequiredMixin, ListView):
-#     model = Message
-#     template_name = "messaging/sent-messages.html"
-#     context_object_name = "messages"
-#
-#     def get_queryset(self):
-#         return (
-#             Message.objects
-#             .filter(sender=self.request.user)
-#             .order_by("-created_at")
-#         )
+
 
 class SentMessagesView(LoginRequiredMixin, ListView):
     model = MessageRecipient
@@ -83,20 +71,12 @@ class SendMessageView(LoginRequiredMixin, CreateView):
         self.recipient = profile.user
         return super().dispatch(request, *args, **kwargs)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["recipient"] = self.recipient_profile
-    #     return context
 
     def form_valid(self, form):
         message = form.save(commit=False)
         message.sender = self.request.user
         message.save()
 
-        # MessageRecipient.objects.create(
-        #     message=message,
-        #     recipient=self.recipient
-        # )
 
         # recipient inbox
         MessageRecipient.objects.create(

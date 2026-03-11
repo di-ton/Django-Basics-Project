@@ -331,6 +331,21 @@ main {
     color: #555;
 }
 
+.project-error-text {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.btn-error-go-home,
+.btn-go-back {
+    background-color: #1f7a6d;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: 1px solid #1f7a6d;
+    text-decoration: none;
+}
+
 /* RESPONSIVE DESIGN */
 @media (max-width: 992px) {
   .header {
@@ -407,3 +422,4 @@ main {
     bottom: auto;
   }
 }
+

@@ -14,7 +14,7 @@ from projects.forms import ProjectCreateForm, ProjectUpdateForm, ArticleCreateFo
     ScientificOrganizationForm, EventParticipationForm, ProjectDeleteForm
 from projects.mixins import ProjectMixin, EventMixin
 from projects.models import Article, ScientificEvent, Project, ProjectMembership, ScientificOrganization, \
-    EventParticipation
+    EventParticipation, ProjectOrganization
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
@@ -209,13 +209,21 @@ class ProjectMembersView(ProjectMixin, TemplateView):
 
 
 class ProjectOrganizationsView(ProjectMixin, ListView):
-    model = ScientificOrganization
+    # model = ScientificOrganization
+    model = ProjectOrganization
     template_name = "projects/project-organizations.html"
     context_object_name = "organizations"
     paginate_by = 3
 
+    # def get_queryset(self):
+    #     return self.get_project().organizations.all().order_by('-is_base_organization', 'name')
     def get_queryset(self):
-        return self.get_project().organizations.all().order_by('-is_base_organization', 'name')
+        return (
+            ProjectOrganization.objects
+            .filter(project=self.get_project())
+            .select_related("organization")
+            .order_by("-is_base_organization", "organization__name")
+        )
 
 
 
@@ -225,42 +233,102 @@ class ProjectOrganizationCreateView(ProjectMixin, CreateView):
     template_name = "projects/project-organizations-form.html"
 
 
+    # def form_valid(self, form):
+    #     project = self.get_project()
+    #     name = form.cleaned_data["name"]
+    #
+    #     # Ensure organizations are unique by name and avoid duplicates
+    #     try:
+    #         self.object = form.save()
+    #     except IntegrityError:
+    #         self.object = ScientificOrganization.objects.get(
+    #             name__iexact=name
+    #         )
+    #
+    #         for field in ["country", "address", "website", "is_base_organization"]:
+    #             setattr(self.object, field, form.cleaned_data.get(field))
+    #
+    #         self.object.save()
+    #
+    #
+    #     project.organizations.add(self.object)
+    #
+    #     return redirect("project-organizations", slug=project.slug)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["initial"]["project"] = self.get_project()
+        return kwargs
+
     def form_valid(self, form):
         project = self.get_project()
-        name = form.cleaned_data["name"]
 
-        # Ensure organizations are unique by name and avoid duplicates
+        organization = form.cleaned_data.get("existing_organization")
+
+        if not organization:
+            organization = form.save()
+
         try:
-            self.object = form.save()
-        except IntegrityError:
-            self.object = ScientificOrganization.objects.get(
-                name__iexact=name
+            ProjectOrganization.objects.create(
+                project=project,
+                organization=organization,
+                is_base_organization=form.cleaned_data["is_base_organization"]
             )
-
-            for field in ["country", "address", "website", "is_base_organization"]:
-                setattr(self.object, field, form.cleaned_data.get(field))
-
-            self.object.save()
-
-
-        project.organizations.add(self.object)
+        except IntegrityError:
+            form.add_error(
+                "is_base_organization",
+                "This project already has a base organization."
+            )
+            return self.form_invalid(form)
 
         return redirect("project-organizations", slug=project.slug)
 
+    # def form_valid(self, form):
+    #     project = self.get_project()
+    #
+    #     organization = form.cleaned_data.get("existing_organization")
+    #
+    #     if not organization:
+    #         organization = form.save()
+    #
+    #     ProjectOrganization.objects.create(
+    #         project=project,
+    #         organization=organization,
+    #         is_base_organization=form.cleaned_data["is_base_organization"]
+    #     )
+    #
+    #     return redirect("project-organizations", slug=project.slug)
+
+
+# @login_required
+# def project_organization_remove(request, slug, organization_id):
+#     project = get_object_or_404(Project, slug=slug)
+#     organization = get_object_or_404(ScientificOrganization, pk=organization_id)
+#
+#     if not project.can_manage(request.user):
+#         return HttpResponseForbidden("Not allowed")
+#
+#     if request.method == "POST":
+#         project.organizations.remove(organization)
+#
+#     return redirect("project-organizations", project.slug)
 
 @login_required
 def project_organization_remove(request, slug, organization_id):
     project = get_object_or_404(Project, slug=slug)
-    organization = get_object_or_404(ScientificOrganization, pk=organization_id)
+
+    project_org = get_object_or_404(
+        ProjectOrganization,
+        pk=organization_id,
+        project=project
+    )
 
     if not project.can_manage(request.user):
         return HttpResponseForbidden("Not allowed")
 
     if request.method == "POST":
-        project.organizations.remove(organization)
+        project_org.delete()
 
     return redirect("project-organizations", project.slug)
-
 
 
 class ProjectArticlesView(ProjectMixin, ListView):

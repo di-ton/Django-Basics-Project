@@ -8,12 +8,12 @@
   {% if organizations %}
     <div class="organizations-list">
 
-      {% for organization in organizations %}
+      {% for org in organizations %}
         <div class="organization-card">
 
-          <h3 class="organization-name">{{ organization.name }}</h3>
+          <h3 class="organization-name">{{ org.organization.name }}</h3>
 
-          {% if organization.is_base_organization %}
+          {% if org.is_base_organization %}
             <div class="organization-flag">Base organization</div>
           {% else %}
             <div class="organization-flag">Partner organization</div>
@@ -21,37 +21,37 @@
 
           <div class="organization-website">
               <strong>Website:</strong>
-              {% if organization.website %}
-                <a href="{{ organization.website }}" target="_blank" rel="noopener noreferrer">
-                  {{ organization.website }}
+              {% if org.organization.website %}
+                <a href="{{ org.organization.website }}" target="_blank" rel="noopener noreferrer">
+                  {{ org.organization.website }}
                 </a>
               {% else %}
                 <span class="no-website">—</span>
               {% endif %}
           </div>
 
-          {% if organization.country %}
+          {% if org.organization.country %}
             <div class="organization-meta">
-              <strong>Country:</strong> {{ organization.country }}
+              <strong>Country:</strong> {{ org.organization.country }}
             </div>
           {% endif %}
 
-          {% if organization.address %}
+          {% if org.organization.address %}
             <div class="organization-meta">
               <strong>Address:</strong><br>
-              {{ organization.address|linebreaksbr }}
+              {{ org.organization.address|linebreaksbr }}
             </div>
           {% endif %}
 
-          {% if organization.description %}
+          {% if org.organization.description %}
             <div class="organization-description">
               <strong>Description:</strong>
-              <p>{{ organization.description|linebreaks }}</p>
+              <p>{{ org.organization.description|linebreaks }}</p>
             </div>
           {% endif %}
 
             {% if can_manage %}
-              <form method="post" action="{% url 'project-organization-delete' project.slug organization.id %}">
+              <form method="post" action="{% url 'project-organization-delete' project.slug org.id %}">
                 {% csrf_token %}
                 <button type="submit" class="btn-danger" onclick="return confirm('Remove this organization from the project?');">
                   Remove

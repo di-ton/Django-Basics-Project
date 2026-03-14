@@ -15,7 +15,7 @@ class ScientificOrganization(models.Model):
     website = models.URLField(blank=True)
     description = models.TextField(blank=True)
     slug = models.SlugField(unique=True, blank=True)
-    is_base_organization = models.BooleanField(default=False, verbose_name="Base organization")
+    # is_base_organization = models.BooleanField(default=False, verbose_name="Base organization")
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -61,6 +61,7 @@ class Project(TimeStampedModel):
     organizations = models.ManyToManyField(
         ScientificOrganization,
         related_name="projects",
+        through="ProjectOrganization",
         blank=True
     )
 
@@ -120,6 +121,42 @@ class Project(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+
+class ProjectOrganization(models.Model):
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name="project_organizations"
+    )
+
+    organization = models.ForeignKey(
+        ScientificOrganization,
+        on_delete=models.CASCADE,
+        related_name="project_links"
+    )
+
+    is_base_organization = models.BooleanField(
+        default=False,
+        verbose_name="Base organization"
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["project", "organization"],
+                name="unique_project_organization"
+            ),
+            models.UniqueConstraint(
+                fields=["project"],
+                condition=Q(is_base_organization=True),
+                name="one_base_organization_per_project"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.organization} - {self.project}"
+
 
 
 class ProjectMembership(models.Model):

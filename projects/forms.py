@@ -1,7 +1,7 @@
 from django import forms
 from accounts.models import ScientistProfile
 from projects.models import ScientificEvent, Project, Article, ProjectMembership, ScientificOrganization, \
-    EventParticipation
+    EventParticipation, ProjectOrganization
 
 
 class ProjectBaseForm(forms.ModelForm):
@@ -120,10 +120,97 @@ class ProjectMembershipForm(forms.ModelForm):
 
 
 
+# class ScientificOrganizationForm(forms.ModelForm):
+#     class Meta:
+#         model = ScientificOrganization
+#         fields = ["name", "country", "address", "website", "is_base_organization"]
+
 class ScientificOrganizationForm(forms.ModelForm):
+
+    existing_organization = forms.ModelChoiceField(
+        queryset=ScientificOrganization.objects.none(),
+        required=False,
+        empty_label="Select organization (filtered by country)",
+        label="Organization name (select if already exists in the database)"
+    )
+
+    is_base_organization = forms.BooleanField(
+        required=False,
+        label="Base organization"
+    )
+
     class Meta:
         model = ScientificOrganization
-        fields = ["name", "country", "address", "website", "is_base_organization"]
+        fields = ["name", "country", "address", "website"]
+        labels = {
+            "country": "Country (used to filter existing organizations):"
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.order_fields([
+            "country",
+            "existing_organization",
+            "name",
+            "address",
+            "website",
+            "is_base_organization"
+        ])
+
+        self.fields["name"].required = False
+
+        country = None
+
+        if "country" in self.data:
+            country = self.data.get("country")
+
+        elif self.instance and self.instance.pk:
+            country = self.instance.country
+
+        if country:
+            self.fields["existing_organization"].queryset = (
+                ScientificOrganization.objects.filter(country=country)
+                .order_by("name")
+            )
+        else:
+            self.fields["existing_organization"].queryset = (
+                ScientificOrganization.objects.all().order_by("name")
+            )
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        existing = cleaned_data.get("existing_organization")
+        name = cleaned_data.get("name")
+        is_base = cleaned_data.get("is_base_organization")
+
+        if not existing and not name:
+            self.add_error(
+                "existing_organization",
+                "Select an organization from the list or provide a name for a new one."
+            )
+
+        if existing and name:
+            self.add_error(
+                "name",
+                "If you select an organization from the list, do not enter a new name."
+            )
+
+
+            project = self.initial.get("project")
+
+            if is_base and project:
+                if ProjectOrganization.objects.filter(
+                        project=project,
+                        is_base_organization=True
+                ).exists():
+                    self.add_error(
+                        "is_base_organization",
+                        "This project already has a base organization."
+                    )
+
+        return cleaned_data
 
 
 

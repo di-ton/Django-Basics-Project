@@ -1,15 +1,15 @@
 from django.contrib import admin
 
 from projects.models import ScientificOrganization, Project, ProjectMembership, Article, ScientificEvent, \
-    EventParticipation
+    EventParticipation, ProjectOrganization
 
 
 @admin.register(ScientificOrganization)
 class ScientificOrganizationAdmin(admin.ModelAdmin):
-    list_display = ("name", "country", "is_base_organization")
+    list_display = ("name", "country")
     search_fields = ("name", "country")
     prepopulated_fields = {"slug": ("name",)}
-    list_filter = ("is_base_organization", "country")
+    list_filter = ("country",)
 
 
 
@@ -19,7 +19,12 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter = ("status", "category")
     search_fields = ("title", "acronym", "keywords", "project_number")
     prepopulated_fields = {"slug": ("title",)}
-    filter_horizontal = ("organizations",)
+    # filter_horizontal = ("organizations",)
+
+@admin.register(ProjectOrganization)
+class ProjectOrganizationAdmin(admin.ModelAdmin):
+    list_display = ("project", "organization", "is_base_organization")
+    list_filter = ("is_base_organization",)
 
 
 @admin.register(ProjectMembership)

@@ -22,15 +22,34 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     template_name = 'projects/project-create.html'
     form_class = ProjectCreateForm
 
+    # def form_valid(self, form):
+    #     form.instance.created_by = self.request.user
+    #     return super().form_valid(form)
+
     def form_valid(self, form):
         form.instance.created_by = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+
+        role = form.cleaned_data["creator_role"]
+
+        ProjectMembership.objects.create(
+            project=self.object,
+            scientist=self.request.user.scientist_profile,
+            name=self.request.user.scientist_profile.full_name,
+            email=self.request.user.email,
+            role=role
+        )
+
+        return response
+
+    # def get_success_url(self):
+    #     return reverse(
+    #         "project-members-add",
+    #         kwargs={"slug": self.object.slug}
+    #     )
 
     def get_success_url(self):
-        return reverse(
-            "project-members-add",
-            kwargs={"slug": self.object.slug}
-        )
+        return reverse("project-overview", kwargs={"slug": self.object.slug})
 
 
 class ProjectOverviewView(ProjectMixin, TemplateView):
@@ -152,6 +171,16 @@ class ProjectMembershipCreateView(ProjectMixin, CreateView):
         form.instance.project = self.get_project()
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = self.get_project()
+
+        context["members_added"] = ProjectMembership.objects.filter(
+            project=project
+        ).order_by("name")
+
+        return context
+
 
     def get_success_url(self):
         return reverse(
@@ -180,6 +209,11 @@ def project_member_remove(request, slug, member_id):
     if request.method == "POST":
         membership.delete()
 
+    next_url = request.POST.get("next")
+
+    if next_url:
+        return redirect(next_url)
+
     return redirect("project-members", project.slug)
 
 
@@ -190,7 +224,7 @@ class ProjectMembersView(ProjectMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         project = self.get_project()
 
-        memberships = project.memberships.select_related("scientist")
+        memberships = project.memberships.select_related("scientist").all()
 
         leader = memberships.filter(role="leader").first()
         members_qs = memberships.filter(role="member")
@@ -209,14 +243,11 @@ class ProjectMembersView(ProjectMixin, TemplateView):
 
 
 class ProjectOrganizationsView(ProjectMixin, ListView):
-    # model = ScientificOrganization
     model = ProjectOrganization
     template_name = "projects/project-organizations.html"
     context_object_name = "organizations"
     paginate_by = 3
 
-    # def get_queryset(self):
-    #     return self.get_project().organizations.all().order_by('-is_base_organization', 'name')
     def get_queryset(self):
         return (
             ProjectOrganization.objects
@@ -232,28 +263,6 @@ class ProjectOrganizationCreateView(ProjectMixin, CreateView):
     form_class = ScientificOrganizationForm
     template_name = "projects/project-organizations-form.html"
 
-
-    # def form_valid(self, form):
-    #     project = self.get_project()
-    #     name = form.cleaned_data["name"]
-    #
-    #     # Ensure organizations are unique by name and avoid duplicates
-    #     try:
-    #         self.object = form.save()
-    #     except IntegrityError:
-    #         self.object = ScientificOrganization.objects.get(
-    #             name__iexact=name
-    #         )
-    #
-    #         for field in ["country", "address", "website", "is_base_organization"]:
-    #             setattr(self.object, field, form.cleaned_data.get(field))
-    #
-    #         self.object.save()
-    #
-    #
-    #     project.organizations.add(self.object)
-    #
-    #     return redirect("project-organizations", slug=project.slug)
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs["initial"]["project"] = self.get_project()

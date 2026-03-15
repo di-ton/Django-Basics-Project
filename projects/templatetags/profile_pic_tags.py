@@ -10,7 +10,7 @@ def profile_image(scientist):
         if getattr(scientist, "profile_picture", None):
             try:
                 return scientist.profile_picture.url
-            except:
+            except Exception:
                 pass
 
         if getattr(scientist, "profile_picture_url", None):

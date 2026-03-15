@@ -38,7 +38,11 @@ class ProjectBaseForm(forms.ModelForm):
 
 
 class ProjectCreateForm(ProjectBaseForm):
-    pass
+    creator_role = forms.ChoiceField(
+        choices=ProjectMembership._meta.get_field("role").choices,
+        widget=forms.RadioSelect,
+        initial="member"
+    )
 
 
 class ProjectUpdateForm(ProjectBaseForm):

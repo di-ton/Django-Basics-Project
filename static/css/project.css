@@ -438,6 +438,33 @@
     background-color: #0c5f58;
 }
 
+.members-added-preview {
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #f7f8fa;
+    border-radius: 6px;
+}
+
+.members-added-preview ul {
+    padding-left: 25px;
+    margin-top: 6px;
+}
+
+.member-remove {
+    margin-left: 8px;
+    border: none;
+    background: transparent;
+    color: #b94a48;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.member-remove:hover {
+    color: #922d2b;
+}
+
 .btn-primary {
     padding: 0.6rem 1.6rem;
     border: none;
@@ -688,6 +715,20 @@
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
+}
+
+.form-group-role {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 1.5rem;
+    padding-top: 0.5rem;
+}
+
+.form-group-role .form-check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 /* RESPONSIVE DESIGN */

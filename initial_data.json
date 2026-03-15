@@ -56,8 +56,7 @@
     "address": "Sofia 1113, Acad. Georgi Bonchev Str., bl. 25",
     "website": "https://www.iempam.bas.bg/",
     "description": "",
-    "slug": "iempam-bas",
-    "is_base_organization": true
+    "slug": "iempam-bas"
   }
 },
 {
@@ -69,8 +68,7 @@
     "address": "Sofia 1113, Acad. Georgi Bonchev Str., bl. 2",
     "website": "https://www.iict.bas.bg/",
     "description": "",
-    "slug": "iict-bas",
-    "is_base_organization": false
+    "slug": "iict-bas"
   }
 },
 {
@@ -82,8 +80,7 @@
     "address": "Sofia 1431, bul. \"Acad. Ivan Geshov\" No 15",
     "website": "https://mu-sofia.bg/",
     "description": "",
-    "slug": "medical-university-sofia",
-    "is_base_organization": false
+    "slug": "medical-university-sofia"
   }
 },
 {

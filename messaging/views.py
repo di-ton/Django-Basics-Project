@@ -172,16 +172,22 @@ class ReplyMessageView(LoginRequiredMixin, CreateView):
         #     recipient=self.original.sender
         # )
 
+        if self.original.sender == self.request.user:
+            recipient = self.original.recipients.first()
+        else:
+            recipient = self.original.sender
+
         # recipient inbox
         MessageRecipient.objects.create(
             message=message,
-            recipient=self.original.sender
+            recipient=recipient
         )
 
         # sender sent
         MessageRecipient.objects.create(
             message=message,
-            recipient=self.request.user
+            recipient=self.request.user,
+            is_read=True
         )
 
         return redirect("inbox")

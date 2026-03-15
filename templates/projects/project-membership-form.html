@@ -12,6 +12,31 @@
     </div>
 
     <section class="project-members">
+        {% if members_added %}
+            <div class="members-added-preview">
+                <h3>Members added</h3>
+
+                <ul>
+                    {% for member in members_added %}
+                        <li>
+                            {{ member.name }}
+                            {% if member.role == "leader" %}
+                                (Leader)
+                            {% endif %}
+
+                            <form method="post"
+                                  action="{% url 'project-members-delete' project.slug member.id %}"
+                                  style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="next"
+                                       value="{% url 'project-members-add' project.slug %}">
+                                <button type="submit" class="member-remove">X</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
       <form method="post" class="project-form">
         {% csrf_token %}

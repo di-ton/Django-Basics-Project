@@ -13,22 +13,38 @@
       {% csrf_token %}
 
       {% for field in form %}
-        <div class="form-group">
-          <label for="{{ field.id_for_label }}">
-            {{ field.label }}
-          </label>
+        {% if field.name != "creator_role" %}
+            <div class="form-group">
+              <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+              </label>
 
-          {{ field }}
+              {{ field }}
 
-          {% if field.help_text %}
-            <span class="form-help">{{ field.help_text }}</span>
-          {% endif %}
+              {% if field.help_text %}
+                <span class="form-help">{{ field.help_text }}</span>
+              {% endif %}
 
-          {% for error in field.errors %}
-            <div class="form-error">{{ error }}</div>
-          {% endfor %}
-        </div>
+              {% for error in field.errors %}
+                <div class="form-error">{{ error }}</div>
+              {% endfor %}
+            </div>
+        {% endif %}
       {% endfor %}
+
+
+      <div class="form-group-role">
+        <label>Your role in the project:</label>
+
+        {% for radio in form.creator_role %}
+            <div class="form-check">
+                {{ radio.tag }}
+                <label class="form-check-label">
+                    {{ radio.choice_label }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
 
       <div class="form-actions">
         <button type="submit" class="btn-project-org-action">

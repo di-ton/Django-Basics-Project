@@ -116,8 +116,6 @@ class Project(TimeStampedModel):
             self.slug = f"{base}-{self.pk}"
             super().save(update_fields=["slug"])
 
-    # def get_absolute_url(self):
-    #     return reverse("project-overview", kwargs={"slug": self.slug})
 
     def __str__(self):
         return self.title

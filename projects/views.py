@@ -11,10 +11,11 @@ from feedback.models import Comment
 from projects.choices import CategoryChoices
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, ArticleCreateForm, \
     ArticleUpdateForm, ScientificEventCreateForm, ScientificEventUpdateForm, ProjectMembershipForm, \
-    ScientificOrganizationForm, EventParticipationForm, ProjectDeleteForm
-from projects.mixins import ProjectMixin, EventMixin
+    ScientificOrganizationForm, EventParticipationForm, ProjectDeleteForm, ScientificOrganizationUpdateForm
+from projects.mixins import ProjectMixin, EventMixin, ProjectEditMixin
 from projects.models import Article, ScientificEvent, Project, ProjectMembership, ScientificOrganization, \
     EventParticipation, ProjectOrganization
+from projects.utils import is_content_moderator
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
@@ -71,7 +72,8 @@ class ProjectOverviewView(ProjectMixin, TemplateView):
         return context
 
 
-class ProjectUpdateView(ProjectMixin, UpdateView):
+# class ProjectUpdateView(ProjectMixin, UpdateView):
+class ProjectUpdateView(ProjectEditMixin, UpdateView):
     model = Project
     template_name = "projects/project-update.html"
     form_class = ProjectUpdateForm
@@ -80,7 +82,8 @@ class ProjectUpdateView(ProjectMixin, UpdateView):
         return reverse("project-overview", kwargs={"slug": self.object.slug})
 
 
-class ProjectDeleteView(ProjectMixin, DeleteView):
+# class ProjectDeleteView(ProjectMixin, DeleteView):
+class ProjectDeleteView(ProjectEditMixin, DeleteView):
     model = Project
     template_name = "projects/project-delete.html"
     success_url = reverse_lazy("home")
@@ -89,6 +92,8 @@ class ProjectDeleteView(ProjectMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context["form"] = ProjectDeleteForm(instance=self.object)
         return context
+
+
 
 
 class ProjectListView(LoginRequiredMixin, ListView):
@@ -102,7 +107,8 @@ class ProjectListView(LoginRequiredMixin, ListView):
         profile = user.scientist_profile
 
         projects = Project.objects.filter(
-            memberships__scientist=profile
+            memberships__scientist=profile,
+            is_disabled=False
         ).distinct()
 
         for project in projects:
@@ -132,7 +138,7 @@ class ProjectByCategoryView(ListView):
         if self.category not in CategoryChoices.values:
             return Project.objects.none()
 
-        return Project.objects.filter(category=self.category)
+        return Project.objects.filter(category=self.category, is_disabled=False)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -141,8 +147,8 @@ class ProjectByCategoryView(ListView):
         )
         return context
 
-
-class ProjectMembershipCreateView(ProjectMixin, CreateView):
+# class ProjectMembershipCreateView(ProjectMixin, CreateView):
+class ProjectMembershipCreateView(ProjectEditMixin, CreateView):
     model = ProjectMembership
     form_class = ProjectMembershipForm
     template_name = "projects/project-membership-form.html"
@@ -202,6 +208,12 @@ def project_member_remove(request, slug, member_id):
     if not project.can_manage(request.user):
         return HttpResponseForbidden("Not allowed")
 
+    if project.is_disabled:
+        return HttpResponseForbidden("Project not available")
+
+    if project.is_locked:
+        return HttpResponseForbidden("Project is locked")
+
     # Prevent removing the project creator
     if membership.scientist and membership.scientist.user == project.created_by:
         return HttpResponseForbidden("Project creator cannot be removed")
@@ -257,8 +269,8 @@ class ProjectOrganizationsView(ProjectMixin, ListView):
         )
 
 
-
-class ProjectOrganizationCreateView(ProjectMixin, CreateView):
+# class ProjectOrganizationCreateView(ProjectMixin, CreateView):
+class ProjectOrganizationCreateView(ProjectEditMixin, CreateView):
     model = ScientificOrganization
     form_class = ScientificOrganizationForm
     template_name = "projects/project-organizations-form.html"
@@ -291,35 +303,21 @@ class ProjectOrganizationCreateView(ProjectMixin, CreateView):
 
         return redirect("project-organizations", slug=project.slug)
 
-    # def form_valid(self, form):
-    #     project = self.get_project()
-    #
-    #     organization = form.cleaned_data.get("existing_organization")
-    #
-    #     if not organization:
-    #         organization = form.save()
-    #
-    #     ProjectOrganization.objects.create(
-    #         project=project,
-    #         organization=organization,
-    #         is_base_organization=form.cleaned_data["is_base_organization"]
-    #     )
-    #
-    #     return redirect("project-organizations", slug=project.slug)
+
+class OrganizationUpdateView(LoginRequiredMixin, UpdateView):
+    model = ScientificOrganization
+    form_class = ScientificOrganizationUpdateForm
+    template_name = "projects/project-organization-update.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not is_content_moderator(request.user):
+            return HttpResponseForbidden("Not allowed")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return self.request.GET.get("next") or reverse("home")
 
 
-# @login_required
-# def project_organization_remove(request, slug, organization_id):
-#     project = get_object_or_404(Project, slug=slug)
-#     organization = get_object_or_404(ScientificOrganization, pk=organization_id)
-#
-#     if not project.can_manage(request.user):
-#         return HttpResponseForbidden("Not allowed")
-#
-#     if request.method == "POST":
-#         project.organizations.remove(organization)
-#
-#     return redirect("project-organizations", project.slug)
 
 @login_required
 def project_organization_remove(request, slug, organization_id):
@@ -333,6 +331,12 @@ def project_organization_remove(request, slug, organization_id):
 
     if not project.can_manage(request.user):
         return HttpResponseForbidden("Not allowed")
+
+    if project.is_disabled:
+        return HttpResponseForbidden("Project not available")
+
+    if project.is_locked:
+        return HttpResponseForbidden("Project is locked")
 
     if request.method == "POST":
         project_org.delete()
@@ -348,8 +352,8 @@ class ProjectArticlesView(ProjectMixin, ListView):
         return Article.objects.filter(project=self.get_project()).order_by("-publication_year")
 
 
-
 class ArticleCreateView(ProjectMixin, CreateView):
+# class ArticleCreateView(ProjectEditMixin, CreateView):
     model = Article
     form_class = ArticleCreateForm
     template_name = "articles/article-form.html"
@@ -364,8 +368,8 @@ class ArticleCreateView(ProjectMixin, CreateView):
             kwargs={"slug": self.object.project.slug},
         )
 
-
-class ArticleUpdateView(ProjectMixin, UpdateView):
+# class ArticleUpdateView(ProjectMixin, UpdateView):
+class ArticleUpdateView(ProjectEditMixin, UpdateView):
     model = Article
     form_class = ArticleUpdateForm
     template_name = "articles/article-form.html"
@@ -380,7 +384,9 @@ class ArticleUpdateView(ProjectMixin, UpdateView):
             kwargs={"slug": self.object.project.slug},
         )
 
-class ArticleDeleteView(ProjectMixin, DeleteView):
+
+# class ArticleDeleteView(ProjectMixin, DeleteView):
+class ArticleDeleteView(ProjectEditMixin, DeleteView):
     model = Article
     template_name = "articles/article-delete.html"
 
@@ -405,7 +411,8 @@ class ProjectEventsView(ProjectMixin, ListView):
         return ScientificEvent.objects.filter(project=self.get_project()).order_by("-start_date")
 
 
-class EventCreateView(ProjectMixin, CreateView):
+# class EventCreateView(ProjectMixin, CreateView):
+class EventCreateView(ProjectEditMixin, CreateView):
     model = ScientificEvent
     form_class = ScientificEventCreateForm
     template_name = "events/event-form.html"
@@ -421,8 +428,8 @@ class EventCreateView(ProjectMixin, CreateView):
         )
 
 
-
-class EventUpdateView(ProjectMixin, UpdateView):
+# class EventUpdateView(ProjectMixin, UpdateView):
+class EventUpdateView(ProjectEditMixin, UpdateView):
     model = ScientificEvent
     form_class = ScientificEventUpdateForm
     template_name = "events/event-form.html"
@@ -436,7 +443,8 @@ class EventUpdateView(ProjectMixin, UpdateView):
             kwargs={"slug": self.object.project.slug},
         )
 
-class EventDeleteView(ProjectMixin, DeleteView):
+# class EventDeleteView(ProjectMixin, DeleteView):
+class EventDeleteView(ProjectEditMixin, DeleteView):
     model = ScientificEvent
     template_name = "events/event-delete.html"
     context_object_name = "event"
@@ -451,8 +459,8 @@ class EventDeleteView(ProjectMixin, DeleteView):
         )
 
 
-
-class EventParticipationCreateView(ProjectMixin, EventMixin, CreateView):
+# class EventParticipationCreateView(ProjectMixin, EventMixin, CreateView):
+class EventParticipationCreateView(ProjectEditMixin, EventMixin, CreateView):
     model = EventParticipation
     form_class = EventParticipationForm
     template_name = "events/participation-form.html"
@@ -468,7 +476,8 @@ class EventParticipationCreateView(ProjectMixin, EventMixin, CreateView):
         )
 
 
-class EventParticipationDeleteView(ProjectMixin, EventMixin, DeleteView):
+# class EventParticipationDeleteView(ProjectMixin, EventMixin, DeleteView):
+class EventParticipationDeleteView(ProjectEditMixin, EventMixin, DeleteView):
     model = EventParticipation
     template_name = "events/participation-delete.html"
 
@@ -484,11 +493,14 @@ class EventParticipationDeleteView(ProjectMixin, EventMixin, DeleteView):
         )
 
 
-class ProjectCommentsView(DetailView):
+class ProjectCommentsView(ProjectMixin, DetailView):
     model = Project
     template_name = "feedback/project-comments.html"
     slug_field = "slug"
     slug_url_kwarg = "slug"
+
+    def get_object(self):
+        return self.get_project()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -501,12 +513,60 @@ class ProjectCommentsView(DetailView):
         return context
 
 
+@login_required
+def lock_project(request, slug):
+    project = get_object_or_404(Project, slug=slug)
+
+    if not is_content_moderator(request.user):
+        return HttpResponseForbidden("Not allowed")
+
+    project.is_locked = True
+    project.save()
+
+    return redirect("project-overview", slug=slug)
 
 
+@login_required
+def unlock_project(request, slug):
+    project = get_object_or_404(Project, slug=slug)
+
+    if not is_content_moderator(request.user):
+        return HttpResponseForbidden()
+
+    project.is_locked = False
+    project.save()
+
+    return redirect("project-overview", slug=slug)
 
 
+@login_required
+def disable_project(request, slug):
+    project = get_object_or_404(Project, slug=slug)
+
+    if not is_content_moderator(request.user):
+        return HttpResponseForbidden()
+
+    note = request.POST.get("moderation_note")
+
+    project.is_disabled = True
+    project.disabled_by = request.user
+    project.moderation_note = note
+    project.save()
+
+    return redirect("project-overview", slug=slug)
 
 
+@login_required
+def enable_project(request, slug):
+    project = get_object_or_404(Project, slug=slug)
+
+    if not is_content_moderator(request.user):
+        return HttpResponseForbidden()
+
+    project.is_disabled = False
+    project.save()
+
+    return redirect("project-overview", slug=slug)
 
 
 

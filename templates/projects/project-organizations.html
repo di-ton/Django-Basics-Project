@@ -1,4 +1,5 @@
 {% extends "projects/project-base.html" %}
+{% load permissions_tags %}
 {% load static %}
 
 {% block project_content %}
@@ -50,6 +51,7 @@
             </div>
           {% endif %}
 
+          <div class="organization-actions">
             {% if can_manage %}
               <form method="post" action="{% url 'project-organization-delete' project.slug org.id %}">
                 {% csrf_token %}
@@ -59,6 +61,13 @@
               </form>
             {% endif %}
 
+            {% if request.user|has_group:"Content Moderators" %}
+                <a href="{% url 'organization-update' project.slug org.organization.id %}?next={{ request.path }}"
+                   class="btn-edit">
+                    Edit
+                </a>
+            {% endif %}
+          </div>
         </div>
       {% endfor %}
     </div>

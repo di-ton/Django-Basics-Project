@@ -217,6 +217,26 @@ class ScientificOrganizationForm(forms.ModelForm):
         return cleaned_data
 
 
+class ScientificOrganizationUpdateForm(forms.ModelForm):
+    class Meta:
+        model = ScientificOrganization
+        fields = ["name", "country", "address", "website", "description"]
+
+        widgets = {
+            "address": forms.Textarea(attrs={"rows": 3}),
+            "description": forms.Textarea(attrs={"rows": 3}),
+        }
+
+    def clean_name(self):
+        name = self.cleaned_data.get("name")
+
+        if ScientificOrganization.objects.filter(
+            name__iexact=name
+        ).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError("Organization with this name already exists.")
+
+        return name
+
 
 class ArticleBaseForm(forms.ModelForm):
     class Meta:

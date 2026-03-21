@@ -37,8 +37,6 @@ def notify_moderators_on_profile_creation(sender, instance, created, **kwargs):
 
 
 
-
-
 @receiver(post_delete, sender=ScientistProfile)
 def delete_profile_picture(sender, instance, **kwargs):
     if instance.profile_picture:

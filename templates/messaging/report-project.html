@@ -1,0 +1,45 @@
+{% extends "projects/project-base.html" %}
+
+{% block project_content %}
+<div class="profile-container">
+    <div class="profile-card">
+
+        <div class="auth-header">
+            <h2>Report Project</h2>
+            <p>
+                You are reporting:
+                <strong>{{ project.title }}</strong>
+            </p>
+        </div>
+
+        <form method="post" class="profile-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_subject">Subject</label>
+                {{ form.subject }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_body">Description</label>
+                {{ form.body }}
+                <p class="form-help">
+                    Please describe the issue (e.g. plagiarism, incorrect information, offensive content).
+                </p>
+            </div>
+
+            <div class="profile-actions">
+                <button type="submit" class="btn-message btn-message-danger">
+                    <i class="fa-solid fa-flag"></i>Submit Report
+                </button>
+
+                <a href="{% url 'project-overview' project.slug %}" class="btn-message">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+{% endblock %}

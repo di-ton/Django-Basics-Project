@@ -325,6 +325,26 @@
     margin-left: 0.4rem;
 }
 
+.profile-preview-small {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%; /* nice circle avatar */
+    display: block;
+    margin-bottom: 8px;
+}
+
+.current-image {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.remove-checkbox {
+    font-size: 0.9rem;
+}
+
 /* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
     .profile-card {

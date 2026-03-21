@@ -10,4 +10,6 @@ urlpatterns = [
     path("reply/<int:pk>/", views.ReplyMessageView.as_view(), name="reply-message"),
     path("delete/<int:pk>/", views.DeleteMessageView.as_view(), name="delete-message"),
     path("project/<slug:slug>/message/", views.ProjectMessageView.as_view(), name="project-message"),
+
+    path("project/<slug:slug>/report/", views.ReportProjectView.as_view(), name="project-report"),
 ]

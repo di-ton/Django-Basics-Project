@@ -14,14 +14,41 @@
         <form method="post" class="profile-form" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <div class="form-group">
-                <label for="{{ form.profile_picture.id_for_label }}">
-                    {{ form.profile_picture.label }}
+{#            <div class="form-group">#}
+{#                <label for="{{ form.profile_picture.id_for_label }}">#}
+{#                    {{ form.profile_picture.label }}#}
+{#                </label>#}
+{#                {{ form.profile_picture }}#}
+{#                {% for error in form.profile_picture.errors %}#}
+{#                    <div class="form-error">{{ error }}</div>#}
+{#                {% endfor %}#}
+{#                <small>Upload an image from your computer</small>#}
+{#            </div>#}
+
+              <div class="form-group">
+                <label>
+                    Upload profile picture:
                 </label>
-                {{ form.profile_picture }}
+
+                {% if form.instance.profile_picture %}
+                    <div class="current-image">
+                        <img src="{{ form.instance.profile_picture.url }}" class="profile-preview-small">
+
+                        <label class="remove-checkbox">
+                            <input type="checkbox" name="remove_picture">
+                            Remove image
+                        </label>
+                    </div>
+                {% endif %}
+
+                <div class="file-input">
+                    {{ form.profile_picture }}
+                </div>
+
                 {% for error in form.profile_picture.errors %}
                     <div class="form-error">{{ error }}</div>
                 {% endfor %}
+
                 <small>Upload an image from your computer</small>
             </div>
 

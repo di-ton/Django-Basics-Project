@@ -181,7 +181,7 @@ class ScientistProfileForm(forms.ModelForm):
     profile_picture = forms.ImageField(
         required=False,
         label="Upload profile picture:",
-        widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
+        widget=forms.FileInput(attrs={"class": "form-control"}),
     )
 
     profile_picture_url = forms.URLField(

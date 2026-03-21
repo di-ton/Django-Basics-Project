@@ -20,6 +20,7 @@ urlpatterns = [
 
         path("organization/create/", views.ProjectOrganizationCreateView.as_view(), name="project-organization-add"),
         path("organizations/", views.ProjectOrganizationsView.as_view(), name="project-organizations"),
+        path("organization/<int:pk>/edit/", views.OrganizationUpdateView.as_view(), name="organization-update"),
         path("organizations/<int:organization_id>/remove/", views.project_organization_remove, name="project-organization-delete"),
 
         path("articles/add/", views.ArticleCreateView.as_view(), name="project-article-add"),
@@ -37,6 +38,11 @@ urlpatterns = [
 
 
         path("comments/", ProjectCommentsView.as_view(), name="project-comments-page"),
+
+        path("moderation/lock/", views.lock_project, name="project-lock"),
+        path("moderation/unlock/", views.unlock_project, name="project-unlock"),
+        path("moderation/disable/", views.disable_project, name="project-disable"),
+        path("moderation/enable/", views.enable_project, name="project-enable"),
 
     ])),
 ]

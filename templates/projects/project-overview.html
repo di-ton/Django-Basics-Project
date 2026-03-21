@@ -1,4 +1,5 @@
 {% extends "projects/project-base.html" %}
+{% load permissions_tags %}
 
 {% block project_content %}
   <div class="project-ov">
@@ -24,7 +25,78 @@
         <dt>Visited scientific events:</dt>
         <dd>{{ events_count }}</dd>
       </dl>
+
+     {% if not request.user|has_group:"Content Moderators" %}
+       <a href="{% url 'project-report' project.slug %}" class="report-link">
+         <i class="fa-solid fa-flag"></i> Report an issue
+       </a>
+     {% endif %}
+
+      {% if request.user|has_group:"Content Moderators" %}
+        <div class="moderation-panel">
+            <div class="moderation-title">Moderator actions</div>
+
+            <div class="moderation-actions">
+                {% if not project.is_locked %}
+                    <a href="{% url 'project-lock' project.slug %}">
+                        <i class="fa-solid fa-lock"></i> Lock</a>
+                {% else %}
+                    <a href="{% url 'project-unlock' project.slug %}">
+                        <i class="fa-solid fa-lock-open"></i> Unlock</a>
+                {% endif %}
+
+                {% if not project.is_disabled %}
+{#                    <a href="{% url 'project-disable' project.slug %}">#}
+{#                        <i class="fa-solid fa-ban"></i> Disable</a>#}
+                    <button type="button" onclick="openDisableModal()" class="btn-danger">
+                        <i class="fa-solid fa-ban"></i> Disable
+                    </button>
+                {% else %}
+                    <a href="{% url 'project-enable' project.slug %}">
+                        <i class="fa-solid fa-eye"></i> Enable</a>
+                {% endif %}
+            </div>
+        </div>
+      {% endif %}
     </div>
 
   </div>
+  <div id="disableModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>Disable Project</h3>
+
+            <form method="post" action="{% url 'project-disable' project.slug %}">
+                {% csrf_token %}
+
+                <label>Reason:</label>
+                <textarea name="moderation_note" placeholder="Reason for disabling..."></textarea>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn-danger">
+                        Disable
+                    </button>
+                    <button type="button" onclick="closeDisableModal()" class="btn-secondary">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+<script>
+    function openDisableModal() {
+        document.getElementById("disableModal").style.display = "flex";
+    }
+
+    function closeDisableModal() {
+        document.getElementById("disableModal").style.display = "none";
+    }
+
+    window.addEventListener("click", function(event) {
+        const modal = document.getElementById("disableModal");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+</script>
 {% endblock %}

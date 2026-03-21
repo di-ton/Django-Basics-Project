@@ -112,6 +112,14 @@ class ProfileUpdateView(LoginRequiredMixin, ProfileRequiredMixin, UpdateView):
             user=self.request.user
         )
 
+    def form_valid(self, form):
+        profile = form.instance
+
+        if self.request.POST.get("remove_picture"):
+            profile.profile_picture = None
+
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse("profile-details")
 

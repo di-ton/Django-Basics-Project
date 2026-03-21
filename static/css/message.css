@@ -9,7 +9,7 @@
 }
 
 .message-item {
-    padding: 0.9rem 0;
+    padding: 0.9rem 1rem;
     border-bottom: 1px solid #e5e7eb;
 }
 
@@ -24,6 +24,29 @@
 
 .message-item.unread {
     background-color: #f0fbf8;
+}
+
+/*.message-report {*/
+/*    background-color: #fff5f5;*/
+/*    border-left: 4px solid #e74c3c;*/
+/*}*/
+
+.message-item.unread.message-report {
+    background-color: #fff5f5;
+    border-left: 4px solid #e74c3c;
+}
+
+.message-item.message-report {
+    border-left: 4px solid #e74c3c;
+}
+
+.report-badge {
+    background: #fdecea;
+    color: #c0392b;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin-left: 6px;
 }
 
 .message-meta {
@@ -117,6 +140,10 @@
 
 .btn-message:hover {
     background: #e7eaec;
+}
+
+.btn-message i {
+    margin-right: 6px;
 }
 
 .btn-message-danger {

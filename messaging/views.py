@@ -161,29 +161,81 @@ class ReplyMessageView(LoginRequiredMixin, CreateView):
         context["original"] = self.original
         return context
 
+    # def form_valid(self, form):
+    #     message = form.save(commit=False)
+    #     message.sender = self.request.user
+    #     message.subject = f"Re: {self.original.subject}"
+    #
+    #     message.is_report = self.original.is_report
+    #     message.save()
+    #
+    #     # MessageRecipient.objects.create(
+    #     #     message=message,
+    #     #     recipient=self.original.sender
+    #     # )
+    #
+    #     if self.original.sender == self.request.user:
+    #         recipient = self.original.recipients.first()
+    #     else:
+    #         recipient = self.original.sender
+    #
+    #     # recipient inbox
+    #     MessageRecipient.objects.create(
+    #         message=message,
+    #         recipient=recipient
+    #     )
+    #
+    #     # sender sent
+    #     MessageRecipient.objects.create(
+    #         message=message,
+    #         recipient=self.request.user,
+    #         is_read=True
+    #     )
+    #
+    #     return redirect("inbox")
+
     def form_valid(self, form):
         message = form.save(commit=False)
         message.sender = self.request.user
         message.subject = f"Re: {self.original.subject}"
+        message.is_report = self.original.is_report
         message.save()
 
-        # MessageRecipient.objects.create(
-        #     message=message,
-        #     recipient=self.original.sender
-        # )
+        if self.original.is_report:
 
-        if self.original.sender == self.request.user:
-            recipient = self.original.recipients.first()
+            moderators = User.objects.filter(groups__name="Content Moderators")
+
+            if self.request.user in moderators:
+                # moderator replying → send to original user
+                recipient = self.original.sender
+
+                MessageRecipient.objects.create(
+                    message=message,
+                    recipient=recipient
+                )
+
+            else:
+                # user replying → send to moderators
+                for user in moderators:
+                    if user != self.request.user:
+                        MessageRecipient.objects.create(
+                            message=message,
+                            recipient=user
+                        )
+
         else:
-            recipient = self.original.sender
+            # normal messaging
+            if self.original.sender == self.request.user:
+                recipient = self.original.recipients.first()
+            else:
+                recipient = self.original.sender
 
-        # recipient inbox
-        MessageRecipient.objects.create(
-            message=message,
-            recipient=recipient
-        )
+            MessageRecipient.objects.create(
+                message=message,
+                recipient=recipient
+            )
 
-        # sender sent
+        # sender copy (always)
         MessageRecipient.objects.create(
             message=message,
             recipient=self.request.user,
@@ -245,3 +297,52 @@ class DeleteMessageView(LoginRequiredMixin, View):
             ).delete()
 
         return redirect("inbox")
+
+
+class ReportProjectView(LoginRequiredMixin, CreateView):
+    model = Message
+    fields = ["subject", "body"]
+    template_name = "messaging/report-project.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        self.project = get_object_or_404(Project, slug=kwargs["slug"])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_initial(self):
+        return {
+            "subject": f"Report: {self.project.title}"
+        }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["project"] = self.project
+        return context
+
+
+    def form_valid(self, form):
+        message = form.save(commit=False)
+        message.sender = self.request.user
+        message.project = self.project
+        message.is_report = True
+        message.save()
+
+        # send to Content Moderators
+        moderators = User.objects.filter(groups__name="Content Moderators")
+
+        for user in moderators:
+            MessageRecipient.objects.create(
+                message=message,
+                recipient=user
+            )
+
+        # sender copy
+        MessageRecipient.objects.create(
+            message=message,
+            recipient=self.request.user,
+            is_read=True
+        )
+
+        return redirect("project-overview", slug=self.kwargs["slug"])
+
+
+

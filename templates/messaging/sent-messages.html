@@ -17,20 +17,32 @@
         {% if messages %}
         <ul class="message-list">
             {% for message in messages %}
-            <li class="message-item">
-
+{#            <li class="message-item">#}
+              <li class="message-item {% if message.message.is_report %}message-report{% endif %}">
                 <a href="{% url 'message-detail' message.message.id %}">
 
                     <div class="message-meta">
+{#                        <span class="message-sender">#}
+{#                            To:#}
+{#                            {% for r in message.message.recipients.all %}#}
+{#                                {{ r.scientist_profile.full_name }}{% if not forloop.last %}, {% endif %}#}
+{#                                {% if r != message.message.sender %}#}
+{#                                    {{ r.scientist_profile.full_name }}#}
+{#                                {% endif %}#}
+{##}
+{#                            {% endfor %}#}
+{#                        </span>#}
                         <span class="message-sender">
                             To:
-                            {% for r in message.message.recipients.all %}
-{#                                {{ r.scientist_profile.full_name }}{% if not forloop.last %}, {% endif %}#}
-                                {% if r != message.message.sender %}
-                                    {{ r.scientist_profile.full_name }}
-                                {% endif %}
-
-                            {% endfor %}
+                            {% if message.message.is_report %}
+                                Moderation Team
+                            {% else %}
+                                {% for r in message.message.recipients.all %}
+                                    {% if r != message.message.sender %}
+                                        {{ r.scientist_profile.full_name }}{% if not forloop.last %}, {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                         </span>
 
                         <span class="message-date">
@@ -40,6 +52,9 @@
 
                     <div class="message-subject">
                         {{ message.message.subject }}
+                        {% if message.message.is_report %}
+                            <span class="report-badge">Report</span>
+                        {% endif %}
                     </div>
 
                 </a>

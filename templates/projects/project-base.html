@@ -6,6 +6,30 @@
     <section class="project-header">
       <h1>{{ project.title|capfirst }}</h1>
 
+
+{#        {% if project.is_locked %}#}
+{#            <div class="project-warning-alert">#}
+{#                <i class="fa-solid fa-lock"></i> This project is currently locked. You cannot make changes.#}
+{#            </div>#}
+{#        {% endif %}#}
+        {% if project.is_disabled %}
+            <div class="project-warning-alert">
+                <i class="fa-solid fa-ban"></i>
+                This project has been disabled.
+
+                {% if project.moderation_note %}
+                    <br>
+                    <strong>Reason:</strong> {{ project.moderation_note }}
+                {% endif %}
+            </div>
+
+        {% elif project.is_locked %}
+            <div class="project-warning-alert">
+                <i class="fa-solid fa-lock"></i>
+                This project is currently locked. You cannot make changes.
+            </div>
+        {% endif %}
+
       <nav class="project-nav">
         <a href="{% url 'project-overview' project.slug %}"
            class="{% if request.resolver_match.url_name == 'project-overview' %}active{% endif %}">

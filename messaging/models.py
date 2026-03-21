@@ -28,6 +28,8 @@ class Message(TimeStampedModel):
     subject = models.CharField(max_length=255)
     body = models.TextField()
 
+    is_report = models.BooleanField(default=False)
+
     @property
     def is_project_message(self):
         return self.project is not None

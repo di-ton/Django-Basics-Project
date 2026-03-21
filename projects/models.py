@@ -78,6 +78,21 @@ class Project(TimeStampedModel):
         related_name="created_projects"
     )
 
+    is_disabled = models.BooleanField(default=False)
+    is_locked = models.BooleanField(default=False)
+
+    disabled_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="disabled_projects"
+    )
+
+    moderation_note = models.TextField(blank=True)
+
+    def is_editable(self):
+        return not self.is_locked
 
     def can_manage(self, user):
         if not user.is_authenticated:

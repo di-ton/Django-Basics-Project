@@ -43,7 +43,8 @@ class ProjectSearchView(TemplateView):
                 Q(description__icontains=query) |
                 Q(memberships__name__icontains=query) |
                 Q(keywords__icontains=query) |
-                Q(project_number__exact=query)
+                Q(project_number__exact=query) |
+                Q(organizations__name__icontains=query)
             ).distinct()
 
             profiles = ScientistProfile.objects.filter(

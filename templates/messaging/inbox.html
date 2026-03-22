@@ -1,4 +1,5 @@
 {% extends "common/base.html" %}
+{% load tz %}
 {% load permissions_tags %}
 
 {% block content %}
@@ -17,16 +18,12 @@
         {% if messages %}
         <ul class="message-list">
             {% for item in messages %}
-{#            <li class="message-item {% if not item.is_read %}unread{% endif %}">#}
               <li class="message-item
                 {% if not item.is_read %}unread{% endif %}
                 {% if item.message.is_report %}message-report{% endif %}">
                 <a href="{% url 'message-detail' item.message.id %}">
 
                     <div class="message-meta">
-{#                        <span class="message-sender">#}
-{#                            {{ item.message.sender.scientist_profile.full_name }}#}
-{#                        </span>#}
                         <span class="message-sender">
                             {% if item.message.is_report and not request.user|has_group:"Content Moderators" %}
                                 Moderation Team
@@ -36,7 +33,7 @@
                         </span>
 
                         <span class="message-date">
-                            {{ item.message.created_at|date:"d M Y H:i" }}
+                            {{ item.message.created_at|localtime|date:"d M Y H:i" }}
                         </span>
                     </div>
 

@@ -6,6 +6,8 @@ from django.urls import reverse
 from accounts.choices import AcademicDegreeChoices
 from accounts.models import ScientistProfile, User
 from messaging.models import MessageRecipient, Message
+from projects.choices import CategoryChoices
+from projects.models import Project
 
 
 class SendMessageTests(TestCase):
@@ -94,5 +96,72 @@ class MessageModelTests(TestCase):
         )
 
         self.assertFalse(message.is_project_message)
+
+
+class ReportTests(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(
+            email="user@gmail.com",
+            password="pass12345pass"
+        )
+
+        self.project = Project.objects.create(
+            title="Test Project",
+            slug="test-project",
+            created_by=self.user,
+            keywords="models, ai, classification",
+            description="Test project description",
+            funder="BNSF",
+            project_number="PRJ-001",
+            category=CategoryChoices.MATH
+        )
+
+
+        self.group = Group.objects.create(name="Content Moderators")
+
+    def test_report_sets_is_report_true(self):
+        self.client.login(email="user@gmail.com", password="pass12345pass")
+
+        self.client.post(reverse("project-report", args=[self.project.slug]), {
+            "subject": "Report",
+            "body": "This is inappropriate"
+        })
+
+        message = Message.objects.first()
+
+        self.assertTrue(message.is_report)
+
+    def test_report_sent_to_moderators(self):
+        moderator = User.objects.create_user(
+            email="mod@abv.bg",
+            password="pass12345pass"
+        )
+
+        moderator.groups.add(self.group)
+
+        self.client.login(email="user@gmail.com", password="pass12345pass")
+
+        self.client.post(reverse("project-report", args=[self.project.slug]), {
+            "subject": "Report",
+            "body": "Spam project"
+        })
+
+        self.assertEqual(
+            MessageRecipient.objects.filter(recipient=moderator).count(),
+            1
+        )
+
+    def test_report_creates_sender_copy(self):
+        self.client.login(email="user@gmail.com", password="pass12345pass")
+
+        self.client.post(reverse("project-report", args=[self.project.slug]), {
+            "subject": "Report",
+            "body": "Inappropriate content"
+        })
+
+        sender_copy = MessageRecipient.objects.get(recipient=self.user)
+
+        self.assertTrue(sender_copy.is_read)
 
 

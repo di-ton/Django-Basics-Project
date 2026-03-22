@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView
 from accounts.models import User, ScientistProfile
 from messaging.forms import ProjectMessageForm
 from messaging.models import MessageRecipient, Message
+from messaging.utils import notify_moderators_about_report
 from projects.models import Project
 
 
@@ -340,6 +341,12 @@ class ReportProjectView(LoginRequiredMixin, CreateView):
             message=message,
             recipient=self.request.user,
             is_read=True
+        )
+
+        notify_moderators_about_report(
+            project=self.project,
+            message=message,
+            sender=self.request.user
         )
 
         return redirect("project-overview", slug=self.kwargs["slug"])

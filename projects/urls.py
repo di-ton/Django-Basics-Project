@@ -8,6 +8,7 @@ urlpatterns = [
     path("list/", views.ProjectListView.as_view(), name="project-list"),
     path("categories/", views.CategoryListView.as_view(), name="category-list"),
     path("categories/<str:category>/", views.ProjectByCategoryView.as_view(), name="project-by-category"),
+    path("organizations/<int:pk>/",views.OrganizationDetailView.as_view(),name="organization-detail"),
 
     path("<slug:slug>/", include([
         path("", views.ProjectOverviewView.as_view(), name="project-overview"),
@@ -20,6 +21,7 @@ urlpatterns = [
 
         path("organization/create/", views.ProjectOrganizationCreateView.as_view(), name="project-organization-add"),
         path("organizations/", views.ProjectOrganizationsView.as_view(), name="project-organizations"),
+        path("organization/<int:pk>/", views.OrganizationDetailView.as_view(), name="organization-detail"),
         path("organization/<int:pk>/edit/", views.OrganizationUpdateView.as_view(), name="organization-update"),
         path("organizations/<int:organization_id>/remove/", views.project_organization_remove, name="project-organization-delete"),
 

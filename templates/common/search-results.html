@@ -45,6 +45,26 @@
       <p class="search-empty">No results match your search.</p>
     {% endif %}
 
+    <!-- ORGANIZATIONS -->
+    {% if organizations %}
+      <h2>Organizations</h2>
+
+      <ul class="search-results-list">
+        {% for org in organizations %}
+          <li class="search-result-item">
+            <a href="{% url 'organization-detail' org.pk %}">
+              {{ org.name }}
+            </a>
+            <span class="search-meta">
+              — {{ org.country }}
+            </span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No organizations found.</p>
+    {% endif %}
+
 </div>
 {% endblock %}
 

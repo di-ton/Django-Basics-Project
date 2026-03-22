@@ -49,6 +49,52 @@
     text-decoration: underline;
 }
 
+.org-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.org-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+}
+
+.org-country {
+    color: #6b7280;
+    margin-bottom: 0.8rem;
+}
+
+.btn-org-edit {
+    display: inline-block;
+}
+
+.org-details-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 10px 20px;
+    margin-top: 1rem;
+    background: #f6fdfb;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+}
+
+.org-detail-item {
+    display: contents;
+}
+
+.org-label {
+    font-weight: 600;
+    color: #374151;
+}
+
+.org-details-grid a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.org-details-grid a:hover {
+    text-decoration: underline;
+}
 
 .organization-meta {
     font-size: 0.9rem;

@@ -2,13 +2,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db import IntegrityError
+from django.db.models import When, Case, Value, IntegerField, F
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from feedback.models import Comment
-from projects.choices import CategoryChoices
+from projects.choices import CategoryChoices, ProjectStatusChoices
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, ArticleCreateForm, \
     ArticleUpdateForm, ScientificEventCreateForm, ScientificEventUpdateForm, ProjectMembershipForm, \
     ScientificOrganizationForm, EventParticipationForm, ProjectDeleteForm, ScientificOrganizationUpdateForm
@@ -317,6 +318,64 @@ class OrganizationUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return self.request.GET.get("next") or reverse("home")
 
+
+class OrganizationDetailView(DetailView):
+    model = ScientificOrganization
+    template_name = "projects/project-organization-details.html"
+    context_object_name = "organization"
+    pk_url_kwarg = "pk"
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #
+    #     project_slug = self.kwargs.get("slug")
+    #     project = get_object_or_404(Project, slug=project_slug)
+    #
+    #     projects = Project.objects.filter(
+    #         organizations=self.object,
+    #         is_disabled=False
+    #     )
+    #
+    #     context["ongoing_projects"] = projects.filter(
+    #         status=ProjectStatusChoices.ONGOING
+    #     ).order_by("-start_date")
+    #
+    #     context["completed_projects"] = projects.filter(
+    #         status=ProjectStatusChoices.COMPLETED
+    #     ).order_by("-start_date")
+    #
+    #     context["project"] = project
+    #     context["projects"] = self.object.projects.filter(is_disabled=False)
+    #
+    #     return context
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        project = None
+        project_slug = self.kwargs.get("slug")
+
+        if project_slug:
+            project = get_object_or_404(Project, slug=project_slug)
+
+        projects = Project.objects.filter(
+            project_organizations__organization=self.object,
+            is_disabled=False
+        ).distinct()
+
+        context["projects"] = projects
+
+        context["ongoing_projects"] = projects.filter(
+            status=ProjectStatusChoices.ONGOING
+        ).order_by("-start_date")
+
+        context["completed_projects"] = projects.filter(
+            status=ProjectStatusChoices.COMPLETED
+        ).order_by("-start_date")
+
+        context["project"] = project
+
+        return context
 
 
 @login_required

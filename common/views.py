@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
 
 from accounts.models import ScientistProfile
-from projects.models import Project
+from projects.models import Project, ScientificOrganization
 
 
 class HomePageView(ListView):
@@ -36,6 +36,7 @@ class ProjectSearchView(TemplateView):
 
         projects = Project.objects.none()
         profiles = ScientistProfile.objects.none()
+        organizations = ScientificOrganization.objects.none()
 
         if query:
             projects = Project.objects.filter(
@@ -52,8 +53,14 @@ class ProjectSearchView(TemplateView):
                 Q(last_name__icontains=query)
             ).distinct()
 
+            organizations = ScientificOrganization.objects.filter(
+                Q(name__icontains=query) |
+                Q(country__icontains=query)
+            ).distinct()
+
         context["projects"] = projects
         context["profiles"] = profiles
+        context["organizations"] = organizations
         context["query"] = query
 
         return context

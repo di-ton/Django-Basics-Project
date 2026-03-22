@@ -12,7 +12,12 @@
       {% for org in organizations %}
         <div class="organization-card">
 
-          <h3 class="organization-name">{{ org.organization.name }}</h3>
+{#          <h3 class="organization-name">{{ org.organization.name }}</h3>#}
+            <h3 class="organization-name">
+              <a href="{% url 'organization-detail' project.slug org.organization.pk %}">
+                {{ org.organization.name }}
+              </a>
+            </h3>
 
           {% if org.is_base_organization %}
             <div class="organization-flag">Base organization</div>

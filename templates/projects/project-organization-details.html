@@ -1,0 +1,112 @@
+{% extends "common/base.html" %}
+{% load permissions_tags %}
+{% load static %}
+
+{% block content %}
+
+<div class="project-container">
+  <div class="project-card">
+
+    <div class="org-header">
+
+      <h1>{{ organization.name }}</h1>
+      <div class="org-country">{{ organization.country }}</div>
+
+      {% if project and request.user|has_group:"Content Moderators" %}
+          <a href="{% url 'organization-update' project.slug organization.pk %}?next={{ request.path }}"
+             class="btn-org-edit">
+            Edit
+          </a>
+      {% endif %}
+
+    </div>
+
+    {% if organization.description %}
+      <div class="project-section">
+        <h2>Description</h2>
+        <div class="project-text">
+          {{ organization.description|linebreaks }}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="project-section">
+      <h2>Details</h2>
+
+      <div class="org-details-grid">
+
+          {% if organization.website %}
+            <div class="org-detail-item">
+              <span class="org-label">Website</span>
+              <a href="{{ organization.website }}" target="_blank">
+                {{ organization.website }}
+              </a>
+            </div>
+          {% endif %}
+
+          {% if organization.address %}
+            <div class="org-detail-item">
+              <span class="org-label">Address</span>
+              <span>{{ organization.address }}</span>
+            </div>
+          {% endif %}
+
+        </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="project-section">
+
+      {% if projects %}
+        <div class="project-section">
+          <h2>Ongoing Projects</h2>
+
+          {% if ongoing_projects %}
+            <div class="organizations-list">
+              {% for project in ongoing_projects %}
+                <div class="organization-card">
+                  <h3 class="organization-name">
+                    <a href="{% url 'project-overview' project.slug %}">
+                      {{ project.title }}
+                    </a>
+                  </h3>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p>No ongoing projects.</p>
+          {% endif %}
+        </div>
+
+
+        <div class="project-section">
+          <h2>Completed Projects</h2>
+
+          {% if completed_projects %}
+            <div class="organizations-list">
+              {% for project in completed_projects %}
+                <div class="organization-card">
+                  <h3 class="organization-name">
+                    <a href="{% url 'project-overview' project.slug %}">
+                      {{ project.title }}
+                    </a>
+                  </h3>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p>No completed projects.</p>
+          {% endif %}
+        </div>
+      {% else %}
+        <h2>Projects</h2>
+        <p class="project-empty">
+          No projects associated with this organization.
+        </p>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

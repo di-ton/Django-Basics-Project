@@ -15,7 +15,7 @@ class ScientificOrganization(models.Model):
     website = models.URLField(blank=True)
     description = models.TextField(blank=True)
     slug = models.SlugField(unique=True, blank=True)
-    # is_base_organization = models.BooleanField(default=False, verbose_name="Base organization")
+
 
     def save(self, *args, **kwargs):
         if not self.slug:

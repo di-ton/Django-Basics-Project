@@ -1,60 +1,48 @@
 # sciProSpace
 
-sciProSpace is a Django-based web application designed to manage and showcase scientific projects. It enables users to create accounts, manage their profiles, and explore publicly available research projects in a structured and organized manner. The platform focuses on presenting scientific work, highlighting project details, and making research results accessible to the scientific community.
+sciProSpace is a Django-based web application designed to manage and showcase scientific projects. It enables users to create accounts, manage their profiles, and explore publicly available research projects in a structured and organized manner. The platform focuses on presenting scientific work, highlighting project details, and making research results accessible to the scientific community allowing for feedback and communication among scientists.
 
 ## Key Features
 
-- Two-step registration process (account creation followed by profile completion).
-- Role-based project membership with Leader and Member roles.
-- Automatic linking of existing profiles when adding project members by email.
-- Shared scientific organizations across multiple projects (preventing duplication).
-- Custom validation logic, including:
-  - Enforcement of a single Leader per project.
-  - Requirement of at least one scientific identifier (ORCID ID or Scopus Author ID) in profiles.
-  - Chronological validation of scientific event dates.
-- Responsive user interface supporting desktop, tablet, and mobile devices.
-
+*   **User Management & Profiles**: 
+    *   Two-step registration: account creation (email/password) followed by detailed scientist profile information.
+    *   Profiles include academic degree, position, affiliation, and identifiers like ORCID/Scopus IDs.
+    *   Integration with **Cloudinary** for profile picture hosting.
+    *   Profile moderation system with specific permissions for "Profile Moderators".
+*   **Project Management**:
+    *   Detailed project tracking including acronyms, keywords, descriptions, and funding information.
+    *   Role-based membership (Leader, Member) with automatic scientist profile linking based on email.
+    *   Scientific output tracking: Articles (with journal quartiles) and Scientific Events (with participations).
+*   **Communication & Feedback**:
+    *   **Messaging System**: Internal messaging for users, supporting project-specific threads and read/unread status.
+    *   **Feedback System**: Commenting system for projects with support for one level of nested replies.
+*   **REST API**: Integrated **Django REST Framework** for scientific feedback (comments) and potentially other features. The REST API is implemented as an independent layer and can be accessed directly via its endpoints. The Django templates use JavaScript to consume the API, but external clients can also interact with it without relying on the frontend.
+*   **Moderation**: Permission-based moderation for profiles and projects, including groups for specialized roles.
 
 ## Project Structure
 
-The project follows a standard Django architecture with the following main components:
-
-*   **sciProSpace/**: The main project configuration directory.
-*   **accounts/**: Handles user authentication, registration, and profile management. The registration process consists of two steps: entering an email and password, followed by completing the user profile information.
+*   **sciProSpace/**: Main project configuration, settings, and URLs.
+*   **accounts/**: Custom User model and ScientistProfile management. Includes managers, validators, and choices.
 *   **projects/**: Manages the core functionality related to projects. This includes:
-    *   **Overview**: General information about the project.
-    *   **Members**: Management of project members and their roles (Leader, Member).
-    *   **Organizations**: Management of associated scientific organizations (base and partner organizations).
-    *   **Articles**: Tracking of published scientific articles presenting results obtained during the project.
-    *   **Scientific Events**: Management of scientific events at which project results were presented.
-    *   **Forms**: Utilization of Django forms for creating and updating project details, memberships, articles, and events.
-*   **common/**: Contains shared utilities and common functionality across the application.
-*   **templates/**: HTML templates for the application.
-*   **static/**: Static files (CSS, images).
-*   **media/**: User-uploaded content.
-
-## Authentication
-
-To create and manage projects, users must:
-- Register an account.
-- Complete their profile.
-- Log in to the system.
-
-Only authenticated users can create new projects and manage related members, scientific organizations, articles, and scientific events.
-Unauthenticated users can browse publicly available projects but cannot modify content.
+    - **Overview**: General information about the project.
+    - **Members**: Management of project members and their roles (Leader, Member).
+    - **Organizations**: Management of associated scientific organizations (base and partner organizations).
+    - **Articles**: Tracking of published scientific articles presenting results obtained during the project.
+    - **Scientific Events**: Management of scientific events at which project results were presented.
+*   **messaging/**: Internal user messaging and project-related communication.
+*   **feedback/**: Project comments and replies, including REST API serializers and views.
+*   **common/**: Shared base models (`TimeStampedModel`), context processors, and utilities.
+*   **templates/**: Organized HTML templates for all applications.
+*   **static/**: Static assets including responsive CSS and images.
 
 ## Setup and Installation
 
 ### Prerequisites
 
-*   Python 3.10 or higher (tested with Python 3.11)
+*   Python 3.x
 *   PostgreSQL
-
-## Tech Stack
-
-- Django 5.2
-- psycopg2
-- python-dotenv
+*   Cloudinary Account (for media storage)
+*   SMTP Server (for email notifications)
 
 ### Installation Steps
 
@@ -78,56 +66,48 @@ Unauthenticated users can browse publicly available projects but cannot modify c
     pip install -r requirements.txt
     ```
 
-4. **Create PostgreSQL Database**
-
-    Make sure PostgreSQL is running, then create a database:
-    
-    ```bash
-    createdb your_db_name
-    ```
-
-5.  **Environment Configuration:**
-
-    A `.env.example` file with the required environment variables is included in the project.
-    Create a `.env` file in the root directory by copying it and updating the values.
-    This file should contain the following credentials and configuration settings:
+4.  **Environment Configuration:**
+    Create a `.env` file in the root directory (refer to `.env.example`). Required variables:
 
     ```env
-    DJANGO_SECRET_KEY=your_secret_key_here
+    # Django Settings
+    DEBUG=True
+    DJANGO_SECRET_KEY=your_secret_key
+    
+    # Database Configuration
     DB_NAME=your_db_name
     DB_USER=your_db_user
     DB_PASSWORD=your_db_password
-    DB_HOST=localhost
+    DB_HOST=127.0.0.1
     DB_PORT=5432
+    
+    # Cloudinary Settings
+    CLOUDINARY_URL=cloudinary://<api_key>:<api_secret>@<cloud_name>
+    
+    # Email Settings
+    EMAIL_HOST=your_smtp_host
+    EMAIL_PORT=587
+    EMAIL_HOST_USER=your_email
+    EMAIL_HOST_PASSWORD=your_app_password
+    EMAIL_USE_TLS=True
+    DEFAULT_EMAIL=your_sender_email
     ```
 
-    *   `DJANGO_SECRET_KEY`: A secret key for a particular Django installation.
-    *   `DB_NAME`: The name of your PostgreSQL database.
-    *   `DB_USER`: The username for your database.
-    *   `DB_PASSWORD`: The password for your database user.
-    *   `DB_HOST`: The database host (usually `localhost` or `127.0.0.1`).
-    *   `DB_PORT`: The database port (default is `5432`).
-
-6.  **Apply Migrations and Load Initial Data:**
-
+5.  **Apply Migrations and Load Initial Data:**
     ```bash
     python manage.py migrate
     python manage.py loaddata initial_data.json
     ```
-    
-    An `initial_data.json` fixture file is included in the project.
-    It contains sample data for three scientific projects, including detailed project overviews, associated members and scientific organizations, as well as related articles and scientific events at which the project results were presented.
 
-7.  **Run the Development Server:**
+6.  **Run the Development Server:**
     ```bash
     python manage.py runserver
     ```
 
     Access the application at `http://127.0.0.1:8000/`.
 
-
 ---
 
 ### Project Information
 
-This project was created by **Diana Toneva** as an exam project for the Django Basics course at SoftUni.
+This project was developed by **Diana Toneva** as an exam project for the Django course at SoftUni. 

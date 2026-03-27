@@ -1,3 +1,5 @@
+import threading
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
@@ -9,7 +11,7 @@ from messaging.forms import ProjectMessageForm
 from messaging.models import MessageRecipient, Message
 from messaging.utils import notify_moderators_about_report
 from projects.models import Project
-
+import asyncio
 
 class InboxView(LoginRequiredMixin, ListView):
     model = MessageRecipient
@@ -246,37 +248,6 @@ class ReplyMessageView(LoginRequiredMixin, CreateView):
         return redirect("inbox")
 
 
-# class DeleteMessageView(LoginRequiredMixin, View):
-#
-#     def post(self, request, pk):
-#         message = get_object_or_404(Message, pk=pk)
-#
-#         if message.sender == request.user:
-#             message.delete()
-#         else:
-#             MessageRecipient.objects.filter(
-#                 message=message,
-#                 recipient=request.user
-#             ).delete()
-#
-#         return redirect("inbox")
-
-# class DeleteMessageView(LoginRequiredMixin, View):
-#
-#     def post(self, request, pk):
-#         message = get_object_or_404(Message, pk=pk)
-#
-#         # If user is sender → delete the message
-#         if message.sender == request.user:
-#             message.delete()
-#         else:
-#             # If user is recipient → remove from inbox
-#             MessageRecipient.objects.filter(
-#                 message=message,
-#                 recipient=request.user
-#             ).delete()
-#
-#         return redirect("inbox")
 
 class DeleteMessageView(LoginRequiredMixin, View):
 
@@ -343,11 +314,21 @@ class ReportProjectView(LoginRequiredMixin, CreateView):
             is_read=True
         )
 
-        notify_moderators_about_report(
-            project=self.project,
-            message=message,
-            sender=self.request.user
-        )
+        # notify_moderators_about_report(
+        #     project=self.project,
+        #     message=message,
+        #     sender=self.request.user
+        # )
+
+        threading.Thread(
+            target=notify_moderators_about_report,
+            kwargs={
+                "project": self.project,
+                "message": message,
+                "sender": self.request.user,
+            },
+            daemon=True
+        ).start()
 
         return redirect("project-overview", slug=self.kwargs["slug"])
 

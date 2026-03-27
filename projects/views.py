@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db import IntegrityError
-from django.db.models import When, Case, Value, IntegerField, F
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
@@ -24,9 +23,6 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     template_name = 'projects/project-create.html'
     form_class = ProjectCreateForm
 
-    # def form_valid(self, form):
-    #     form.instance.created_by = self.request.user
-    #     return super().form_valid(form)
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -43,12 +39,6 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
         )
 
         return response
-
-    # def get_success_url(self):
-    #     return reverse(
-    #         "project-members-add",
-    #         kwargs={"slug": self.object.slug}
-    #     )
 
     def get_success_url(self):
         return reverse("project-overview", kwargs={"slug": self.object.slug})
@@ -73,7 +63,7 @@ class ProjectOverviewView(ProjectMixin, TemplateView):
         return context
 
 
-# class ProjectUpdateView(ProjectMixin, UpdateView):
+
 class ProjectUpdateView(ProjectEditMixin, UpdateView):
     model = Project
     template_name = "projects/project-update.html"
@@ -83,7 +73,7 @@ class ProjectUpdateView(ProjectEditMixin, UpdateView):
         return reverse("project-overview", kwargs={"slug": self.object.slug})
 
 
-# class ProjectDeleteView(ProjectMixin, DeleteView):
+
 class ProjectDeleteView(ProjectEditMixin, DeleteView):
     model = Project
     template_name = "projects/project-delete.html"
@@ -93,7 +83,6 @@ class ProjectDeleteView(ProjectEditMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context["form"] = ProjectDeleteForm(instance=self.object)
         return context
-
 
 
 
@@ -118,6 +107,7 @@ class ProjectListView(LoginRequiredMixin, ListView):
             ).first()
 
         return projects
+
 
 class CategoryListView(TemplateView):
     template_name = "projects/category-list.html"
@@ -148,7 +138,7 @@ class ProjectByCategoryView(ListView):
         )
         return context
 
-# class ProjectMembershipCreateView(ProjectMixin, CreateView):
+
 class ProjectMembershipCreateView(ProjectEditMixin, CreateView):
     model = ProjectMembership
     form_class = ProjectMembershipForm
@@ -215,7 +205,6 @@ def project_member_remove(request, slug, member_id):
     if project.is_locked:
         return HttpResponseForbidden("Project is locked")
 
-    # Prevent removing the project creator
     if membership.scientist and membership.scientist.user == project.created_by:
         return HttpResponseForbidden("Project creator cannot be removed")
 
@@ -270,7 +259,7 @@ class ProjectOrganizationsView(ProjectMixin, ListView):
         )
 
 
-# class ProjectOrganizationCreateView(ProjectMixin, CreateView):
+
 class ProjectOrganizationCreateView(ProjectEditMixin, CreateView):
     model = ScientificOrganization
     form_class = ScientificOrganizationForm
@@ -444,13 +433,11 @@ class ArticleUpdateView(ProjectEditMixin, UpdateView):
         )
 
 
-# class ArticleDeleteView(ProjectMixin, DeleteView):
 class ArticleDeleteView(ProjectEditMixin, DeleteView):
     model = Article
     template_name = "articles/article-delete.html"
 
     def get_queryset(self):
-        # only delete articles from this project
         return Article.objects.filter(project=self.get_project())
 
     def get_success_url(self):
@@ -470,7 +457,7 @@ class ProjectEventsView(ProjectMixin, ListView):
         return ScientificEvent.objects.filter(project=self.get_project()).order_by("-start_date")
 
 
-# class EventCreateView(ProjectMixin, CreateView):
+
 class EventCreateView(ProjectEditMixin, CreateView):
     model = ScientificEvent
     form_class = ScientificEventCreateForm
@@ -487,7 +474,6 @@ class EventCreateView(ProjectEditMixin, CreateView):
         )
 
 
-# class EventUpdateView(ProjectMixin, UpdateView):
 class EventUpdateView(ProjectEditMixin, UpdateView):
     model = ScientificEvent
     form_class = ScientificEventUpdateForm
@@ -502,7 +488,7 @@ class EventUpdateView(ProjectEditMixin, UpdateView):
             kwargs={"slug": self.object.project.slug},
         )
 
-# class EventDeleteView(ProjectMixin, DeleteView):
+
 class EventDeleteView(ProjectEditMixin, DeleteView):
     model = ScientificEvent
     template_name = "events/event-delete.html"
@@ -518,7 +504,7 @@ class EventDeleteView(ProjectEditMixin, DeleteView):
         )
 
 
-# class EventParticipationCreateView(ProjectMixin, EventMixin, CreateView):
+
 class EventParticipationCreateView(ProjectEditMixin, EventMixin, CreateView):
     model = EventParticipation
     form_class = EventParticipationForm
@@ -535,7 +521,7 @@ class EventParticipationCreateView(ProjectEditMixin, EventMixin, CreateView):
         )
 
 
-# class EventParticipationDeleteView(ProjectMixin, EventMixin, DeleteView):
+
 class EventParticipationDeleteView(ProjectEditMixin, EventMixin, DeleteView):
     model = EventParticipation
     template_name = "events/participation-delete.html"

@@ -1,26 +1,61 @@
 [
 {
-  "model": "accounts.user",
-  "pk": 4,
+  "model": "auth.group",
+  "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$1000000$oFB4iWB6hptr6wSlhNnK2O$J+Iu7DnkcCFFnyvvQ3E6in4VFEJOWcuX1NWMxST9sRo=",
-    "last_login": "2026-02-14T15:19:09.516Z",
-    "is_superuser": true,
-    "email": "admin@admin.com",
-    "is_active": true,
-    "is_staff": true,
-    "groups": [],
-    "user_permissions": []
+    "name": "Profile Moderators",
+    "permissions": [
+      29
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 2,
+  "fields": {
+    "name": "Content Moderators",
+    "permissions": []
   }
 },
 {
   "model": "accounts.user",
   "pk": 6,
   "fields": {
-    "password": "pbkdf2_sha256$1000000$uW4yjezhECLB6QdewlK3mx$cUHiQGsyU26RGKibUzeiUUxkMQ1d3L5jq3+Kj/Y4FUU=",
-    "last_login": "2026-02-21T13:15:03.513Z",
+    "password": "!",
+    "last_login": "2026-03-22T07:51:16.456Z",
     "is_superuser": false,
-    "email": "ditoneva@abv.bg",
+    "email": "ditoneva@example.com",
+    "is_active": true,
+    "is_staff": true,
+    "groups": [
+      1,
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 7,
+  "fields": {
+    "password": "!",
+    "last_login": "2026-03-21T11:15:50.791Z",
+    "is_superuser": false,
+    "email": "billy_nik@example.com",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 8,
+  "fields": {
+    "password": "!",
+    "last_login": "2026-03-22T07:43:21.444Z",
+    "is_superuser": false,
+    "email": "ivo_nik@example.com",
     "is_active": true,
     "is_staff": false,
     "groups": [],
@@ -32,7 +67,7 @@
   "pk": 6,
   "fields": {
     "created_at": "2026-02-19T16:29:25.802Z",
-    "updated_at": "2026-02-19T16:29:25.802Z",
+    "updated_at": "2026-03-15T07:34:09.374Z",
     "first_name": "Diana",
     "last_name": "Toneva",
     "academic_degree": "PHD",
@@ -40,11 +75,54 @@
     "affiliation": "IEMPAM-BAS",
     "orcid_id": "0000-0001-7424-9704",
     "scopus_id": "55361431000",
-    "profile_picture": "",
+    "profile_picture": null,
     "profile_picture_url": "https://i1.rgstatic.net/ii/profile.image/278065235152896-1443307326385_Q128/Diana-Toneva-2.jpg",
     "research_interests": "Forensic Anthropology, Osteology, Physical Anthropology, 3D Imaging, Geometric Morphometrics",
     "is_approved": true,
+    "is_reviewed": true,
     "slug": "diana-toneva-6"
+  }
+},
+{
+  "model": "accounts.scientistprofile",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-15T07:37:34.924Z",
+    "updated_at": "2026-03-21T07:41:27.987Z",
+    "first_name": "Billy",
+    "last_name": "Nik",
+    "academic_degree": "PHD",
+    "academic_position": "ASSISTANT_PROF",
+    "affiliation": "IICT-BAS",
+    "orcid_id": "0000-0000-0000-0016",
+    "scopus_id": "",
+    "profile_picture": "image/upload/v1774078889/sciprospace/x8hvrqby53ngya6o51ar.png",
+    "profile_picture_url": "",
+    "research_interests": "Mathematics",
+    "is_approved": true,
+    "is_reviewed": true,
+    "slug": "billy-nik-7"
+  }
+},
+{
+  "model": "accounts.scientistprofile",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-03-15T07:39:27.549Z",
+    "updated_at": "2026-03-21T10:18:39.248Z",
+    "first_name": "Ivo",
+    "last_name": "Nik",
+    "academic_degree": "PHD",
+    "academic_position": "ASSOCIATE_PROF",
+    "affiliation": "IICT-BAS",
+    "orcid_id": "0000-0000-0000-0019",
+    "scopus_id": "12345678322",
+    "profile_picture": "image/upload/v1774088320/sciprospace/vvcyvocnmk2ceunbcazn.png",
+    "profile_picture_url": "",
+    "research_interests": "Informatics",
+    "is_approved": true,
+    "is_reviewed": true,
+    "slug": "ivo-nik-8"
   }
 },
 {
@@ -55,7 +133,7 @@
     "country": "Bulgaria",
     "address": "Sofia 1113, Acad. Georgi Bonchev Str., bl. 25",
     "website": "https://www.iempam.bas.bg/",
-    "description": "",
+    "description": "The institute is part of the Bulgarian Academy of Sciences.",
     "slug": "iempam-bas"
   }
 },
@@ -93,17 +171,17 @@
     "acronym": "ReSyMorAI",
     "keywords": "bones, machine learning, 3D imaging, geometric morphometrics",
     "description": "The main objective of the project is to seek new knowledge about sex- and age-specific morphometric characteristics and manifestations of asymmetry in the skeletal system of the contemporary Bulgarian population. This is carried out using 3D imaging through non-invasive virtual anatomical dissections, image processing, segmentation of human body structures, and the application of classical statistical methods, including geometric morphometrics, as well as artificial intelligence algorithms for data analysis and the development of mathematical models for intelligent problem-solving in various classes of biomedical tasks.\r\nThe multidisciplinary approaches for data collection and analysis contribute to a deeper understanding of the relationships between shape, size, and the manifestation of asymmetry in selected skeletal structures, as well as their association with biological characteristics such as sex and age in the contemporary Bulgarian population.",
-    "funder": "Bulgarina National Science Fund",
+    "funder": "Bulgarian National Science Fund",
     "project_number": "КП-06-H51/4 - 11.11.2021",
     "start_date": "2021-11-11",
     "status": "ongoing",
     "category": "BIO",
     "slug": "resymorai-4",
     "created_by": 6,
-    "organizations": [
-      1,
-      2
-    ]
+    "is_disabled": false,
+    "is_locked": false,
+    "disabled_by": null,
+    "moderation_note": ""
   }
 },
 {
@@ -116,17 +194,17 @@
     "acronym": null,
     "keywords": "skull, anatomical variations, 3D models",
     "description": "The project focuses on advancing the study of anatomical variations of the human skull through innovative and interdisciplinary approaches grounded in three-dimensional modeling. Its main aims are as follows: 1) To investigate anatomical variations of the skull using 3D volume and polygonal models generated through different digitization technologies; 2) To perform comparative qualitative and quantitative analyses by applying statistical methods of geometric morphometrics; 3) To develop an ontology of skull anatomical variations that defines taxonomies, hierarchies, and relationships among variations; 4) To create a Virtual Anatomy Collection based on Linked Open Data that serves as a structured, interoperable database; 5) To enable the application of data mining methods for identifying patterns and regularities in the etiology and localization of anatomical variations.",
-    "funder": "Bulgarina National Science Fund",
+    "funder": "Bulgarian National Science Fund",
     "project_number": "ДН11/9 – 15.12.2017",
     "start_date": "2017-12-15",
     "status": "completed",
     "category": "BIO",
     "slug": "skull-anatomical-variations-3d-models-5",
     "created_by": 6,
-    "organizations": [
-      1,
-      2
-    ]
+    "is_disabled": false,
+    "is_locked": false,
+    "disabled_by": null,
+    "moderation_note": ""
   }
 },
 {
@@ -139,18 +217,144 @@
     "acronym": null,
     "keywords": "virtual anthropology, bones, biological profile",
     "description": "The project includes the following tasks: 1) Validation of a method for sex determination in Bulgarians based on metric characteristics of the skull by the development of discriminant functions; 2) Development of a new method for estimation of the physiological age based on a quantitative assessment of the degree of suture obliteration; 3) Creation of database and development of sex and age specific standards of the soft tissue thicknesses for the Bulgarian population and adaptation of a method for virtual reconstruction of the soft tissues on the skull; 4) Development of advanced methods for image processing of medical CT data. The project combines interdisciplinary approaches, applied for the first time in Bulgaria.",
-    "funder": "Bulgarina National Science Fund",
+    "funder": "Bulgarian National Science Fund",
     "project_number": "ДН01/15 - 20.12.2016",
     "start_date": "2016-12-20",
     "status": "completed",
     "category": "BIO",
     "slug": "virtual-anthropology-bones-biological-profile-6",
     "created_by": 6,
-    "organizations": [
-      1,
-      2,
-      14
-    ]
+    "is_disabled": false,
+    "is_locked": false,
+    "disabled_by": null,
+    "moderation_note": ""
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-15T07:43:00.646Z",
+    "updated_at": "2026-03-21T14:46:35.558Z",
+    "title": "Python and Django",
+    "acronym": null,
+    "keywords": "python, Django, web",
+    "description": "The project presents new code implementation...",
+    "funder": "Bulgarian National Science Fund",
+    "project_number": "fg42-tg",
+    "start_date": "2025-07-08",
+    "status": "ongoing",
+    "category": "MATH",
+    "slug": "python-django-web-7",
+    "created_by": 8,
+    "is_disabled": false,
+    "is_locked": false,
+    "disabled_by": 6,
+    "moderation_note": "Suspected plagiarism"
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-03-15T08:43:38.730Z",
+    "updated_at": "2026-03-15T08:43:38.730Z",
+    "title": "Biological reconstruction",
+    "acronym": null,
+    "keywords": "profile, forensic, imaging",
+    "description": "The project aims to develop methods supporting the reconstruction of the biological profile based on bone remains.",
+    "funder": "Bulgarian National Science Fund",
+    "project_number": "Dn12",
+    "start_date": "2024-10-10",
+    "status": "ongoing",
+    "category": "BIO",
+    "slug": "profile-forensic-imaging-8",
+    "created_by": 8,
+    "is_disabled": false,
+    "is_locked": false,
+    "disabled_by": null,
+    "moderation_note": ""
+  }
+},
+{
+  "model": "projects.projectorganization",
+  "pk": 2,
+  "fields": {
+    "project": 4,
+    "organization": 2,
+    "is_base_organization": false
+  }
+},
+{
+  "model": "projects.projectorganization",
+  "pk": 6,
+  "fields": {
+    "project": 6,
+    "organization": 2,
+    "is_base_organization": false
+  }
+},
+{
+  "model": "projects.projectorganization",
+  "pk": 7,
+  "fields": {
+    "project": 6,
+    "organization": 14,
+    "is_base_organization": false
+  }
+},
+{
+  "model": "projects.projectorganization",
+  "pk": 8,
+  "fields": {
+    "project": 5,
+    "organization": 1,
+    "is_base_organization": true
+  }
+},
+{
+  "model": "projects.projectorganization",
+  "pk": 9,
+  "fields": {
+    "project": 5,
+    "organization": 2,
+    "is_base_organization": false
+  }
+},
+{
+  "model": "projects.projectorganization",
+  "pk": 10,
+  "fields": {
+    "project": 4,
+    "organization": 1,
+    "is_base_organization": true
+  }
+},
+{
+  "model": "projects.projectorganization",
+  "pk": 11,
+  "fields": {
+    "project": 6,
+    "organization": 1,
+    "is_base_organization": true
+  }
+},
+{
+  "model": "projects.projectorganization",
+  "pk": 13,
+  "fields": {
+    "project": 8,
+    "organization": 1,
+    "is_base_organization": false
+  }
+},
+{
+  "model": "projects.projectorganization",
+  "pk": 15,
+  "fields": {
+    "project": 7,
+    "organization": 2,
+    "is_base_organization": false
   }
 },
 {
@@ -159,7 +363,7 @@
   "fields": {
     "project": 4,
     "name": "Diana Toneva",
-    "email": "ditoneva@abv.bg",
+    "email": "ditoneva@example.com",
     "scientist": 6,
     "role": "member"
   }
@@ -170,7 +374,7 @@
   "fields": {
     "project": 4,
     "name": "Silviya Nikolova",
-    "email": "sil_nikolova@abv.bg",
+    "email": "sil_nikolova@example.com",
     "scientist": null,
     "role": "leader"
   }
@@ -181,7 +385,7 @@
   "fields": {
     "project": 4,
     "name": "Dora Zlatareva",
-    "email": "dorazlat@medfac.mu-sofia.bg",
+    "email": "dorazlat@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -192,7 +396,7 @@
   "fields": {
     "project": 4,
     "name": "Gennady Agre",
-    "email": "gennady.agre@iict.bas.bg",
+    "email": "gennady.agre@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -203,7 +407,7 @@
   "fields": {
     "project": 4,
     "name": "Stanislav Harizanov",
-    "email": "sharizanov@parallel.bas.bg",
+    "email": "sharizanov@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -214,7 +418,7 @@
   "fields": {
     "project": 4,
     "name": "Nevena Fileva",
-    "email": "nfileva@medfac.mu-sofia.bg",
+    "email": "nfileva@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -225,7 +429,7 @@
   "fields": {
     "project": 4,
     "name": "Georgi Milenov",
-    "email": "g.milenov@medfac.mu-sofia.bg",
+    "email": "g.milenov@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -236,7 +440,7 @@
   "fields": {
     "project": 4,
     "name": "Elena Tasheva-Terzieva",
-    "email": "elena.tasheva@gmail.com",
+    "email": "elena.tasheva@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -247,7 +451,7 @@
   "fields": {
     "project": 5,
     "name": "Diana Toneva",
-    "email": "ditoneva@abv.bg",
+    "email": "ditoneva@example.com",
     "scientist": 6,
     "role": "leader"
   }
@@ -258,7 +462,7 @@
   "fields": {
     "project": 5,
     "name": "Dora Zlatareva",
-    "email": "dorazlat@medfac.mu-sofia.bg",
+    "email": "dorazlat@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -269,7 +473,7 @@
   "fields": {
     "project": 5,
     "name": "Vassil Hadjidekov",
-    "email": "hadjidekov@gmail.com",
+    "email": "hadjidekov@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -280,7 +484,7 @@
   "fields": {
     "project": 5,
     "name": "Ivan Georgiev",
-    "email": "ivan.georgiev@parallel.bas.bg",
+    "email": "ivan.georgiev@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -291,7 +495,7 @@
   "fields": {
     "project": 5,
     "name": "Kiril Simov",
-    "email": "kivs@bultreebank.org",
+    "email": "kivs@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -302,7 +506,7 @@
   "fields": {
     "project": 5,
     "name": "Elena Tasheva-Terzieva",
-    "email": "elena.tasheva@gmail.com",
+    "email": "elena.tasheva@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -313,7 +517,7 @@
   "fields": {
     "project": 5,
     "name": "Neli Ivanova",
-    "email": "neli_bonev@abv.bg",
+    "email": "neli_bonev@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -324,7 +528,7 @@
   "fields": {
     "project": 5,
     "name": "Gennady Agre",
-    "email": "gennady.agre@iict.bas.bg",
+    "email": "gennady.agre@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -335,7 +539,7 @@
   "fields": {
     "project": 5,
     "name": "Stanislav Harizanov",
-    "email": "sharizanov@parallel.bas.bg",
+    "email": "sharizanov@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -346,7 +550,7 @@
   "fields": {
     "project": 5,
     "name": "Silviya Nikolova",
-    "email": "sil_nikolova@abv.bg",
+    "email": "sil_nikolova@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -357,7 +561,7 @@
   "fields": {
     "project": 6,
     "name": "Diana Toneva",
-    "email": "ditoneva@abv.bg",
+    "email": "ditoneva@example.com",
     "scientist": 6,
     "role": "member"
   }
@@ -368,7 +572,7 @@
   "fields": {
     "project": 6,
     "name": "Silviya Nikolova",
-    "email": "sil_nikolova@abv.bg",
+    "email": "sil_nikolova@example.com",
     "scientist": null,
     "role": "leader"
   }
@@ -379,7 +583,7 @@
   "fields": {
     "project": 6,
     "name": "Angel Dandov",
-    "email": "angel.dandov@gmail.com",
+    "email": "angel.dandov@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -390,7 +594,7 @@
   "fields": {
     "project": 6,
     "name": "Vassil Hadjidekov",
-    "email": "hadjidekov@gmail.com",
+    "email": "hadjidekov@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -401,7 +605,7 @@
   "fields": {
     "project": 6,
     "name": "Dora Zlatareva",
-    "email": "dorazlat@medfac.mu-sofia.bg",
+    "email": "dorazlat@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -412,7 +616,7 @@
   "fields": {
     "project": 6,
     "name": "Stanislav Harizanov",
-    "email": "sharizanov@parallel.bas.bg",
+    "email": "sharizanov@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -423,7 +627,7 @@
   "fields": {
     "project": 6,
     "name": "Vessela Kareva",
-    "email": "v.statkova@gmail.com",
+    "email": "v.statkova@example.com",
     "scientist": null,
     "role": "member"
   }
@@ -434,9 +638,53 @@
   "fields": {
     "project": 6,
     "name": "Ivan Georgiev",
-    "email": "ivan.georgiev@parallel.bas.bg",
+    "email": "ivan.georgiev@example.com",
     "scientist": null,
     "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 47,
+  "fields": {
+    "project": 7,
+    "name": "Ivo Nik",
+    "email": "ivo_nik@example.com",
+    "scientist": 8,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 48,
+  "fields": {
+    "project": 7,
+    "name": "Diana Toneva",
+    "email": "ditoneva@example.com",
+    "scientist": 6,
+    "role": "leader"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 49,
+  "fields": {
+    "project": 8,
+    "name": "Ivo Nik",
+    "email": "ivo_nik@example.com",
+    "scientist": 8,
+    "role": "member"
+  }
+},
+{
+  "model": "projects.projectmembership",
+  "pk": 50,
+  "fields": {
+    "project": 8,
+    "name": "Diana Toneva",
+    "email": "ditoneva@example.com",
+    "scientist": 6,
+    "role": "leader"
   }
 },
 {
@@ -1019,8 +1267,8 @@
   "model": "projects.article",
   "pk": 42,
   "fields": {
-    "created_at": "2026-02-20T17:55:13.000Z",
-    "updated_at": "2026-02-20T17:55:13.000Z",
+    "created_at": "2026-02-20T17:55:13Z",
+    "updated_at": "2026-02-20T17:55:13Z",
     "project": 6,
     "title": "Morphological Study of Jugular  Foramen in Bulgarian Adults",
     "authors": "Toneva D., Nikolova S., Zlatareva D., Hadjidekov V.",
@@ -2385,6 +2633,416 @@
     "title": "Frequency of interclinoid bridging in Bulgarians",
     "authors": "Nikolova, S., Toneva, D.",
     "participation_type": "poster"
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 1,
+  "fields": {
+    "created_at": "2026-03-15T07:45:29.429Z",
+    "updated_at": "2026-03-15T07:45:29.429Z",
+    "sender": 8,
+    "project": null,
+    "subject": "Forms",
+    "body": "We need to do some implementation of the RESTful endpoints this week.",
+    "is_report": false
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 2,
+  "fields": {
+    "created_at": "2026-03-15T07:46:21.671Z",
+    "updated_at": "2026-03-15T07:46:21.671Z",
+    "sender": 6,
+    "project": null,
+    "subject": "Re: Forms",
+    "body": "Ok, come tomorrow.",
+    "is_report": false
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 3,
+  "fields": {
+    "created_at": "2026-03-15T08:18:01.639Z",
+    "updated_at": "2026-03-15T08:18:01.639Z",
+    "sender": 6,
+    "project": null,
+    "subject": "Re: Forms",
+    "body": "Ok, we'll do it these days.",
+    "is_report": false
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 4,
+  "fields": {
+    "created_at": "2026-03-15T08:18:40.373Z",
+    "updated_at": "2026-03-15T08:18:40.373Z",
+    "sender": 6,
+    "project": null,
+    "subject": "Re: Forms",
+    "body": "ok, see you tomorrow",
+    "is_report": false
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 5,
+  "fields": {
+    "created_at": "2026-03-21T13:56:19.780Z",
+    "updated_at": "2026-03-21T13:56:19.780Z",
+    "sender": 8,
+    "project": 7,
+    "subject": "Report: Python and Django article",
+    "body": "There is an article that includes wrong results.",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 6,
+  "fields": {
+    "created_at": "2026-03-21T14:19:15.355Z",
+    "updated_at": "2026-03-21T14:19:15.355Z",
+    "sender": 8,
+    "project": 7,
+    "subject": "Report: Python and Django",
+    "body": "Why the project was locked? Is this a mistake?",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 7,
+  "fields": {
+    "created_at": "2026-03-21T14:24:48.982Z",
+    "updated_at": "2026-03-21T14:24:48.982Z",
+    "sender": 6,
+    "project": null,
+    "subject": "Re: Report: Python and Django",
+    "body": "I will check now.",
+    "is_report": false
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 8,
+  "fields": {
+    "created_at": "2026-03-21T14:33:02.877Z",
+    "updated_at": "2026-03-21T14:33:02.877Z",
+    "sender": 6,
+    "project": null,
+    "subject": "Re: Report: Python and Django",
+    "body": "I will check what's the problem now.",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 9,
+  "fields": {
+    "created_at": "2026-03-21T14:41:08.630Z",
+    "updated_at": "2026-03-21T14:41:08.630Z",
+    "sender": 8,
+    "project": null,
+    "subject": "Re: Re: Report: Python and Django",
+    "body": "Ok, I am in urge to upload some articles.",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 10,
+  "fields": {
+    "created_at": "2026-03-21T14:46:52.245Z",
+    "updated_at": "2026-03-21T14:46:52.245Z",
+    "sender": 6,
+    "project": null,
+    "subject": "Re: Re: Re: Report: Python and Django",
+    "body": "The project is unlocked!",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 11,
+  "fields": {
+    "created_at": "2026-03-21T14:48:36.688Z",
+    "updated_at": "2026-03-21T14:48:36.688Z",
+    "sender": 6,
+    "project": null,
+    "subject": "Re: Re: Re: Report: Python and Django",
+    "body": "The project is unlocked!",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 12,
+  "fields": {
+    "created_at": "2026-03-21T14:51:42.949Z",
+    "updated_at": "2026-03-21T14:51:42.949Z",
+    "sender": 6,
+    "project": null,
+    "subject": "Re: Re: Re: Report: Python and Django",
+    "body": "the project is unlocked!",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 13,
+  "fields": {
+    "created_at": "2026-03-22T07:24:04.773Z",
+    "updated_at": "2026-03-22T07:24:04.773Z",
+    "sender": 8,
+    "project": 7,
+    "subject": "Report: Python and Django",
+    "body": "The organization that I want to affiliate with my project has changed its address. It's IICT-BAS can you update it in the system.",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 14,
+  "fields": {
+    "created_at": "2026-03-22T07:43:05.163Z",
+    "updated_at": "2026-03-22T07:43:05.163Z",
+    "sender": 6,
+    "project": null,
+    "subject": "Re: Report: Python and Django",
+    "body": "It is corrected now.",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 15,
+  "fields": {
+    "created_at": "2026-03-22T07:44:07.439Z",
+    "updated_at": "2026-03-22T07:44:07.439Z",
+    "sender": 8,
+    "project": null,
+    "subject": "Re: Re: Report: Python and Django",
+    "body": "Thank you!",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 16,
+  "fields": {
+    "created_at": "2026-03-22T07:47:48.163Z",
+    "updated_at": "2026-03-22T07:47:48.163Z",
+    "sender": 8,
+    "project": 8,
+    "subject": "Report: Biological reconstruction",
+    "body": "I cannot do anything with project. Can you check what is the problem?",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.message",
+  "pk": 17,
+  "fields": {
+    "created_at": "2026-03-22T07:50:12.178Z",
+    "updated_at": "2026-03-22T07:50:12.178Z",
+    "sender": 8,
+    "project": 8,
+    "subject": "Report: Biological reconstruction",
+    "body": "I cannot do anything with project. Can you check what is the problem?",
+    "is_report": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 1,
+  "fields": {
+    "message": 1,
+    "recipient": 6,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 2,
+  "fields": {
+    "message": 1,
+    "recipient": 8,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 7,
+  "fields": {
+    "message": 4,
+    "recipient": 8,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 8,
+  "fields": {
+    "message": 4,
+    "recipient": 6,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 11,
+  "fields": {
+    "message": 6,
+    "recipient": 6,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 12,
+  "fields": {
+    "message": 6,
+    "recipient": 8,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 14,
+  "fields": {
+    "message": 7,
+    "recipient": 6,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 15,
+  "fields": {
+    "message": 8,
+    "recipient": 8,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 16,
+  "fields": {
+    "message": 8,
+    "recipient": 6,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 17,
+  "fields": {
+    "message": 9,
+    "recipient": 6,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 18,
+  "fields": {
+    "message": 9,
+    "recipient": 8,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 23,
+  "fields": {
+    "message": 12,
+    "recipient": 8,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 24,
+  "fields": {
+    "message": 12,
+    "recipient": 6,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 25,
+  "fields": {
+    "message": 13,
+    "recipient": 6,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 26,
+  "fields": {
+    "message": 13,
+    "recipient": 8,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 27,
+  "fields": {
+    "message": 14,
+    "recipient": 8,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 28,
+  "fields": {
+    "message": 14,
+    "recipient": 6,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 30,
+  "fields": {
+    "message": 15,
+    "recipient": 8,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 32,
+  "fields": {
+    "message": 16,
+    "recipient": 8,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 33,
+  "fields": {
+    "message": 17,
+    "recipient": 6,
+    "is_read": true
+  }
+},
+{
+  "model": "messaging.messagerecipient",
+  "pk": 34,
+  "fields": {
+    "message": 17,
+    "recipient": 8,
+    "is_read": true
   }
 }
 ]

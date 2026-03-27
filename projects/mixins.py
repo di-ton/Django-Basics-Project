@@ -6,8 +6,6 @@ from .utils import is_content_moderator
 
 
 class ProjectMixin:
-    # def get_project(self):
-        # return get_object_or_404(Project, slug=self.kwargs["slug"])
 
     def get_project(self):
         project = get_object_or_404(Project, slug=self.kwargs["slug"])
@@ -28,26 +26,6 @@ class ProjectMixin:
         return context
 
 
-# class ProjectEditMixin(ProjectMixin):
-#
-#     def get_project_for_edit(self):
-#         return self.get_project()
-#
-#     def post(self, request, *args, **kwargs):
-#         project = self.get_project_for_edit()
-#
-#         if not project.is_editable():
-#             return HttpResponseForbidden("This project is locked.")
-#
-#         return super().post(request, *args, **kwargs)
-#
-#     def form_valid(self, form):
-#         project = self.get_project_for_edit()
-#
-#         if not project.is_editable():
-#             return HttpResponseForbidden("This project is locked.")
-#
-#         return super().form_valid(form)
 
 class ProjectEditMixin(ProjectMixin):
 

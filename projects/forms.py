@@ -54,7 +54,6 @@ class ProjectDeleteForm(ProjectBaseForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Disable all fields to make the form read-only on delete confirmation
         for field in self.fields.values():
             field.disabled = True
 
@@ -102,7 +101,7 @@ class ProjectMembershipForm(forms.ModelForm):
         email = cleaned_data.get("email")
         scientist = cleaned_data.get("scientist")
 
-        # Ensure only one leader per project
+        # Only one leader per project
         if role == "leader" and self.project:
             if ProjectMembership.objects.filter(
                 project=self.project,
@@ -124,10 +123,6 @@ class ProjectMembershipForm(forms.ModelForm):
 
 
 
-# class ScientificOrganizationForm(forms.ModelForm):
-#     class Meta:
-#         model = ScientificOrganization
-#         fields = ["name", "country", "address", "website", "is_base_organization"]
 
 class ScientificOrganizationForm(forms.ModelForm):
 

@@ -19,7 +19,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter = ("status", "category")
     search_fields = ("title", "acronym", "keywords", "project_number")
     prepopulated_fields = {"slug": ("title",)}
-    # filter_horizontal = ("organizations",)
+
 
 @admin.register(ProjectOrganization)
 class ProjectOrganizationAdmin(admin.ModelAdmin):

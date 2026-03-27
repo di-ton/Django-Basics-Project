@@ -13,8 +13,19 @@ class HomePageView(ListView):
     ordering = ["-start_date"]
     paginate_by = 4
 
+    # def get_queryset(self):
+    #     return (
+    #         super()
+    #         .get_queryset()
+    #         .select_related("created_by")
+    #         .prefetch_related(
+    #             "memberships",
+    #             "memberships__scientist",
+    #         )
+    #     )
+
     def get_queryset(self):
-        return (
+        queryset = (
             super()
             .get_queryset()
             .select_related("created_by")
@@ -23,6 +34,11 @@ class HomePageView(ListView):
                 "memberships__scientist",
             )
         )
+
+        if not self.request.user.groups.filter(name="Content Moderators").exists():
+            queryset = queryset.filter(is_disabled=False)
+
+        return queryset
 
 
 
@@ -47,6 +63,9 @@ class ProjectSearchView(TemplateView):
                 Q(project_number__exact=query) |
                 Q(organizations__name__icontains=query)
             ).distinct()
+
+            if not self.request.user.groups.filter(name="Content Moderators").exists():
+                projects = projects.filter(is_disabled=False)
 
             profiles = ScientistProfile.objects.filter(
                 Q(first_name__icontains=query) |

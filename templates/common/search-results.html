@@ -41,10 +41,6 @@
       </ul>
     {% endif %}
 
-    {% if not projects and not profiles %}
-      <p class="search-empty">No results match your search.</p>
-    {% endif %}
-
     <!-- ORGANIZATIONS -->
     {% if organizations %}
       <h2>Organizations</h2>
@@ -61,8 +57,10 @@
           </li>
         {% endfor %}
       </ul>
-    {% else %}
-      <p>No organizations found.</p>
+    {% endif %}
+
+    {% if not projects and not profiles and not organizations %}
+      <p class="search-empty">No results match your search.</p>
     {% endif %}
 
 </div>

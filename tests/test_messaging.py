@@ -1,5 +1,6 @@
+import uuid
+
 from django.contrib.auth.models import Group
-from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 from django.urls import reverse
 
@@ -10,22 +11,36 @@ from projects.choices import CategoryChoices
 from projects.models import Project
 
 
+def create_user_with_profile(email, password):
+    user = User.objects.create_user(email=email, password=password)
+
+    ScientistProfile.objects.create(
+        user=user,
+        first_name="Test",
+        last_name="User",
+        academic_degree=AcademicDegreeChoices.PHD,
+        affiliation="Test University",
+        orcid_id=str(uuid.uuid4())[:19]
+    )
+
+    return user
+
+def create_required_groups():
+    Group.objects.get_or_create(name="Profile Moderators")
+    Group.objects.get_or_create(name="Content Moderators")
+
+
 class SendMessageTests(TestCase):
 
     def setUp(self):
-        self.sender = User.objects.create_user(email="sender@gmail.com", password="pass12345pass")
-        self.recipient_user = User.objects.create_user(email="recipient@gmail.com", password="pass123456")
+        Group.objects.get_or_create(name="Profile Moderators")
+        Group.objects.get_or_create(name="Content Moderators")
 
-        Group.objects.create(name="Profile Moderators")
+        self.sender = create_user_with_profile("sender@gmail.com", "pass12345pass")
+        self.recipient_user = create_user_with_profile("recipient@gmail.com", "pass123456")
+        self.recipient_profile = self.recipient_user.scientist_profile
 
-        self.recipient_profile = ScientistProfile.objects.create(
-            user=self.recipient_user,
-            first_name="Ivan",
-            last_name="Dimitrov",
-            academic_degree=AcademicDegreeChoices.PHD,
-            affiliation="MU-Sofia",
-            orcid_id="0000-1111-0000-1111"
-        )
+        self.group = Group.objects.get(name="Content Moderators")
 
     def test_send_message_creates_recipients(self):
         self.client.login(email="sender@gmail.com", password="pass12345pass")
@@ -39,9 +54,12 @@ class SendMessageTests(TestCase):
 
 
 class InboxTests(TestCase):
+    def setUp(self):
+        Group.objects.get_or_create(name="Profile Moderators")
+        Group.objects.get_or_create(name="Content Moderators")
 
     def test_inbox_excludes_own_messages(self):
-        user = User.objects.create_user(email="user@gmail.com", password="pass12345pass")
+        user = create_user_with_profile("user@gmail.com", "pass12345pass")
         message = Message.objects.create(sender=user, subject="Article", body="Let's submitted it today.")
         MessageRecipient.objects.create(message=message, recipient=user)
         self.client.login(email="user@gmail.com", password="pass12345pass")
@@ -51,10 +69,13 @@ class InboxTests(TestCase):
 
 
 class MessageDetailTests(TestCase):
+    def setUp(self):
+        Group.objects.get_or_create(name="Profile Moderators")
+        Group.objects.get_or_create(name="Content Moderators")
 
     def test_message_marked_as_read(self):
-        sender = User.objects.create_user(email="send@abv.bg", password="pass12345pass")
-        recipient = User.objects.create_user(email="recip@gmail.com", password="pass123456")
+        sender = create_user_with_profile("send@abv.bg", "pass12345pass")
+        recipient = create_user_with_profile("recip@gmail.com", "pass123456")
         message = Message.objects.create(sender=sender, subject="Add members", body="There is a researcher who wants to join the project")
 
         MessageRecipient.objects.create(message=message, recipient=recipient, is_read=False)
@@ -68,11 +89,14 @@ class MessageDetailTests(TestCase):
 
 
 class MessagePermissionTests(TestCase):
+    def setUp(self):
+        Group.objects.get_or_create(name="Profile Moderators")
+        Group.objects.get_or_create(name="Content Moderators")
 
     def test_user_cannot_view_other_messages(self):
-        sender = User.objects.create_user(email="send@abv.bg", password="pass12345pass")
-        recipient = User.objects.create_user(email="recip@gmail.com", password="pass123456")
-        outsider = User.objects.create_user(email="out@gmail.com", password="pass123word")
+        sender = create_user_with_profile("send@abv.bg", "pass12345pass")
+        recipient = create_user_with_profile("recip@gmail.com", "pass123456")
+        outsider = create_user_with_profile("out@gmail.com", "pass123word")
 
         message = Message.objects.create(sender=sender, subject="test subject", body="Test content")
         MessageRecipient.objects.create(message=message, recipient=recipient)
@@ -85,9 +109,12 @@ class MessagePermissionTests(TestCase):
 
 
 class MessageModelTests(TestCase):
+    def setUp(self):
+        Group.objects.get_or_create(name="Profile Moderators")
+        Group.objects.get_or_create(name="Content Moderators")
 
     def test_is_project_message(self):
-        user = User.objects.create_user(email="user@gmail.com", password="pass12345pass")
+        user = create_user_with_profile("user@gmail.com", "pass12345pass")
 
         message = Message.objects.create(
             sender=user,
@@ -101,10 +128,10 @@ class MessageModelTests(TestCase):
 class ReportTests(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create_user(
-            email="user@gmail.com",
-            password="pass12345pass"
-        )
+        Group.objects.get_or_create(name="Profile Moderators")
+        Group.objects.get_or_create(name="Content Moderators")
+
+        self.user = create_user_with_profile("user@gmail.com", "pass12345pass")
 
         self.project = Project.objects.create(
             title="Test Project",
@@ -117,8 +144,7 @@ class ReportTests(TestCase):
             category=CategoryChoices.MATH
         )
 
-
-        self.group = Group.objects.create(name="Content Moderators")
+        self.group = Group.objects.get(name="Content Moderators")
 
     def test_report_sets_is_report_true(self):
         self.client.login(email="user@gmail.com", password="pass12345pass")
@@ -133,10 +159,7 @@ class ReportTests(TestCase):
         self.assertTrue(message.is_report)
 
     def test_report_sent_to_moderators(self):
-        moderator = User.objects.create_user(
-            email="mod@abv.bg",
-            password="pass12345pass"
-        )
+        moderator = create_user_with_profile("mod@abv.bg", "pass12345pass")
 
         moderator.groups.add(self.group)
 

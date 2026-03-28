@@ -1,0 +1,316 @@
+.event-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+
+.participation-card {
+  margin: 0.75rem;
+  background: #fafafa;
+}
+
+.participation-card .article-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.participation-form {
+  max-width: 760px;
+}
+
+.participation-form-page {
+  max-width: 760px;
+  margin: 0 auto;
+
+}
+
+.participation-form-page h2 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.participation-form-field {
+  margin: 1.25rem 0;
+}
+
+.participation-form-field input[type="text"] {
+  font-size: 1rem;
+}
+
+.participation-form-field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: #111827;
+}
+
+.participation-form-field input,
+.participation-form-field textarea,
+.participation-form-field select {
+  width: 100%;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.participation-form-field textarea {
+  resize: vertical;
+}
+
+.participation-form-field input:focus,
+.participation-form-field textarea:focus,
+.participation-form-field select:focus {
+  outline: none;
+  border-color: #6b7280;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
+}
+
+.participation-form-help {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.participation-form-field .errorlist {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+
+.participation-form-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.event-participations {
+  margin: 0.5rem;
+}
+
+.event-participations-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.event-participations-empty {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.form-help {
+  display: block;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+
+.event-participations {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #6b7280;
+}
+
+
+.participation-item .article-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.participation-item .article-authors {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.participation-item .article-meta {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.participation-item .article-actions {
+  margin-top: 0.5rem;
+}
+
+
+.event-card {
+  width: 100%;
+  max-width: 900px;
+  align-items: center;
+  padding: 0.2rem;
+  border: 1px solid #065f46;
+  border-radius: 6px;
+  margin-bottom: 1.9rem;
+}
+
+.event-content {
+  display: block;
+  margin: 0 auto;
+  padding: 1rem 1.4rem;
+}
+
+.event-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.event-info {
+  margin: 0.2rem 0.8rem;
+}
+
+.event-actions {
+  max-width: 100%;
+  margin: 0.4rem
+}
+
+.event-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2f855a;
+  line-height: 1.25;
+  margin-bottom: 0.2rem;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.event-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.event-title a:hover {
+  text-decoration: underline;
+}
+
+
+.event-meta {
+  color: #4b5563;
+}
+
+.event-meta span {
+  font-size: 1.1rem;
+}
+
+
+.event-actions {
+  display: flex;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+
+.event-participations {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0;
+  padding: 0.75rem;
+  border-top: 1px solid #6b7280;
+}
+
+.event-participations-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+
+.participation-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.45rem;
+  align-items: flex-start;
+  border: 1px solid #6b7280;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+
+.participation-main {
+  flex: 1;
+}
+
+
+.participation-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.15rem;
+}
+
+
+.participation-authors {
+  font-size: 0.85rem;
+  color: #374151;
+  line-height: 1.35;
+}
+
+.participation-type {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.15rem;
+}
+
+.participation-actions {
+  display: flex;
+  align-items: flex-start;
+  margin-left: 1rem;
+}
+
+
+.btn-small {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+}
+
+
+.event-participations-actions {
+  margin-top: 0.75rem;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .event-header {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .event-actions {
+        width: 100%;
+        justify-content: flex-start;
+        margin: 0.4rem 0;
+    }
+
+    .participation-item {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .participation-actions {
+        margin-left: 0;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .participation-form-actions {
+        flex-direction: column;
+    }
+
+    .btn-small {
+        padding: 0.4rem 0.8rem;
+    }
+}

@@ -1,4 +1,5 @@
 {% extends "projects/project-base.html" %}
+{% load profile_tags %}
 {% load static %}
 {% block project_content %}
 
@@ -9,24 +10,28 @@
 <div class="comments-list">
 
 {% for comment in comments %}
-
     <div class="comment-card">
-
         <div class="comment-header">
           <div class="comment-user-info">
-
-            <div class="profile-picture">
-                {% if comment.user.scientist_profile.profile_picture %}
-                    <img src="{{ comment.user.scientist_profile.profile_picture.url }}" class="profile-pic">
-                {% elif comment.user.scientist_profile.profile_picture_url %}
-                    <img src="{{ comment.user.scientist_profile.profile_picture_url }}" class="profile-pic">
-                {% else %}
+            {% if comment.user|has_profile %}
+                <div class="profile-picture">
+                    {% if comment.user.scientist_profile.profile_picture %}
+                        <img src="{{ comment.user.scientist_profile.profile_picture.url }}" class="profile-pic">
+                    {% elif comment.user.scientist_profile.profile_picture_url %}
+                        <img src="{{ comment.user.scientist_profile.profile_picture_url }}" class="profile-pic">
+                    {% else %}
+                        <img src="{% static 'images/no_profile_image.png' %}" class="profile-pic">
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="profile-picture">
                     <img src="{% static 'images/no_profile_image.png' %}" class="profile-pic">
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
+
 
             <span class="comment-user">
-                {% if comment.user.scientist_profile %}
+                {% if comment.user|has_profile %}
                     {{ comment.user.scientist_profile.first_name }} {{ comment.user.scientist_profile.last_name }}
                 {% else %}
                     {{ comment.user.email }}
@@ -45,8 +50,7 @@
         </div>
 
         <div class="comment-actions">
-
-            {% if user.is_authenticated %}
+            {% if user|has_profile %}
                 <button type="button"
                         onclick="toggleReplyForm({{ comment.id }})">
                     Reply
@@ -100,7 +104,8 @@
     </div>
 
 
-    {% if user.is_authenticated %}
+{#    {% if user.is_authenticated %}#}
+    {% if user|has_profile %}
         <form id="reply-form-{{ comment.id }}"
               class="reply-form"
               style="display:none;">
@@ -119,15 +124,21 @@
             <div class="comment-header">
               <div class="comment-user-info">
 
-                <div class="profile-picture">
-                    {% if reply.user.scientist_profile.profile_picture %}
-                        <img src="{{ reply.user.scientist_profile.profile_picture.url }}" class="profile-pic">
-                    {% elif reply.user.scientist_profile.profile_picture_url %}
-                        <img src="{{ reply.user.scientist_profile.profile_picture_url }}" class="profile-pic">
-                    {% else %}
+                {% if reply.user|has_profile %}
+                    <div class="profile-picture">
+                        {% if reply.user.scientist_profile.profile_picture %}
+                            <img src="{{ reply.user.scientist_profile.profile_picture.url }}" class="profile-pic">
+                        {% elif reply.user.scientist_profile.profile_picture_url %}
+                            <img src="{{ reply.user.scientist_profile.profile_picture_url }}" class="profile-pic">
+                        {% else %}
+                            <img src="{% static 'images/no_profile_image.png' %}" class="profile-pic">
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="profile-picture">
                         <img src="{% static 'images/no_profile_image.png' %}" class="profile-pic">
-                    {% endif %}
-                </div>
+                    </div>
+                {% endif %}
 
                 <span class="comment-user">
                     {% if reply.user.scientist_profile %}
@@ -199,7 +210,8 @@
     </div>
 {% endfor %}
 
-{% if user.is_authenticated %}
+
+{% if user|has_profile %}
     <div class="new-comment-card">
 
         <form id="new-comment-form">
@@ -208,6 +220,7 @@
             <textarea id="new-comment-content"
                       rows="3"
                       placeholder="Write a comment..."
+                      autocomplete="off"
                       required></textarea>
 
             <div class="new-comment-actions">
@@ -215,10 +228,12 @@
                     Add Comment
                 </button>
             </div>
-
         </form>
-
     </div>
+{% elif user.is_authenticated %}
+    <p>
+        You must <a href="{% url 'profile-create' %}">complete your profile</a> to comment.
+    </p>
 {% else %}
     <p>You must be logged in to comment.</p>
 {% endif %}
@@ -254,9 +269,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     content: content
                 })
             })
+            {#.then(response => {#}
+            {#    if (!response.ok)#}
+            {#        throw new Error("Error creating comment");#}
+            {#    return response.json();#}
+            {# })#}
             .then(response => {
-                if (!response.ok)
+                if (response.status === 403) {
+                    alert("You must complete your profile before commenting.");
+                    window.location.href = "{% url 'profile-create' %}";
+                    return;
+                }
+
+                if (!response.ok) {
                     throw new Error("Error creating comment");
+                }
+
                 return response.json();
             })
             .then(() => {
@@ -361,6 +389,10 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => {
             if (response.ok) {
+                const textarea = document.getElementById("new-comment-content");
+                if (textarea) {
+                    textarea.value = "";
+                }
                 location.reload();
             } else {
                 alert("You do not have permission.");

@@ -2,18 +2,18 @@ import threading
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView
 
+from accounts.mixins import ProfileRequiredMixin
 from accounts.models import User, ScientistProfile
 from messaging.forms import ProjectMessageForm
 from messaging.models import MessageRecipient, Message
 from messaging.utils import notify_moderators_about_report
 from projects.models import Project
-import asyncio
 
-class InboxView(LoginRequiredMixin, ListView):
+class InboxView(LoginRequiredMixin, ProfileRequiredMixin, ListView):
     model = MessageRecipient
     template_name = "messaging/inbox.html"
     context_object_name = "messages"
@@ -28,7 +28,7 @@ class InboxView(LoginRequiredMixin, ListView):
         )
 
 
-class SentMessagesView(LoginRequiredMixin, ListView):
+class SentMessagesView(LoginRequiredMixin, ProfileRequiredMixin, ListView):
     model = MessageRecipient
     template_name = "messaging/sent-messages.html"
     context_object_name = "messages"
@@ -41,7 +41,7 @@ class SentMessagesView(LoginRequiredMixin, ListView):
             .order_by("-message__created_at")
         )
 
-class MessageDetailView(LoginRequiredMixin, DetailView):
+class MessageDetailView(LoginRequiredMixin, ProfileRequiredMixin, DetailView):
     model = Message
     template_name = "messaging/message-detail.html"
 
@@ -63,7 +63,7 @@ class MessageDetailView(LoginRequiredMixin, DetailView):
 
 
 
-class SendMessageView(LoginRequiredMixin, CreateView):
+class SendMessageView(LoginRequiredMixin, ProfileRequiredMixin, CreateView):
     model = Message
     fields = ["subject", "body"]
     template_name = "messaging/send-message.html"
@@ -103,7 +103,7 @@ class SendMessageView(LoginRequiredMixin, CreateView):
         return context
 
 
-class ProjectMessageView(LoginRequiredMixin, CreateView):
+class ProjectMessageView(LoginRequiredMixin, ProfileRequiredMixin, CreateView):
     model = Message
     form_class = ProjectMessageForm
     template_name = "messaging/project-message.html"
@@ -145,7 +145,7 @@ class ProjectMessageView(LoginRequiredMixin, CreateView):
         return redirect("project-overview", slug=self.project.slug)
 
 
-class ReplyMessageView(LoginRequiredMixin, CreateView):
+class ReplyMessageView(LoginRequiredMixin, ProfileRequiredMixin, CreateView):
     model = Message
     fields = ["subject", "body"]
     template_name = "messaging/send-message.html"
@@ -163,39 +163,6 @@ class ReplyMessageView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["original"] = self.original
         return context
-
-    # def form_valid(self, form):
-    #     message = form.save(commit=False)
-    #     message.sender = self.request.user
-    #     message.subject = f"Re: {self.original.subject}"
-    #
-    #     message.is_report = self.original.is_report
-    #     message.save()
-    #
-    #     # MessageRecipient.objects.create(
-    #     #     message=message,
-    #     #     recipient=self.original.sender
-    #     # )
-    #
-    #     if self.original.sender == self.request.user:
-    #         recipient = self.original.recipients.first()
-    #     else:
-    #         recipient = self.original.sender
-    #
-    #     # recipient inbox
-    #     MessageRecipient.objects.create(
-    #         message=message,
-    #         recipient=recipient
-    #     )
-    #
-    #     # sender sent
-    #     MessageRecipient.objects.create(
-    #         message=message,
-    #         recipient=self.request.user,
-    #         is_read=True
-    #     )
-    #
-    #     return redirect("inbox")
 
     def form_valid(self, form):
         message = form.save(commit=False)
@@ -238,7 +205,7 @@ class ReplyMessageView(LoginRequiredMixin, CreateView):
                 recipient=recipient
             )
 
-        # sender copy (always)
+        # sender copy
         MessageRecipient.objects.create(
             message=message,
             recipient=self.request.user,
@@ -249,7 +216,7 @@ class ReplyMessageView(LoginRequiredMixin, CreateView):
 
 
 
-class DeleteMessageView(LoginRequiredMixin, View):
+class DeleteMessageView(LoginRequiredMixin, ProfileRequiredMixin, View):
 
     def post(self, request, pk):
         message = get_object_or_404(Message, pk=pk)
@@ -271,7 +238,7 @@ class DeleteMessageView(LoginRequiredMixin, View):
         return redirect("inbox")
 
 
-class ReportProjectView(LoginRequiredMixin, CreateView):
+class ReportProjectView(LoginRequiredMixin, ProfileRequiredMixin, CreateView):
     model = Message
     fields = ["subject", "body"]
     template_name = "messaging/report-project.html"

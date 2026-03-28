@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
 
+from accounts.mixins import ProfileRequiredMixin
 from feedback.models import Comment
 from projects.choices import CategoryChoices, ProjectStatusChoices
 from projects.forms import ProjectCreateForm, ProjectUpdateForm, ArticleCreateForm, \
@@ -18,7 +19,7 @@ from projects.models import Article, ScientificEvent, Project, ProjectMembership
 from projects.utils import is_content_moderator
 
 
-class ProjectCreateView(LoginRequiredMixin, CreateView):
+class ProjectCreateView(LoginRequiredMixin, ProfileRequiredMixin, CreateView):
     model = Project
     template_name = 'projects/project-create.html'
     form_class = ProjectCreateForm
@@ -314,30 +315,6 @@ class OrganizationDetailView(DetailView):
     context_object_name = "organization"
     pk_url_kwarg = "pk"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #
-    #     project_slug = self.kwargs.get("slug")
-    #     project = get_object_or_404(Project, slug=project_slug)
-    #
-    #     projects = Project.objects.filter(
-    #         organizations=self.object,
-    #         is_disabled=False
-    #     )
-    #
-    #     context["ongoing_projects"] = projects.filter(
-    #         status=ProjectStatusChoices.ONGOING
-    #     ).order_by("-start_date")
-    #
-    #     context["completed_projects"] = projects.filter(
-    #         status=ProjectStatusChoices.COMPLETED
-    #     ).order_by("-start_date")
-    #
-    #     context["project"] = project
-    #     context["projects"] = self.object.projects.filter(is_disabled=False)
-    #
-    #     return context
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -401,7 +378,6 @@ class ProjectArticlesView(ProjectMixin, ListView):
 
 
 class ArticleCreateView(ProjectMixin, CreateView):
-# class ArticleCreateView(ProjectEditMixin, CreateView):
     model = Article
     form_class = ArticleCreateForm
     template_name = "articles/article-form.html"
@@ -416,13 +392,13 @@ class ArticleCreateView(ProjectMixin, CreateView):
             kwargs={"slug": self.object.project.slug},
         )
 
-# class ArticleUpdateView(ProjectMixin, UpdateView):
+
 class ArticleUpdateView(ProjectEditMixin, UpdateView):
     model = Article
     form_class = ArticleUpdateForm
     template_name = "articles/article-form.html"
 
-    # Ensure only objects related to this project are retrieved
+    # Only objects related to this project are retrieved
     def get_queryset(self):
         return Article.objects.filter(project=self.get_project())
 
@@ -504,7 +480,6 @@ class EventDeleteView(ProjectEditMixin, DeleteView):
         )
 
 
-
 class EventParticipationCreateView(ProjectEditMixin, EventMixin, CreateView):
     model = EventParticipation
     form_class = EventParticipationForm
@@ -519,7 +494,6 @@ class EventParticipationCreateView(ProjectEditMixin, EventMixin, CreateView):
             "project-events",
             kwargs={"slug": self.object.event.project.slug},
         )
-
 
 
 class EventParticipationDeleteView(ProjectEditMixin, EventMixin, DeleteView):

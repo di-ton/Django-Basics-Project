@@ -3,7 +3,6 @@ from rest_framework.permissions import BasePermission
 
 class IsCommentOwnerOrProjectCreator(BasePermission):
     def has_object_permission(self, request, view, obj):
-        # GET, HEAD, OPTIONS are always allowed
         if request.method in ["GET", "HEAD", "OPTIONS"]:
             return True
 
@@ -16,3 +15,13 @@ class IsCommentOwnerOrProjectCreator(BasePermission):
             return True
 
         return False
+
+
+
+class HasProfileForUnsafeMethods(BasePermission):
+    def has_permission(self, request, view):
+        if request.method in ["GET", "HEAD", "OPTIONS"]:
+            return True
+
+        user = request.user
+        return user.is_authenticated and hasattr(user, 'scientist_profile')

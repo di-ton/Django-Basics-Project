@@ -13,17 +13,6 @@ class HomePageView(ListView):
     ordering = ["-start_date"]
     paginate_by = 4
 
-    # def get_queryset(self):
-    #     return (
-    #         super()
-    #         .get_queryset()
-    #         .select_related("created_by")
-    #         .prefetch_related(
-    #             "memberships",
-    #             "memberships__scientist",
-    #         )
-    #     )
-
     def get_queryset(self):
         queryset = (
             super()

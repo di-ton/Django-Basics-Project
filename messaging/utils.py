@@ -3,8 +3,6 @@ from django.contrib.auth import get_user_model
 from .models import MessageRecipient
 from django.core.mail import send_mail
 from django.conf import settings
-import asyncio
-from asgiref.sync import sync_to_async
 
 
 def unread_messages_count(user):
@@ -41,9 +39,4 @@ def notify_moderators_about_report(project, message, sender):
     )
 
 
-
-# async def notify_moderators_about_report_async(project, message, sender):
-#     await sync_to_async(notify_moderators_about_report)(
-#         project, message, sender
-#     )
 

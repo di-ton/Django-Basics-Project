@@ -123,7 +123,6 @@ class ProjectMembershipForm(forms.ModelForm):
 
 
 
-
 class ScientificOrganizationForm(forms.ModelForm):
 
     existing_organization = forms.ModelChoiceField(

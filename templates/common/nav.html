@@ -1,4 +1,5 @@
 {% load static %}
+{% load profile_tags %}
 
 <nav class="nav">
   <ul>
@@ -6,48 +7,122 @@
     <li><a href="{% url 'category-list' %}">Project Categories</a></li>
 
     {% if request.user.is_authenticated %}
-      {% if request.user.scientist_profile %}
-      <li><a href="{% url 'project-create' %}">Add Project</a></li>
-      <li><a href="{% url 'project-list' %}">Your Projects</a></li>
-      {% if perms.accounts.can_ban_profile %}
-        <li><a href="{% url 'profiles-review-list' %}">
-            Review Profiles
-        </a></li>
-      {% endif %}
 
-      <li>
-        <a href="{% url 'profile-details' %}">
-            {% if request.user.scientist_profile.profile_picture %}
-                <img src="{{ request.user.scientist_profile.profile_picture.url }}"
+      {% if request.user|has_profile %}
+        {% with profile=request.user.scientist_profile %}
+
+          <li><a href="{% url 'project-create' %}">Add Project</a></li>
+          <li><a href="{% url 'project-list' %}">Your Projects</a></li>
+
+          {% if perms.accounts.can_ban_profile %}
+            <li><a href="{% url 'profiles-review-list' %}">
+                Review Profiles
+            </a></li>
+          {% endif %}
+
+          <li>
+            <a href="{% url 'profile-details' %}">
+              {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}"
                      alt="Profile" class="nav-profile-pic">
-            {% elif request.user.scientist_profile.profile_picture_url %}
-                <img src="{{ request.user.scientist_profile.profile_picture_url }}"
+              {% elif profile.profile_picture_url %}
+                <img src="{{ profile.profile_picture_url }}"
                      alt="Profile" class="nav-profile-pic">
-            {% else %}
+              {% else %}
                 <img src="{% static 'images/no_profile_image.png' %}"
                      alt="Profile" class="nav-profile-pic">
-            {% endif %}
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'inbox' %}">
-            <i class="fa-solid fa-envelope"></i>
-            {% if unread_messages_count %}
+              {% endif %}
+            </a>
+          </li>
+
+          <li>
+            <a href="{% url 'inbox' %}">
+              <i class="fa-solid fa-envelope"></i>
+              {% if unread_messages_count %}
                 <span class="badge">{{ unread_messages_count }}</span>
-            {% endif %}
-        </a>
-      </li>
+              {% endif %}
+            </a>
+          </li>
+
+        {% endwith %}
 
       {% else %}
-        <li><a href="{% url 'profile-create' %}">Complete Your Profile</a></li>
+        <li>
+          <a class="highlight" href="{% url 'profile-create' %}">
+            Complete Your Profile
+          </a>
+        </li>
       {% endif %}
-      <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit" class="btn-link">Logout</button>
-      </form>
-    {% else %}
-      <li><a href="{% url 'login' %}">Login</a></li>
-      <li><a href="{% url 'register' %}">Register</a></li>
-    {% endif %}
+
+  <li>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn-link">Logout</button>
+    </form>
+  </li>
+
+{% else %}
+
+  <li><a href="{% url 'login' %}">Login</a></li>
+  <li><a href="{% url 'register' %}">Register</a></li>
+{% endif %}
+
   </ul>
 </nav>
+
+
+
+
+{#{% load static %}#}
+{##}
+{#<nav class="nav">#}
+{#  <ul>#}
+{#    <li><a href="{% url 'home' %}">Home</a></li>#}
+{#    <li><a href="{% url 'category-list' %}">Project Categories</a></li>#}
+{##}
+{#    {% if request.user.is_authenticated %}#}
+{#      {% if request.user.scientist_profile %}#}
+{#        <li><a href="{% url 'project-create' %}">Add Project</a></li>#}
+{#        <li><a href="{% url 'project-list' %}">Your Projects</a></li>#}
+{#      {% if perms.accounts.can_ban_profile %}#}
+{#        <li><a href="{% url 'profiles-review-list' %}">#}
+{#            Review Profiles#}
+{#        </a></li>#}
+{#      {% endif %}#}
+{##}
+{#      <li>#}
+{#        <a href="{% url 'profile-details' %}">#}
+{#            {% if request.user.scientist_profile.profile_picture %}#}
+{#                <img src="{{ request.user.scientist_profile.profile_picture.url }}"#}
+{#                     alt="Profile" class="nav-profile-pic">#}
+{#            {% elif request.user.scientist_profile.profile_picture_url %}#}
+{#                <img src="{{ request.user.scientist_profile.profile_picture_url }}"#}
+{#                     alt="Profile" class="nav-profile-pic">#}
+{#            {% else %}#}
+{#                <img src="{% static 'images/no_profile_image.png' %}"#}
+{#                     alt="Profile" class="nav-profile-pic">#}
+{#            {% endif %}#}
+{#        </a>#}
+{#      </li>#}
+{#      <li>#}
+{#        <a href="{% url 'inbox' %}">#}
+{#            <i class="fa-solid fa-envelope"></i>#}
+{#            {% if unread_messages_count %}#}
+{#                <span class="badge">{{ unread_messages_count }}</span>#}
+{#            {% endif %}#}
+{#        </a>#}
+{#      </li>#}
+{##}
+{#      {% else %}#}
+{#        <li><a href="{% url 'profile-create' %}">Complete Your Profile</a></li>#}
+{#      {% endif %}#}
+{#      <form method="post" action="{% url 'logout' %}">#}
+{#        {% csrf_token %}#}
+{#        <button type="submit" class="btn-link">Logout</button>#}
+{#      </form>#}
+{#    {% else %}#}
+{#      <li><a href="{% url 'login' %}">Login</a></li>#}
+{#      <li><a href="{% url 'register' %}">Register</a></li>#}
+{#    {% endif %}#}
+{#  </ul>#}
+{#</nav>#}

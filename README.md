@@ -110,4 +110,4 @@ sciProSpace is a Django-based web application designed to manage and showcase sc
 
 ### Project Information
 
-This project was developed by **Diana Toneva** as an exam project for the Django course at SoftUni. 
+This project was developed by **Diana Toneva** as an exam project for the Django Advanced course at SoftUni. 

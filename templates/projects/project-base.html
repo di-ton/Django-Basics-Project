@@ -1,4 +1,5 @@
 {% extends "common/base.html" %}
+{% load profile_tags %}
 {% load static %}
 
 {% block content %}
@@ -6,12 +7,6 @@
     <section class="project-header">
       <h1>{{ project.title|capfirst }}</h1>
 
-
-{#        {% if project.is_locked %}#}
-{#            <div class="project-warning-alert">#}
-{#                <i class="fa-solid fa-lock"></i> This project is currently locked. You cannot make changes.#}
-{#            </div>#}
-{#        {% endif %}#}
         {% if project.is_disabled %}
             <div class="project-warning-alert">
                 <i class="fa-solid fa-ban"></i>
@@ -56,7 +51,7 @@
           Events
         </a>
 
-        {% if request.user.is_authenticated %}
+        {% if request.user|has_profile %}
             <a href="{% url 'project-comments-page' project.slug %}"
                class="{% if request.resolver_match.url_name == 'project-comments-page' %}active{% endif %}">
               Comments
@@ -66,12 +61,15 @@
                class="{% if request.resolver_match.url_name == 'project-message' %}active{% endif %}">
               Contact team
             </a>
+        {% endif %}
 
+        {% if can_manage %}
             <a href="{% url 'project-update' project.slug %}"
                class="{% if request.resolver_match.url_name == 'project-update' %}active{% endif %}">
                 Edit
             </a>
         {% endif %}
+
 
         {% if request.user == project.created_by %}
           <a href="{% url 'project-delete' project.slug %}"

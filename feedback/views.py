@@ -1,16 +1,15 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.shortcuts import get_object_or_404
 
 from projects.models import Project
 from .models import Comment
 from .serializers import CommentSerializer
-from .permissions import IsCommentOwnerOrProjectCreator
+from .permissions import IsCommentOwnerOrProjectCreator, HasProfileForUnsafeMethods
 
 
 class ProjectCommentListCreateAPI(APIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [HasProfileForUnsafeMethods]
 
     def get(self, request, slug):
         project = get_object_or_404(Project, slug=slug)
@@ -40,7 +39,7 @@ class ProjectCommentListCreateAPI(APIView):
 
 class CommentDetailAPI(APIView):
     permission_classes = [
-        IsAuthenticatedOrReadOnly,
+        HasProfileForUnsafeMethods,
         IsCommentOwnerOrProjectCreator
     ]
 

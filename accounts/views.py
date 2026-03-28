@@ -14,7 +14,6 @@ from projects.models import Project
 
 User = get_user_model()
 
-
 class RegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
@@ -124,7 +123,7 @@ class ProfileUpdateView(LoginRequiredMixin, ProfileRequiredMixin, UpdateView):
         return reverse("profile-details")
 
 
-class UserDeleteView(LoginRequiredMixin, DeleteView):
+class UserDeleteView(LoginRequiredMixin, ProfileRequiredMixin, DeleteView):
     model = User
     template_name = "accounts/profile-delete.html"
     success_url = reverse_lazy("home")
@@ -137,7 +136,7 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
         context["form"] = UserDeletePreviewForm(instance=self.object)
         return context
 
-class UserPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+class UserPasswordChangeView(LoginRequiredMixin, ProfileRequiredMixin, PasswordChangeView):
     template_name = "accounts/password-change.html"
     success_url = reverse_lazy("password-change-done")
 

@@ -45,6 +45,5 @@ urlpatterns = [
         path("moderation/unlock/", views.unlock_project, name="project-unlock"),
         path("moderation/disable/", views.disable_project, name="project-disable"),
         path("moderation/enable/", views.enable_project, name="project-enable"),
-
     ])),
 ]

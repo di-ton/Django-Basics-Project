@@ -51,12 +51,12 @@
           Events
         </a>
 
-        {% if request.user|has_profile %}
-            <a href="{% url 'project-comments-page' project.slug %}"
-               class="{% if request.resolver_match.url_name == 'project-comments-page' %}active{% endif %}">
-              Comments
-            </a>
+        <a href="{% url 'project-comments-page' project.slug %}"
+           class="{% if request.resolver_match.url_name == 'project-comments-page' %}active{% endif %}">
+          Comments
+        </a>
 
+        {% if request.user|has_profile %}
             <a href="{% url 'project-message' project.slug %}"
                class="{% if request.resolver_match.url_name == 'project-message' %}active{% endif %}">
               Contact team

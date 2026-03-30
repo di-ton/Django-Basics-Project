@@ -104,7 +104,6 @@
     </div>
 
 
-{#    {% if user.is_authenticated %}#}
     {% if user|has_profile %}
         <form id="reply-form-{{ comment.id }}"
               class="reply-form"
@@ -231,11 +230,11 @@
         </form>
     </div>
 {% elif user.is_authenticated %}
-    <p>
+    <p class="comment-warning">
         You must <a href="{% url 'profile-create' %}">complete your profile</a> to comment.
     </p>
 {% else %}
-    <p>You must be logged in to comment.</p>
+    <p class="comment-warning">You must be logged in to comment.</p>
 {% endif %}
 
 </div>

@@ -234,6 +234,13 @@
   padding-left: 0.4rem;
 }
 
+.comment-warning {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: #145a43;
+    font-weight: 500;
+}
+
 @media (max-width: 768px) {
 
   .comments-page {

@@ -69,11 +69,13 @@ sciProSpace is a Django-based web application designed to manage and showcase sc
 4.  **Environment Configuration:**
     Create a `.env` file in the root directory (refer to `.env.example`). Required variables:
 
-    ```env
+    ```env 
     # Django Settings
     DEBUG=True
     DJANGO_SECRET_KEY=your_secret_key
-    
+    ALLOWED_HOSTS=127.0.0.1,localhost
+    CSRF_TRUSTED_ORIGINS=http://127.0.0.1:8000,http://localhost:8000
+        
     # Database Configuration
     DB_NAME=your_db_name
     DB_USER=your_db_user
@@ -82,7 +84,9 @@ sciProSpace is a Django-based web application designed to manage and showcase sc
     DB_PORT=5432
     
     # Cloudinary Settings
-    CLOUDINARY_URL=cloudinary://<api_key>:<api_secret>@<cloud_name>
+    CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+    CLOUDINARY_API_KEY=your_cloudinary_key
+    CLOUDINARY_API_SECRET=your_cloudinary_secret
     
     # Email Settings
     EMAIL_HOST=your_smtp_host
@@ -99,7 +103,16 @@ sciProSpace is a Django-based web application designed to manage and showcase sc
     python manage.py loaddata initial_data.json
     ```
 
-6.  **Run the Development Server:**
+6.  **Collect static files (required for production):**
+    ```bash
+    python manage.py collectstatic
+    ```
+    
+    > Note: This step is required when deploying to production.
+    > It is not necessary during development.
+
+
+7.  **Run the Development Server:**
     ```bash
     python manage.py runserver
     ```

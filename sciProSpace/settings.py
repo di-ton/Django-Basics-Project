@@ -126,6 +126,9 @@ DATABASES = {
     }
 }
 
+print("DB USER:", os.getenv("DB_USER"))
+print("DB PASSWORD:", os.getenv("DB_PASSWORD"))
+
 
 # DATABASES = {
 #     "default": {

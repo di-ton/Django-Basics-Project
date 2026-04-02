@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
 
 import os
 
+os.system("python manage.py collectstatic --noinput")
+
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sciProSpace.settings")

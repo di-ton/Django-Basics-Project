@@ -126,9 +126,7 @@ DATABASES = {
     }
 }
 
-print("DB USER:", os.getenv("DB_USER"))
-print("DB PASSWORD:", os.getenv("DB_PASSWORD"))
-
+print("NEW DEPLOY - DB USER:", os.getenv("DB_USER"))
 
 # DATABASES = {
 #     "default": {

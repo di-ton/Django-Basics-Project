@@ -2,6 +2,12 @@
 
 sciProSpace is a Django-based web application designed to manage and showcase scientific projects. It enables users to create accounts, manage their profiles, and explore publicly available research projects in a structured and organized manner. The platform focuses on presenting scientific work, highlighting project details, and making research results accessible to the scientific community allowing for feedback and communication among scientists.
 
+## Live Demo
+
+The project is deployed on Microsoft Azure and available here:
+**[View the deployed project](https://sciprospace-e2ara4hphrhhb6gb.spaincentral-01.azurewebsites.net)**
+
+
 ## Key Features
 
 *   **User Management & Profiles**: 

@@ -14,16 +14,18 @@ The project is deployed on Microsoft Azure and available here:
     *   Two-step registration: account creation (email/password) followed by detailed scientist profile information.
     *   Profiles include academic degree, position, affiliation, and identifiers like ORCID/Scopus IDs.
     *   Integration with **Cloudinary** for profile picture hosting.
-    *   Profile moderation system with specific permissions for "Profile Moderators".
+    *   Profile moderation system with "Profile Moderators" who verify profile authenticity and either approve or ban user profiles after creation.
 *   **Project Management**:
     *   Detailed project tracking including acronyms, keywords, descriptions, and funding information.
     *   Role-based membership (Leader, Member) with automatic scientist profile linking based on email.
+    *   Organization management: Projects can be associated with scientific organizations (base and partner organizations).
     *   Scientific output tracking: Articles (with journal quartiles) and Scientific Events (with participations).
+    *   Project moderation system with "Content Moderators" who can lock/unlock and enable/disable projects, and manage organization details.
 *   **Communication & Feedback**:
     *   **Messaging System**: Internal messaging for users, supporting project-specific threads and read/unread status.
     *   **Feedback System**: Commenting system for projects with support for one level of nested replies.
 *   **REST API**: Integrated **Django REST Framework** for scientific feedback (comments) and potentially other features. The REST API is implemented as an independent layer and can be accessed directly via its endpoints. The Django templates use JavaScript to consume the API, but external clients can also interact with it without relying on the frontend.
-*   **Moderation**: Permission-based moderation for profiles and projects, including groups for specialized roles.
+*   **Moderation**: Profile Moderators and Content Moderators are assigned via the Django admin panel.
 
 ## Project Structure
 
@@ -35,17 +37,17 @@ The project is deployed on Microsoft Azure and available here:
     - **Organizations**: Management of associated scientific organizations (base and partner organizations).
     - **Articles**: Tracking of published scientific articles presenting results obtained during the project.
     - **Scientific Events**: Management of scientific events at which project results were presented.
-*   **messaging/**: Internal user messaging and project-related communication.
+*   **messaging/**: Internal user messaging and project-related communication, including a reporting system for sending content-related issues to moderators.
 *   **feedback/**: Project comments and replies, including REST API serializers and views.
 *   **common/**: Shared base models (`TimeStampedModel`), context processors, and utilities.
 *   **templates/**: Organized HTML templates for all applications.
-*   **static/**: Static assets including responsive CSS and images.
+*   **static/**: Static assets including responsive CSS and default images (e.g. logo, no profile picture).
 
 ## Setup and Installation
 
 ### Prerequisites
 
-*   Python 3.x
+*   Python 3.11 or higher (tested on Python 3.11)
 *   PostgreSQL
 *   Cloudinary Account (for media storage)
 *   SMTP Server (for email notifications)
@@ -54,8 +56,8 @@ The project is deployed on Microsoft Azure and available here:
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
-    cd sciProSpace
+    git clone https://github.com/di-ton/Django-Basics-Project.git
+    cd Django-Basics-Project
     ```
 
 2.  **Create and activate a virtual environment:**
@@ -109,16 +111,8 @@ The project is deployed on Microsoft Azure and available here:
     python manage.py loaddata initial_data.json
     ```
 
-6.  **Collect static files (required for production):**
-    ```bash
-    python manage.py collectstatic
-    ```
-    
-    > Note: This step is required when deploying to production.
-    > It is not necessary during development.
 
-
-7.  **Run the Development Server:**
+6.  **Run the Development Server:**
     ```bash
     python manage.py runserver
     ```

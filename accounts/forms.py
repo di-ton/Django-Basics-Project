@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
+from django.core.exceptions import ValidationError
 
 from accounts.choices import AcademicDegreeChoices, AcademicPositionChoices
 from accounts.models import ScientistProfile
@@ -64,6 +65,43 @@ class CustomAuthenticationForm(AuthenticationForm):
             }
         )
     )
+
+    def clean(self):
+        email = self.data.get("username")
+        password = self.data.get("password")
+
+        if email and password:
+
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                user = None
+
+
+            if user and not user.is_active:
+                raise ValidationError(
+                    "This account has been deactivated.",
+                    code="inactive",
+                )
+
+
+            self.user_cache = authenticate(
+                self.request,
+                username=email,
+                password=password
+            )
+
+            if self.user_cache is None:
+                raise ValidationError(
+                    "Please enter a correct email and password.",
+                    code="invalid_login",
+                )
+            else:
+                # Extra Django check (optional but good)
+                self.confirm_login_allowed(self.user_cache)
+
+        return self.cleaned_data
+
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(

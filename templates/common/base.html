@@ -43,6 +43,20 @@
     {% include "common/nav.html" %}
   </header>
 
+  {% if messages %}
+  <div class="messages-container">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        <p style="color: #b91c1c; background: #fef2f2; text-align: center; padding: 10px; border-radius: 8px; max-width: 400px; margin: 20px auto;">
+          {{ message }}
+        </p>
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endif %}
+
   <!-- MAIN -->
   <main class="site-content">
     {% block content %}

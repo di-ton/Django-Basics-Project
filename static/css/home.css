@@ -404,6 +404,9 @@ main {
   }
 }
 
+
+
+
 @media (max-width: 480px) {
   .nav ul {
     gap: 12px;

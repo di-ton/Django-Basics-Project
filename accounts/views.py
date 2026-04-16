@@ -1,6 +1,8 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
+from django.db.models import ProtectedError
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import View
@@ -135,6 +137,19 @@ class UserDeleteView(LoginRequiredMixin, ProfileRequiredMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context["form"] = UserDeletePreviewForm(instance=self.object)
         return context
+
+    def post(self, request, *args, **kwargs):
+        user = self.get_object()
+
+        if user.created_projects.exists():
+            messages.error(
+                request,
+                "You cannot delete your account while you have projects. "
+                "Please delete them first."
+            )
+            return redirect("profile-details")
+
+        return super().post(request, *args, **kwargs)
 
 class UserPasswordChangeView(LoginRequiredMixin, ProfileRequiredMixin, PasswordChangeView):
     template_name = "accounts/password-change.html"
